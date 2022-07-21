@@ -57,6 +57,7 @@ namespace FlueFlame.AspNetCore
                 Log.Information("Request: {@Request}", httpContext.Request);
             }).GetAwaiter().GetResult();
             Log.Information("Response: {@Response}", HttpContext.Response);
+            HttpService.Reset();
         }
     }
 }
