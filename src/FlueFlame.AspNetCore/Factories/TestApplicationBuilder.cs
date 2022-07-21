@@ -46,7 +46,7 @@ namespace FlueFlame.AspNetCore.Factories
                 {
                     var body = new StreamReader(message.Body).ReadToEnd();
                     message.Body.Position = 0;
-                    return new { message.Method, message.Headers, Body = body };
+                    return new { Path = message.Path.Value, Query = message.QueryString.Value, message.Method, message.Headers, Body = body };
                 })
                 .Destructure.ByTransformingWhere<HttpResponse>(
                     t => typeof(HttpResponse).IsAssignableFrom(t),
