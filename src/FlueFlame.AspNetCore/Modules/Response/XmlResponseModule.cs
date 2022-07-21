@@ -3,13 +3,20 @@ using FlueFlame.AspNetCore.Deserialization;
 
 namespace FlueFlame.AspNetCore.Modules.Response
 {
-    public class XmlResponseModule : AspNetModuleBase
+    public class XmlResponseModule : FormattedResponseModule
     {
-        private readonly IXmlSerializer _xmlSerializer;
+        protected readonly IXmlSerializer XmlSerializer;
 
         public XmlResponseModule(FlueFlameHost application) : base(application)
         {
-            _xmlSerializer = Application.ServiceFactory.Get<IXmlSerializer>();
+            XmlSerializer = Application.ServiceFactory.Get<IXmlSerializer>();
+        }
+        
+        public XmlResponseModule CopyResponseTo<T>(out T response)
+        {
+            var str = BodyHelper.ReadAsText();
+            response = XmlSerializer.DeserializeObject<T>(str);
+            return this;
         }
     }
 }

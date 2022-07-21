@@ -14,5 +14,6 @@ namespace FlueFlame.AspNetCore.Modules.Response
 
         public JsonResponseModule AsJson => new JsonResponseModule(Application);
         public XmlResponseModule AsXml => new XmlResponseModule(Application);
+        public TextResponseModule AsText => new TextResponseModule(Application);
     }
 }

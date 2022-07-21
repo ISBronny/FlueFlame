@@ -48,6 +48,11 @@ public class EmployeeRepository : IEmployeeRepository
         return await _context.SaveChangesAsync();
     }
 
+    public async Task<List<Employee>> OlderThan(int olderThan)
+    {
+        return await _context.Employees.Where(x => x.Age > olderThan).ToListAsync();
+    }
+
     public void Dispose()
     {
         _context.Dispose();

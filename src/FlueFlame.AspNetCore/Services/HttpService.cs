@@ -11,7 +11,7 @@ namespace FlueFlame.AspNetCore.Services;
 
 internal class HttpService
 {
-    private readonly IList<Action<HttpContext>> _setups = new List<Action<HttpContext>>();
+    private IList<Action<HttpContext>> _setups = new List<Action<HttpContext>>();
     private readonly IJsonSerializer _jsonSerializer;
     private readonly IXmlSerializer _xmlSerializer;
     
@@ -33,7 +33,12 @@ internal class HttpService
     {
         ConfigureHttpContext(x=>x.Request.Method = method.ToString());
     }
-    
+
+    internal void Reset()
+    {
+        _setups = new List<Action<HttpContext>>();
+    }
+
     public void AddXml(object target)
     {
         var xml = _xmlSerializer.SerializeObject(target);

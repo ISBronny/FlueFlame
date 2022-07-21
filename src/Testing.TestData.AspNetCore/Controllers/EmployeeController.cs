@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 using Testing.TestData.AspNetCore.Models;
 using Testing.TestData.AspNetCore.Repositories;
 
@@ -26,7 +27,9 @@ public class EmployeeController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] Employee employee)
     {
-        return Ok(await _employeeRepository.Add(employee));
+        if(ModelState.IsValid)
+            return Ok(await _employeeRepository.Add(employee));
+        return BadRequest(ModelState);
     }
     
     [Route("all")]
@@ -34,5 +37,14 @@ public class EmployeeController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         return Ok(await _employeeRepository.GetAll());
+    }
+    
+    [Route("older-than")]
+    [HttpGet]
+    public async Task<IActionResult> GetByOlderThan([FromQuery(Name = "olderThan"), Range(18, 99)] int olderThan)
+    {
+        if(ModelState.IsValid)
+            return Ok(await _employeeRepository.OlderThan(olderThan));
+        return BadRequest(ModelState);
     }
 }
