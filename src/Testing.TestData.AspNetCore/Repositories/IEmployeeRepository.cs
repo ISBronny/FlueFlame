@@ -15,4 +15,5 @@ public interface IEmployeeRepository : IDisposable
 
     public int SaveChanges();
     public Task<int> SaveChangesAsync();
+    Task<List<Employee>> OlderThan(int olderThan);
 }
