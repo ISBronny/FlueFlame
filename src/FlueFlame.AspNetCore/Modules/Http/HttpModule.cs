@@ -30,6 +30,12 @@ namespace FlueFlame.AspNetCore.Modules.Http
             ConfigureHttpContext = x => x.Request.Path = url;
             return this;
         }
+
+        public HttpModule WithBearerToken(string jwt)
+        {
+            ConfigureHttpContext = x => x.Request.Headers["Authorization"] = $"Bearer {jwt}";
+            return this;
+        }
         
         public HttpModule WithHeader(string key, string value)
         {
@@ -52,6 +58,11 @@ namespace FlueFlame.AspNetCore.Modules.Http
                     new QueryCollection(QueryHelpers.ParseQuery(context.Request.QueryString.Value!));
             };
             return this;
+        }
+        
+        public HttpModule QueryParam(string paramName, object paramValue)
+        {
+            return QueryParam(paramName, paramValue.ToString());
         }
 
         public HttpModule Json(object body)
