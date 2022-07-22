@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FlueFlame.AspNetCore\FlueFlame.AspNetCore.csproj" />
+      <ProjectReference Include="..\FlueFlame.Extensions.Assertions.Core\FlueFlame.Extensions.Assertions.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
