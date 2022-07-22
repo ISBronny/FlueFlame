@@ -29,22 +29,22 @@ internal class FormattedResponseModuleWithAssertions : FormattedResponseModule
     public FormattedResponseModule AssertObject<T>(T expected)
     {
         var text = BodyHelper.ReadAsText();
-        var jResponse = Serializer.DeserializeObject<T>(text);
-        Assert.That(expected, Is.EqualTo(jResponse));
+        var deserializedObject = Serializer.DeserializeObject<T>(text);
+        Assert.That(expected, Is.EqualTo(deserializedObject));
         return this;
     }
     public FormattedResponseModule AssertThat<T>(Func<T, object> func, IResolveConstraint constraint) where T : class
     {
         var text = BodyHelper.ReadAsText();
-        var jResponse = Serializer.DeserializeObject<T>(text);
-        Assert.That(func(jResponse), constraint);
+        var deserializedObject = Serializer.DeserializeObject<T>(text);
+        Assert.That(func(deserializedObject), constraint);
         return this;
     }
     public FormattedResponseModule AssertThat<T>(IResolveConstraint constraint) where T : class
     {
         var text = BodyHelper.ReadAsText();
-        var jResponse = Serializer.DeserializeObject<T>(text);
-        Assert.That(jResponse, constraint);
+        var deserializedObject = Serializer.DeserializeObject<T>(text);
+        Assert.That(deserializedObject, constraint);
         return this;
     }
 }
