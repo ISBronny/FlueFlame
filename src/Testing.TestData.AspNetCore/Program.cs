@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Testing.TestData.AspNetCore.Auth;
@@ -31,11 +33,15 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+services.Configure<MvcOptions>(x => x.OutputFormatters.Add(new XmlSerializerOutputFormatter()));
+
 var app = builder.Build();
 
 app.UseRouting();
+
 app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
