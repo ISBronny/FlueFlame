@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Xml;
 
 namespace FlueFlame.AspNetCore.Deserialization;
 
@@ -6,10 +7,9 @@ public class XmlSerializer : IXmlSerializer
 {
     public T DeserializeObject<T>(string response)
     {
-        var stream = new MemoryStream();
-        var writer = new StreamWriter(stream);
-        writer.Write(response);
-        return (T) new System.Xml.Serialization.XmlSerializer(typeof(T)).Deserialize(stream);
+        var serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+        using TextReader reader = new StringReader(response);
+        return (T)serializer.Deserialize(reader);
     }
 
     public string SerializeObject(object value)
