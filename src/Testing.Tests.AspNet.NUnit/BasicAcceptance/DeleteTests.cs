@@ -1,4 +1,4 @@
-﻿namespace Testsing.Tests.AspNet.NUnit.BasicAcceptance;
+﻿namespace Testing.Tests.AspNet.NUnit.BasicAcceptance;
 
 public class DeleteTests
 {

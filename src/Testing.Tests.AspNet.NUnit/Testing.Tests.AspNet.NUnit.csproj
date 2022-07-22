@@ -3,11 +3,11 @@
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
+        <Nullable>disable</Nullable>
 
         <IsPackable>false</IsPackable>
 
-        <RootNamespace>Testsing.Tests.AspNet.NUnit</RootNamespace>
+        <RootNamespace>Testing.Tests.AspNet.NUnit</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>

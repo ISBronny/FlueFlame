@@ -2,7 +2,7 @@
 using FlueFlame.AspNetCore;
 using FlueFlame.Extensions.Assertions.NUnit;
 
-namespace Testsing.Tests.AspNet.NUnit.Authentication.JWT;
+namespace Testing.Tests.AspNet.NUnit.Authentication.JWT;
 
 public class JwtTests : TestBase
 {

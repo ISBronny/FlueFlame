@@ -2,7 +2,7 @@
 using FlueFlame.Extensions.Assertions.NUnit;
 using Testing.TestData.AspNetCore.Models;
 
-namespace Testsing.Tests.AspNet.NUnit.BasicAcceptance;
+namespace Testing.Tests.AspNet.NUnit.BasicAcceptance;
 
 public class PostTests : TestBase
 {

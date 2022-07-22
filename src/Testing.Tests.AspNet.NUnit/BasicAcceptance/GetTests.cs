@@ -2,7 +2,7 @@
 using FlueFlame.Extensions.Assertions.NUnit;
 using Testing.TestData.AspNetCore.Models;
 
-namespace Testsing.Tests.AspNet.NUnit.BasicAcceptance;
+namespace Testing.Tests.AspNet.NUnit.BasicAcceptance;
 
 public class GetTests : TestBase
 {
@@ -27,7 +27,7 @@ public class GetTests : TestBase
             .Send()
             .Response
                 .AssertStatusCode(HttpStatusCode.OK)
-                .AsJson.AssertThat<Employee[]>(employees => employees.Select(x=>x.Age), Is.All.GreaterThan(40));
+                .AsJson.AssertThat<Employee[]>(employees => employees.Select(x=>x.Age), Is.All.GreaterThan(45));
     }
     
     [Test]
