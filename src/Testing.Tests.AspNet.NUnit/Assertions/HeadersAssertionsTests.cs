@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using FlueFlame.Extensions.Assertions.NUnit;
 
 namespace Testing.Tests.AspNet.NUnit.Assertions;
 

@@ -1,9 +1,7 @@
 ﻿using System.Net;
-using System.Text.RegularExpressions;
 using FlueFlame.AspNetCore;
 using FlueFlame.AspNetCore.Modules.Response;
 using FlueFlame.Extensions.Assertions.Core;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using NUnit.Framework;
 

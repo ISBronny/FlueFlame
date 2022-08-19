@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Xml;
 
 namespace FlueFlame.AspNetCore.Deserialization;
 

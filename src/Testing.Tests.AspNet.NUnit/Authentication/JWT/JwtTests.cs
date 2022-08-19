@@ -1,6 +1,5 @@
 ﻿using System.Net;
 using FlueFlame.AspNetCore;
-using FlueFlame.Extensions.Assertions.NUnit;
 
 namespace Testing.Tests.AspNet.NUnit.Authentication.JWT;
 

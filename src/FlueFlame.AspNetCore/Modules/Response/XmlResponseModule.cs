@@ -1,5 +1,4 @@
-﻿using FlueFlame.AspNetCore.Common;
-using FlueFlame.AspNetCore.Deserialization;
+﻿using FlueFlame.AspNetCore.Deserialization;
 
 namespace FlueFlame.AspNetCore.Modules.Response
 {

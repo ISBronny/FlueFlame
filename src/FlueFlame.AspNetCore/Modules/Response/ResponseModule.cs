@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Net;
 using FlueFlame.AspNetCore.Common;
-using FlueFlame.AspNetCore.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 
 
 namespace FlueFlame.AspNetCore.Modules.Response
@@ -13,11 +10,9 @@ namespace FlueFlame.AspNetCore.Modules.Response
     public class ResponseModule : AspNetModuleBase
     {
         protected HttpResponse HttpResponse { get; }
-        protected HttpResponseBodyHelper BodyHelper { get; }
         public ResponseModule(FlueFlameHost application) : base(application)
         {
             HttpResponse = Application.HttpContext.Response;
-            BodyHelper = new HttpResponseBodyHelper(HttpResponse);
         }
 
         public JsonResponseModule AsJson => new JsonResponseModule(Application);

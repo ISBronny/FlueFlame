@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Mime;
 using FlueFlame.AspNetCore.Common;
 using FlueFlame.AspNetCore.Deserialization;
 using FlueFlame.AspNetCore.Services;
