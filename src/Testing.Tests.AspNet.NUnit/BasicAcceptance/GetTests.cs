@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using FlueFlame.Extensions.Assertions.NUnit;
+using FluentAssertions;
 using Testing.TestData.AspNetCore.Models;
 
 namespace Testing.Tests.AspNet.NUnit.BasicAcceptance;
@@ -27,7 +28,8 @@ public class GetTests : TestBase
             .Send()
             .Response
                 .AssertStatusCode(HttpStatusCode.OK)
-                .AsJson.AssertThat<Employee[]>(employees => employees.Select(x=>x.Age), Is.All.GreaterThan(45));
+                .AsJson
+                    .AssertThat<Employee[]>(employees => employees.Should().NotContain(x=>x.Age<45));
     }
     
     [Test]
