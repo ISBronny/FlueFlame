@@ -17,7 +17,8 @@ public class HeadersAssertionsTests : TestBase
             .Response
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AssertContainsHeaders(header.Key)
-                .AssertHeader(header.Key, header.Value);
+                .AssertHeader(header.Key, header.Value)
+                .AssertHeaderPattern(header.Key, @"my-*-va?ue");
     }
     
     [Test]
