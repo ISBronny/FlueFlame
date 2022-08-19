@@ -14,7 +14,7 @@ public class HeadersAssertionsTests : TestBase
             .QueryParam("key", header.Key)
             .QueryParam("value", header.Value)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AssertContainsHeaders(header.Key)
                 .AssertHeader(header.Key, header.Value)
@@ -28,7 +28,7 @@ public class HeadersAssertionsTests : TestBase
             .Http.Get
             .Url("/api/employee/all")
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AssertDoesNotContainsHeaders("Strict-Transport-Security", "X-Powered-By");
     }
@@ -40,7 +40,7 @@ public class HeadersAssertionsTests : TestBase
             .Http.Get
             .Url("/api/employee/all")
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AssertHeader("Content-Type", "application/json; charset=utf-8")
                 .AssertBodyLength(338);

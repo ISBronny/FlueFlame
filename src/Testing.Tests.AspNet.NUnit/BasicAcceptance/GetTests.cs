@@ -13,7 +13,7 @@ public class GetTests : TestBase
             .Http.Get
             .Url("/api/employee/all")
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK);
     }
     
@@ -25,7 +25,7 @@ public class GetTests : TestBase
             .Url("/api/employee/older-than")
             .QueryParam("olderThan", 45)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AsJson
                     .AssertThat<Employee[]>(employees => employees.Should().NotContain(x=>x.Age<45));
@@ -39,7 +39,7 @@ public class GetTests : TestBase
             .Url("/api/employee/older-than")
             .QueryParam("olderThan", -34)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.BadRequest);
     }
 
@@ -50,7 +50,7 @@ public class GetTests : TestBase
             .Http.Get
             .Url("/api/notfound")
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.NotFound);
     }
 }

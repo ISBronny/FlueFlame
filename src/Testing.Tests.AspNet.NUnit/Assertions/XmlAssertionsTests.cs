@@ -13,7 +13,7 @@ public class XmlAssertionsTests : TestBase
             .Url("/api/large")
             .Accepts("application/xml")
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AsXml.CopyResponseTo(out LargeModel model);
                     //.AssertThat<LargeModel>(model => model.Children, Has.Count.EqualTo(10))

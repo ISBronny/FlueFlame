@@ -83,6 +83,6 @@ namespace FlueFlame.AspNetCore.Modules.Http
             return this;
         }
         
-        public ResponseModule Response => new(Application);
+        public HttpResponseModule HttpResponse => new(Application);
     }
 }

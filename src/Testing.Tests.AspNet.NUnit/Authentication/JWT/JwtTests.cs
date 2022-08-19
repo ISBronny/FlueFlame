@@ -15,7 +15,7 @@ public class JwtTests : TestBase
             .Url("/api/admin/test")
             .WithBearerToken(token)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK);
     }
     
@@ -28,7 +28,7 @@ public class JwtTests : TestBase
             .Url("/api/admin/test")
             .WithBearerToken(token)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.Forbidden);
     }
 }
@@ -43,7 +43,7 @@ public static class FlueFlameExtension
             .QueryParam("username", username)
             .QueryParam("password", password)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AsText.CopyResponseTo(out token).Application;
     }

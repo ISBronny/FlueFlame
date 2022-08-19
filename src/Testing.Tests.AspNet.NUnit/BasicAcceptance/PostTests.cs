@@ -27,7 +27,7 @@ public class PostTests : TestBase
             .Url("/api/employee")
             .Json(ValidEmployee)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK);
     }
 
@@ -39,7 +39,7 @@ public class PostTests : TestBase
             .Url("/api/employee")
             .Json(InvalidEmployee)
             .Send()
-            .Response
+            .HttpResponse
                 .AssertStatusCode(HttpStatusCode.BadRequest);
     }
 }

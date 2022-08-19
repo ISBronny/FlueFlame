@@ -1,9 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using FlueFlame.AspNetCore.Facades;
 using FlueFlame.AspNetCore.Factories.ModuleFactories;
+using FlueFlame.AspNetCore.Modules.Grpc;
+using FlueFlame.AspNetCore.Modules.SignalR;
 using FlueFlame.AspNetCore.Services;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -19,8 +23,8 @@ namespace FlueFlame.AspNetCore
 
         internal HttpContext HttpContext;
         internal HttpService HttpService { get; }
-        
 
+        internal List<HubConnection> HubConnections { get; } = new List<HubConnection>(); 
 
         internal FlueFlameHost(HttpClient client, TestServer testServer, IHost host)
         {
@@ -36,6 +40,10 @@ namespace FlueFlame.AspNetCore
         public HttpFacade Http => new(this);
 
         #endregion
+
+        public SignalRModule SignalR => new(this);
+        // ReSharper disable once InconsistentNaming
+        public GrpcModule gRPC => new(this);
         
         public FlueFlameHost Run()
         {

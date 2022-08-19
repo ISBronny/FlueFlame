@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Testing.TestData.AspNetCore.Auth;
 using Testing.TestData.AspNetCore.Database;
+using Testing.TestData.AspNetCore.Hubs;
 using Testing.TestData.AspNetCore.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 services.Configure<MvcOptions>(x => x.OutputFormatters.Add(new XmlSerializerOutputFormatter()));
+services.AddSignalR();
 
 var app = builder.Build();
 
@@ -45,6 +47,8 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+    endpoints.MapHub<PingHub>("/hub/ping");
+    endpoints.MapHub<ChatHub>("/hub/chat");
 });
 
 app.Run();

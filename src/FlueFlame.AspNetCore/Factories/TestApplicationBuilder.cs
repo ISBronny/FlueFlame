@@ -3,6 +3,7 @@ using System.IO;
 using System.Net.Http;
 using FlueFlame.AspNetCore.Deserialization;
 using FlueFlame.AspNetCore.Services;
+using FlueFlame.AspNetCore.Services.SignalR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -26,6 +27,7 @@ namespace FlueFlame.AspNetCore.Factories
         {
             _httpClient = httpClient;
             _testServer = testServer;
+            _testServer.CreateWebSocketClient();
             HostBuilder = Host.CreateDefaultBuilder();
             RegisterServices(HostBuilder);
             ConfigureLogger();
@@ -69,6 +71,8 @@ namespace FlueFlame.AspNetCore.Factories
             hostBuilder.ConfigureServices(x => x.AddSingleton<IXmlSerializer, XmlSerializer>());
             hostBuilder.ConfigureServices(x => x.AddSingleton<IJsonSerializer, TextJsonJsonSerializer>());
             hostBuilder.ConfigureServices(x => x.AddScoped<HttpService>());
+
+            hostBuilder.ConfigureServices(x => x.AddSingleton<SignalRService>());
         }
 
         public static TestApplicationBuilder CreateDefaultBuilder<T>(WebApplicationFactory<T> webApplicationFactory) where T : class
