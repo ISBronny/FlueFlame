@@ -40,8 +40,8 @@ public static class FlueFlameExtension
         return application
             .Http.Post
             .Url("/token")
-            .QueryParam("username", username)
-            .QueryParam("password", password)
+            .AddQuery("username", username)
+            .AddQuery("password", password)
             .Send()
             .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)

@@ -23,7 +23,7 @@ public class GetTests : TestBase
         Application
             .Http.Get
             .Url("/api/employee/older-than")
-            .QueryParam("olderThan", 45)
+            .AddQuery("olderThan", 45)
             .Send()
             .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)
@@ -37,7 +37,7 @@ public class GetTests : TestBase
         Application
             .Http.Get
             .Url("/api/employee/older-than")
-            .QueryParam("olderThan", -34)
+            .AddQuery("olderThan", -34)
             .Send()
             .HttpResponse
                 .AssertStatusCode(HttpStatusCode.BadRequest);

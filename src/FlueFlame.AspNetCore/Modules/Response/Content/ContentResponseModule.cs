@@ -5,7 +5,7 @@ namespace FlueFlame.AspNetCore.Modules.Response.Content;
 public class ContentResponseModule : AspNetModuleBase
 {
 	protected string Content { get; }
-	public ContentResponseModule(FlueFlameHost application, string content) : base(application)
+	internal ContentResponseModule(FlueFlameHost application, string content) : base(application)
 	{
 		Content = content;
 	}

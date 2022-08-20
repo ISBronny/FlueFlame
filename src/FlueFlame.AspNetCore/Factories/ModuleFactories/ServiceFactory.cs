@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FlueFlame.AspNetCore.Factories.ModuleFactories
 {
-    public class ServiceFactory
+    internal class ServiceFactory
     {
         private readonly IServiceProvider _serviceProvider;
 

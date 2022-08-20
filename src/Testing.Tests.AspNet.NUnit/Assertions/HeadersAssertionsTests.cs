@@ -11,8 +11,8 @@ public class HeadersAssertionsTests : TestBase
         Application
             .Http.Get
             .Url("/api/headers/header")
-            .QueryParam("key", header.Key)
-            .QueryParam("value", header.Value)
+            .AddQuery("key", header.Key)
+            .AddQuery("value", header.Value)
             .Send()
             .HttpResponse
                 .AssertStatusCode(HttpStatusCode.OK)

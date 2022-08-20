@@ -6,7 +6,7 @@ namespace FlueFlame.AspNetCore.Modules.Response;
 
 public abstract class ResponseModule : AspNetModuleBase
 {
-	public ResponseModule(FlueFlameHost application) : base(application)
+	internal ResponseModule(FlueFlameHost application) : base(application)
 	{
 	}
 	
