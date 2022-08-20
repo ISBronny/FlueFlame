@@ -8,18 +8,35 @@ namespace FlueFlame.AspNetCore.Modules.Grpc;
 
 public class GrpcModule : AspNetModuleBase
 {
+	protected GrpcChannelOptions ChannelOptions { get; }
 	public GrpcModule(FlueFlameHost application) : base(application)
 	{
-		
+		ChannelOptions = new GrpcChannelOptions();
 	}
 
 	public GrpcConnectionModule<T> CreateConnection<T>(GrpcChannelOptions options = null) where T : ClientBase<T>
 	{
-		options ??= new GrpcChannelOptions();
-		options.HttpClient = Application.TestServer.CreateClient();
-		var channel = GrpcChannel.ForAddress($"{Application.TestServer.BaseAddress}", options);
+		options ??= ChannelOptions;
+		options.HttpClient ??= Application.TestServer.CreateClient();
+		var channel = GrpcChannel.ForAddress(
+			(options.Credentials == null ? "http" : "https") + $"://{Application.TestServer.BaseAddress.Host}", options);
 		var client = (T)Activator.CreateInstance(typeof(T), channel);
 		return new GrpcConnectionModule<T>(client, Application);
+	}
+
+	public GrpcModule UseJwtToken(string token)
+	{
+		ChannelOptions.Credentials = ChannelCredentials.Create(new SslCredentials(),
+			CallCredentials.FromInterceptor((_, metadata) =>
+			{
+				if (!string.IsNullOrEmpty(token))
+				{
+					metadata.Add("Authorization", $"Bearer {token}");
+				}
+
+				return Task.CompletedTask;
+			}));
+		return this;
 	}
 }
 

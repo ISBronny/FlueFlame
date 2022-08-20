@@ -51,6 +51,7 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllers();
 
     endpoints.MapGrpcService<GreatMathService>();
+    endpoints.MapGrpcService<GreeterService>();
     
     endpoints.MapHub<PingHub>("/hub/ping");
     endpoints.MapHub<ChatHub>("/hub/chat");

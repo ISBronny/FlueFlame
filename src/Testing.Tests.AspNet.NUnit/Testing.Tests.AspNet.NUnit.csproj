@@ -30,6 +30,7 @@
     
     <ItemGroup>
         <Protobuf Include="..\Testing.TestData.AspNetCore\Protos\math.proto" GrpcServices="Client" />
+        <Protobuf Include="..\Testing.TestData.AspNetCore\Protos\greet.proto" GrpcServices="Client" />
     </ItemGroup>
 
 </Project>
