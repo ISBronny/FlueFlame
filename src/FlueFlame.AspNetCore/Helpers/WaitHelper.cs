@@ -10,7 +10,7 @@ internal static class WaitHelper
 		TimeSpan? frequency = null, bool throwOnTimeout = true)
 	{
 		frequency ??= TimeSpan.FromMilliseconds(100);
-		timeout ??= TimeSpan.FromSeconds(10);
+		timeout ??= TimeSpan.FromSeconds(5);
 		
 		bool hasBeenExecuted = false;
 		bool hasTimedOut = false;

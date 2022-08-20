@@ -7,6 +7,7 @@ using Testing.TestData.AspNetCore.Auth;
 using Testing.TestData.AspNetCore.Database;
 using Testing.TestData.AspNetCore.Hubs;
 using Testing.TestData.AspNetCore.Repositories;
+using Testing.TestData.AspNetCore.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,7 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 services.Configure<MvcOptions>(x => x.OutputFormatters.Add(new XmlSerializerOutputFormatter()));
 services.AddSignalR();
+services.AddGrpc();
 
 var app = builder.Build();
 
@@ -47,6 +49,9 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllers();
+
+    endpoints.MapGrpcService<GreatMathService>();
+    
     endpoints.MapHub<PingHub>("/hub/ping");
     endpoints.MapHub<ChatHub>("/hub/chat");
 });

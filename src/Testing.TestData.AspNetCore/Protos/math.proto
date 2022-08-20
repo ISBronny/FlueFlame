@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option csharp_namespace = "MathGrpcService";
+
+package great_math;
+
+service GreatMath {
+    
+    rpc GetSquare(Number) returns (Number);
+    rpc GetSum(stream Number) returns (Number);
+    rpc GetPrimesLessThen(Number) returns (stream Number);
+    rpc GetMultiplication(stream Number) returns (stream Number);
+    
+}
+
+message Number {
+    int32 value = 1;
+}
