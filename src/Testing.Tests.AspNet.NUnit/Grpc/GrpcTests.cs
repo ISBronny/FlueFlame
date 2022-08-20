@@ -42,13 +42,20 @@ public class GrpcTests : TestBase
 			.CreateConnection<GreatMath.GreatMathClient>()
 			.Call(
 				client => client.GetPrimesLessThen(NumberFactory.FromInteger(25)),
-				async streamingCall =>
-				{
-					var values =  await streamingCall.ResponseStream.ReadAllAsync().ToListAsync();
-					values.Select(x=>x.Value).Should().BeEquivalentTo(new List<int> {1, 2, 3, 5, 7, 11, 13, 17, 19, 23});
-				});
+				ResponseHandler);
 	}
-	
+
+	private async Task ResponseHandler(AsyncServerStreamingCall<Number> streamingCall)
+	{
+		var values = await streamingCall.ResponseStream.ReadAllAsync().ToListAsync();
+		values.Select(x => x.Value)
+			.Should()
+			.BeEquivalentTo(new List<int>
+			{
+				1, 2, 3, 5, 7, 11, 13, 17, 19, 23
+			});
+	}
+
 	[Test]
 	public void BidirectionalStreamingTest()
 	{
