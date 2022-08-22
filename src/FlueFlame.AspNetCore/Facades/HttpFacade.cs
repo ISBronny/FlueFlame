@@ -4,7 +4,7 @@ using FlueFlame.AspNetCore.Modules.Http;
 
 namespace FlueFlame.AspNetCore.Facades
 {
-    public class HttpFacade : AspNetFacadeBase
+    public class HttpFacade : FlueFlameFacadeBase
     {
         public HttpFacade(FlueFlameHost application) : base(application)
         {

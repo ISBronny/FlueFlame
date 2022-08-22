@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace FlueFlame.AspNetCore.Modules.SignalR;
 
-public sealed class SignalRModule : AspNetModuleBase
+public sealed class SignalRModule : FlueFlameModuleBase
 {
 	private HubConnectionWrapper HubConnectionWrapper { get; set; }
 	private SignalRService SignalRService { get; }

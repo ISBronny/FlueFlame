@@ -6,7 +6,7 @@ using Grpc.Net.Client;
 
 namespace FlueFlame.AspNetCore.Modules.Grpc;
 
-public sealed class GrpcModule : AspNetModuleBase
+public sealed class GrpcModule : FlueFlameModuleBase
 {
 	private GrpcChannelOptions ChannelOptions { get; }
 	internal GrpcModule(FlueFlameHost application) : base(application)

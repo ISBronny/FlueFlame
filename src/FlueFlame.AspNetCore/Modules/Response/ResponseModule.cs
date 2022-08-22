@@ -4,7 +4,7 @@ using FlueFlame.AspNetCore.Modules.Response.Content.Formatted;
 
 namespace FlueFlame.AspNetCore.Modules.Response;
 
-public abstract class ResponseModule : AspNetModuleBase
+public abstract class ResponseModule : FlueFlameModuleBase
 {
 	internal ResponseModule(FlueFlameHost application) : base(application)
 	{

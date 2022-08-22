@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace FlueFlame.AspNetCore.Modules.Http
 {
-    public class HttpModule : AspNetModuleBase
+    public class HttpModule : FlueFlameModuleBase
     {
         private Action<HttpContext> ConfigureHttpContext
         {
