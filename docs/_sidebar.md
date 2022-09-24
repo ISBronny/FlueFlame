@@ -6,10 +6,16 @@
 * * [Builder](/overview/builder.md)
 * * [Integration with NUnit](/overview/integration-nunit.md)
 * * [Integration with xUnit](/overview/integration-xunit.md)
-* * [Sending Requests](/overview/sending-requests.md)
-* * [NUnit Assertions](/overview/assertions-nunit.md)
-* * [xUnit Assertions](/overview/assertions-xunit.md)
-* * [Extension Methods](/overview/extensions.md)
+* **REST**
+* * [Basic](/rest/basic.md)
+* * [Advanced]()
+* **gRPC**
+* * [Basic](/rest/basic.md)
+* * [Advanced]()
+* **SignalR**
+* * [Basic](/rest/basic.md)
+* * [Advanced]()
+* [Extension Methods](/overview/extensions.md)
 * **Guides**
 * * [JWT Authorization](/)
 * **API Reference**
