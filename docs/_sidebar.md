@@ -10,10 +10,10 @@
 * * [Basic](/rest/basic.md)
 * * [Advanced]()
 * **gRPC**
-* * [Basic](/rest/basic.md)
+* * [Basic]()
 * * [Advanced]()
 * **SignalR**
-* * [Basic](/rest/basic.md)
+* * [Basic](/signalr/basic.md)
 * * [Advanced]()
 * [Extension Methods](/overview/extensions.md)
 * **Guides**
