@@ -14,11 +14,11 @@ public class GrpcConnectionModule<TClient> : FlueFlameModuleBase where TClient :
 	}
 	
 	/// <summary>
-	/// 
+	/// Call Unary RPC
 	/// </summary>
-	/// <param name="procedure"></param>
-	/// <param name="responseHandler"></param>
-	/// <typeparam name="TResponse"></typeparam>
+	/// <param name="procedure">A function that calls Unary RPC client method</param>
+	/// <param name="responseHandler">Response handling function</param>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
 	/// <returns></returns>
 	public GrpcConnectionModule<TClient> Call<TResponse>(
 		Func<TClient, TResponse> procedure,
@@ -30,31 +30,31 @@ public class GrpcConnectionModule<TClient> : FlueFlameModuleBase where TClient :
 	}
 	
 	/// <summary>
-	/// 
+	/// Call Client streaming RPC
 	/// </summary>
-	/// <param name="procedure"></param>
-	/// <param name="sender"></param>
-	/// <param name="responseHandler"></param>
-	/// <typeparam name="TRequest"></typeparam>
-	/// <typeparam name="TResponse"></typeparam>
+	/// <param name="procedure">A function that calls Client streaming RPC method</param>
+	/// <param name="sendHandler">A function that implements sending a stream of objects of type TRequest</param>
+	/// <param name="responseHandler">Response handling function</param>
+	/// <typeparam name="TRequest">Object type sent in request</typeparam>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
 	/// <returns></returns>
 	public GrpcConnectionModule<TClient> Call<TRequest, TResponse>(
 		Func<TClient, AsyncClientStreamingCall<TRequest, TResponse>> procedure,
-		Func<AsyncClientStreamingCall<TRequest, TResponse>, Task> sender,
+		Func<AsyncClientStreamingCall<TRequest, TResponse>, Task> sendHandler,
 		Action<TResponse> responseHandler)
 	{
 		var streamingCall = procedure(Client);
-		sender(streamingCall);
+		sendHandler(streamingCall);
 		responseHandler(streamingCall.ResponseAsync.Result);
 		return this;
 	}
 	
 	/// <summary>
-	/// 
+	/// Call Server streaming RPC
 	/// </summary>
-	/// <param name="procedure"></param>
-	/// <param name="responseHandler"></param>
-	/// <typeparam name="TResponse"></typeparam>
+	/// <param name="procedure">A function that calls Server streaming RPC method</param>
+	/// <param name="responseHandler">A function that handle a stream of incoming objects</param>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
 	/// <returns></returns>
 	public GrpcConnectionModule<TClient> Call<TResponse>(
 		Func<TClient, AsyncServerStreamingCall<TResponse>> procedure,
@@ -66,12 +66,12 @@ public class GrpcConnectionModule<TClient> : FlueFlameModuleBase where TClient :
 	}
 
 	/// <summary>
-	/// 
+	/// Call Bidirectional streaming RPC
 	/// </summary>
 	/// <param name="procedure"></param>
-	/// <param name="senderAndReceiver"></param>
-	/// <typeparam name="TRequest"></typeparam>
-	/// <typeparam name="TResponse"></typeparam>
+	/// <param name="senderAndReceiver">A function that implements sending objects and processing a stream of incoming objects.</param>
+	/// <typeparam name="TRequest">Object type sent in request</typeparam>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
 	/// <returns></returns>
 	public GrpcConnectionModule<TClient> Call<TRequest, TResponse>(
 		Func<TClient, AsyncDuplexStreamingCall<TRequest, TResponse>> procedure,

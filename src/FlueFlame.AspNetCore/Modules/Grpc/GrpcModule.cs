@@ -15,10 +15,10 @@ public sealed class GrpcModule : FlueFlameModuleBase
 	}
 
 	/// <summary>
-	/// 
+	/// Create gRPC connection
 	/// </summary>
-	/// <param name="options"></param>
-	/// <typeparam name="T"></typeparam>
+	/// <param name="options">Grpc Channel Options</param>
+	/// <typeparam name="T">Type of gRPC Client</typeparam>
 	/// <returns></returns>
 	public GrpcConnectionModule<T> CreateConnection<T>(GrpcChannelOptions options = null) where T : ClientBase<T>
 	{
@@ -33,7 +33,7 @@ public sealed class GrpcModule : FlueFlameModuleBase
 	/// <summary>
 	/// Sets JWT token header for authentication.
 	/// </summary>
-	/// <param name="token"></param>
+	/// <param name="token">JWT Token</param>
 	/// <returns></returns>
 	public GrpcModule UseJwtToken(string token)
 	{
