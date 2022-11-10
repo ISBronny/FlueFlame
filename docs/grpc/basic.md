@@ -1,4 +1,4 @@
-# Testing SignalR Hub
+# Testing gRPC
 
 Our application has a .proto file with math functions:
 
