@@ -2,11 +2,15 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <PackageId>UniqueID</PackageId>
+        <PackageId>FlueFlame.AspNet</PackageId>
         <Version>0.1.0</Version>
-        <Authors>Braiko I</Authors>
-        <Company>Company Name</Company>
-        <Product>Product Name</Product>
+        <Authors>Braiko Ivan</Authors>
+        <Description>FlueFlame is an open source project for creating integration tests for ASP.NET Core applications. The main difference between FlueFlame and its analogues is the completely Fluent API. It allows you to write simple and understandable code, where every step is visible. Even a person unfamiliar with C# can understand what the test does. This will help to quickly introduce beginners and manual testers into the development of integration tests.</Description>
+        <PackageProjectUrl>https://isbronny.github.io/FlueFlame/</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/ISBronny/FlueFlame/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageIcon>FlueFlameLogo.png</PackageIcon>
+        <RepositoryUrl>https://github.com/ISBronny/FlueFlame/</RepositoryUrl>
+        <PackageTags>aspnetcore, testing</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,6 +19,13 @@
       <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.7" />
       <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.8" />
       <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="FlueFlameLogo.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>
