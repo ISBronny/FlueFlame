@@ -1,6 +1,4 @@
 ﻿using FluentAssertions;
-using Grpc.Core;
-using Grpc.Net.Client;
 using SimpleGrpcService;
 using Testing.Tests.AspNet.NUnit.Authentication.JWT;
 

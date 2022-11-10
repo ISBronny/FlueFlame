@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 
 namespace FlueFlame.AspNetCore
 {
@@ -62,9 +61,7 @@ namespace FlueFlame.AspNetCore
             {
                 httpContext.Request.EnableBuffering();
                 HttpService.SetupHttpContext(httpContext);
-                Log.Information("Request: {@Request}", httpContext.Request);
             }).GetAwaiter().GetResult();
-            Log.Information("Response: {@Response}", HttpContext.Response);
             HttpService.Reset();
         }
     }

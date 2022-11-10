@@ -11,8 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
-using Serilog;
-using Serilog.Sinks.SystemConsole.Themes;
 
 namespace FlueFlame.AspNetCore.Factories
 {
@@ -30,42 +28,8 @@ namespace FlueFlame.AspNetCore.Factories
             _testServer.CreateWebSocketClient();
             HostBuilder = Host.CreateDefaultBuilder();
             RegisterServices(HostBuilder);
-            ConfigureLogger();
         }
-
-        private void ConfigureLogger()
-        {
-            Log.Logger = new LoggerConfiguration()
-                //ToDo: Add Issue to Serilog - Child classes are not destructed
-                // .Destructure.ByTransforming<HttpResponse>(message =>
-                // {
-                //     var body = new StreamReader(message.Body).ReadToEnd();
-                //     return new { message.StatusCode, message.Headers, body };
-                // })
-                .Destructure.ByTransformingWhere<HttpRequest>(
-                    t => typeof(HttpRequest).IsAssignableFrom(t),
-                    message =>
-                {
-                    var body = new StreamReader(message.Body).ReadToEnd();
-                    message.Body.Position = 0;
-                    return new { Path = message.Path.Value, Query = message.QueryString.Value, message.Method, message.Headers, Body = body };
-                })
-                .Destructure.ByTransformingWhere<HttpResponse>(
-                    t => typeof(HttpResponse).IsAssignableFrom(t),
-                    message =>
-                    {
-                        var body = new HttpResponseBodyHelper(message).ReadAsText();
-                        return new { message.StatusCode, message.Headers, Body = body };
-                    })
-                .WriteTo
-                .Console(
-                    outputTemplate:
-                    "{Timestamp:HH:mm:ss.fff} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-                    theme: SystemConsoleTheme.Colored, applyThemeToRedirectedOutput: false
-                )
-                .CreateLogger();
-        }
-
+        
         private void RegisterServices(IHostBuilder hostBuilder)
         {
             hostBuilder.ConfigureServices(x => x.AddSingleton<IXmlSerializer, XmlSerializer>());
