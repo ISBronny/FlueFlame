@@ -13,19 +13,19 @@ FlueFlame is an open source project for creating integration tests for ASP.NET C
 
 Available on [NuGet](https://www.nuget.org/packages/FlueFlame.AspNet/)
 
-## Via Package Manager
+#### Via Package Manager
 
 ```
 NuGet\Install-Package FlueFlame.AspNet -Version 0.1.0
 ```
 
-## .NET CLI
+#### .NET CLI
 
 ```
 dotnet add package FlueFlame.AspNet --version 0.1.0
 ```
 
-## Reference in .csproj
+#### Reference in .csproj
 
 ```
 <PackageReference Include="FlueFlame.AspNet" Version="0.1.0" />
