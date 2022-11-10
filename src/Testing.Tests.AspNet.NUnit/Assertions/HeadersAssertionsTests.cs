@@ -32,17 +32,4 @@ public class HeadersAssertionsTests : TestBase
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AssertDoesNotContainsHeaders("Strict-Transport-Security", "X-Powered-By");
     }
-    
-    [Test]
-    public void AssertContentTypeHeader()
-    {
-        Application
-            .Http.Get
-            .Url("/api/employee/all")
-            .Send()
-            .HttpResponse
-                .AssertStatusCode(HttpStatusCode.OK)
-                .AssertHeader("Content-Type", "application/json; charset=utf-8")
-                .AssertBodyLength(338);
-    }
 }

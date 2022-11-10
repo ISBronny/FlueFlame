@@ -101,17 +101,7 @@ namespace FlueFlame.AspNetCore.Modules.Response
         }
 
         #endregion
-    
-        /// <summary>
-        /// Asserts that the response body length in bytes exactly the same as expected value.
-        /// </summary>
-        /// <param name="length">Stream length in bytes</param>
-        /// <returns></returns>
-        public HttpResponseModule AssertBodyLength(long length)
-        {
-            HttpResponse.Body.Length.Should().Be(length);
-            return this;
-        }
+        
 
         /// <summary>
         /// Returns the module to work with the response body as JSON.
