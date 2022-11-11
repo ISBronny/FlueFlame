@@ -3,10 +3,18 @@
 <p align="center">Integration testing framework for ASP.NET</p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/ISBronny/FlueFlame?style=for-the-badge" alt="License" />
-  <img src="https://img.shields.io/github/issues/ISBronny/FlueFlame?style=for-the-badge" alt="Issues Count" />
-  <img src="https://img.shields.io/nuget/dt/FlueFlame.AspNet?style=for-the-badge" alt="Downloads" />
-  <img src="https://img.shields.io/nuget/v/FlueFlame.AspNet?style=for-the-badge" alt="Version" />
+  <a href="https://github.com/ISBronny/FlueFlame/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/ISBronny/FlueFlame?style=for-the-badge" alt="License" />
+  </a>  
+  <a href="https://github.com/ISBronny/FlueFlame/issues">
+    <img src="https://img.shields.io/github/issues/ISBronny/FlueFlame?style=for-the-badge" alt="Issues Count" />
+  </a>  
+  <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
+    <img src="https://img.shields.io/nuget/dt/FlueFlame.AspNet?style=for-the-badge" alt="Downloads" />
+  </a>
+  <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
+    <img src="https://img.shields.io/nuget/v/FlueFlame.AspNet?style=for-the-badge" alt="Version" />
+   </a>
 </p>
 
 # Description
