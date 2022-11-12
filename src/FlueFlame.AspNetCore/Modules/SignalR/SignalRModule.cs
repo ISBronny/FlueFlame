@@ -11,7 +11,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	private SignalRService SignalRService { get; }
 	private HubConnection HubConnection => HubConnectionWrapper.HubConnection;
 
-	internal SignalRModule(FlueFlameHost application) : base(application)
+	internal SignalRModule(IFlueFlameHost application) : base(application)
 	{
 		SignalRService = Application.ServiceFactory.Get<SignalRService>();
 	}

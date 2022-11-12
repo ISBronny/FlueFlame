@@ -7,7 +7,7 @@ namespace FlueFlame.AspNetCore.Modules.Response.Content.Formatted;
 public abstract class FormattedContentResponseModule : ContentResponseModule
 {
     protected ISerializer Serializer { get; init; }
-    internal FormattedContentResponseModule(FlueFlameHost application, string content) : base(application, content)
+    internal FormattedContentResponseModule(IFlueFlameHost application, string content) : base(application, content)
     {
        
     }
@@ -16,7 +16,7 @@ public abstract class FormattedContentResponseModule : ContentResponseModule
 public abstract class FormattedContentResponseModule<T> : FormattedContentResponseModule where T : FormattedContentResponseModule<T>
 {
     
-    internal FormattedContentResponseModule(FlueFlameHost application, string content) : base(application, content)
+    internal FormattedContentResponseModule(IFlueFlameHost application, string content) : base(application, content)
     {
        
     }

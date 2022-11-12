@@ -24,7 +24,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\FlueFlame.AspNetCore\FlueFlame.AspNetCore.csproj" />
-      <ProjectReference Include="..\FlueFlame.Extensions.Assertions.NUnit\FlueFlame.Extensions.Assertions.NUnit.csproj" />
       <ProjectReference Include="..\Testing.TestData.AspNetCore\Testing.TestData.AspNetCore.csproj" />
     </ItemGroup>
     

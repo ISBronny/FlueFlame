@@ -6,7 +6,7 @@ namespace FlueFlame.AspNetCore.Facades
 {
     public class HttpFacade : FlueFlameFacadeBase
     {
-        public HttpFacade(FlueFlameHost application) : base(application)
+        public HttpFacade(IFlueFlameHost application) : base(application)
         {
             
         }

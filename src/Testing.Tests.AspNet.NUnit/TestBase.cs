@@ -7,7 +7,7 @@ namespace Testing.Tests.AspNet.NUnit;
 
 public class TestBase
 {
-    protected readonly FlueFlameHost Application;
+    protected readonly IFlueFlameHost Application;
 
     public TestBase()
     {
@@ -16,10 +16,9 @@ public class TestBase
             {
 
             });
-        
+
         Application = TestApplicationBuilder.CreateDefaultBuilder(webApp)
             .UseNewtonsoftJson()
-            .Build()
-            .Run();
+            .Build();
     }
 }

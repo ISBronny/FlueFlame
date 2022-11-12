@@ -5,7 +5,7 @@ namespace FlueFlame.AspNetCore.Modules.Response.Content
     public sealed class TextContentResponseModule : ContentResponseModule
     {
 
-        internal TextContentResponseModule(FlueFlameHost application, string content) : base(application, content)
+        internal TextContentResponseModule(IFlueFlameHost application, string content) : base(application, content)
         {
             
         }

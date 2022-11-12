@@ -13,7 +13,7 @@ namespace FlueFlame.AspNetCore.Modules.Response
     {
         private HttpResponse HttpResponse { get; }
         private HttpResponseBodyHelper BodyHelper { get; }
-        internal HttpResponseModule(FlueFlameHost application) : base(application)
+        internal HttpResponseModule(IFlueFlameHost application) : base(application)
         {
             HttpResponse = Application.HttpContext.Response;
             BodyHelper = new HttpResponseBodyHelper(HttpResponse);

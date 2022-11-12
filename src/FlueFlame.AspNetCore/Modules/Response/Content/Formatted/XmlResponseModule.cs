@@ -4,7 +4,7 @@ namespace FlueFlame.AspNetCore.Modules.Response.Content.Formatted
 {
     public sealed class XmlContentResponseModule : FormattedContentResponseModule<XmlContentResponseModule>
     {
-        internal XmlContentResponseModule(FlueFlameHost application, string content) : base(application, content)
+        internal XmlContentResponseModule(IFlueFlameHost application, string content) : base(application, content)
         {
             Serializer = Application.ServiceFactory.Get<IXmlSerializer>();
         }
