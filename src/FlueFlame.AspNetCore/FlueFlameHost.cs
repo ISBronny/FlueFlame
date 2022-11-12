@@ -6,6 +6,7 @@ using FlueFlame.AspNetCore.Factories.ModuleFactories;
 using FlueFlame.AspNetCore.Modules.Grpc;
 using FlueFlame.AspNetCore.Modules.SignalR;
 using FlueFlame.AspNetCore.Services;
+using FlueFlame.AspNetCore.Services.SignalR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.AspNetCore.TestHost;
@@ -31,6 +32,7 @@ namespace FlueFlame.AspNetCore
         internal HttpClient Client { get; }
         internal TestServer TestServer => ((IFlueFlameHost)this).TestServer;
         internal HttpService HttpService => ((IFlueFlameHost)this).HttpService;
+        internal ServiceFactory ServiceFactory => ((IFlueFlameHost)this).ServiceFactory;
         TestServer IFlueFlameHost.TestServer { get; set; }
         ServiceFactory IFlueFlameHost.ServiceFactory { get; set; }
         HttpService IFlueFlameHost.HttpService { get; set; }
@@ -48,7 +50,7 @@ namespace FlueFlame.AspNetCore
             
             ((IFlueFlameHost)this).TestServer = testServer;
             ((IFlueFlameHost)this).ServiceFactory = new ServiceFactory(Host.Services);
-            ((IFlueFlameHost)this).HttpService = ((IFlueFlameHost)this).ServiceFactory.Get<HttpService>();
+            ((IFlueFlameHost)this).HttpService = ServiceFactory.Get<HttpService>();
         }
 
         #region Facades
@@ -57,7 +59,7 @@ namespace FlueFlame.AspNetCore
 
         #endregion
 
-        public SignalRModule SignalR => new(this);
+        public SignalRModule SignalR => new(this, ServiceFactory.Get<SignalRService>());
         // ReSharper disable once InconsistentNaming
         public GrpcModule gRPC => new(this);
         

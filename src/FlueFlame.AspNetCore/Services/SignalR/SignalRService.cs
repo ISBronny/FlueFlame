@@ -4,7 +4,13 @@ using Microsoft.AspNetCore.SignalR.Client;
 
 namespace FlueFlame.AspNetCore.Services.SignalR;
 
-internal class SignalRService
+internal interface ISignalRService
+{
+	HubConnectionWrapper RegisterConnection(HubConnection connection, object id = null);
+	HubConnectionWrapper GetById(object id);
+}
+
+internal class SignalRService : ISignalRService
 {
 	private readonly Dictionary<object, HubConnectionWrapper> _hubConnections = new();
 

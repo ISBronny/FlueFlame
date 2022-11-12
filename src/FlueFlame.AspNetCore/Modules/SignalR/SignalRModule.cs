@@ -8,12 +8,12 @@ namespace FlueFlame.AspNetCore.Modules.SignalR;
 public sealed class SignalRModule : FlueFlameModuleBase
 {
 	private HubConnectionWrapper HubConnectionWrapper { get; set; }
-	private SignalRService SignalRService { get; }
+	private ISignalRService SignalRService { get; }
 	private HubConnection HubConnection => HubConnectionWrapper.HubConnection;
 
-	internal SignalRModule(IFlueFlameHost application) : base(application)
+	internal SignalRModule(IFlueFlameHost application, ISignalRService signalRService) : base(application)
 	{
-		SignalRService = Application.ServiceFactory.Get<SignalRService>();
+		SignalRService = signalRService;
 	}
 
 	/// <summary>
