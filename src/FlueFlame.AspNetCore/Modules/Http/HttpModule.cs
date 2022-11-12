@@ -14,7 +14,7 @@ namespace FlueFlame.AspNetCore.Modules.Http
             set => Application.HttpService.ConfigureHttpContext(value);
         }
 
-        internal HttpModule(FlueFlameHost application, HttpMethod httpMethod) : base(application)
+        internal HttpModule(IFlueFlameHost application, HttpMethod httpMethod) : base(application)
         {
             Application.HttpService.SetMethod(httpMethod);
         }

@@ -35,7 +35,7 @@ public class JwtTests : TestBase
 
 public static class FlueFlameExtension
 {
-    public static FlueFlameHost CreateJwt(this FlueFlameHost application, string username, string password, out string token)
+    public static IFlueFlameHost CreateJwt(this IFlueFlameHost application, string username, string password, out string token)
     {
         return application
             .Http.Post

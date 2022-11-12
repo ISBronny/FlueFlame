@@ -7,7 +7,7 @@ namespace FlueFlame.AspNetCore.Modules.Response.Content.Formatted;
 public abstract class FormattedContentResponseModule : ContentResponseModule
 {
     protected ISerializer Serializer { get; init; }
-    internal FormattedContentResponseModule(FlueFlameHost application, string content) : base(application, content)
+    internal FormattedContentResponseModule(IFlueFlameHost application, string content) : base(application, content)
     {
        
     }
@@ -16,7 +16,7 @@ public abstract class FormattedContentResponseModule : ContentResponseModule
 public abstract class FormattedContentResponseModule<T> : FormattedContentResponseModule where T : FormattedContentResponseModule<T>
 {
     
-    internal FormattedContentResponseModule(FlueFlameHost application, string content) : base(application, content)
+    internal FormattedContentResponseModule(IFlueFlameHost application, string content) : base(application, content)
     {
        
     }
@@ -39,7 +39,7 @@ public abstract class FormattedContentResponseModule<T> : FormattedContentRespon
     /// <param name="expected">The object to which the response must be equivalent.</param>
     /// <typeparam name="TObject">The type of the object to deserialize to.</typeparam>
     /// <returns></returns>
-    public T AssertObject<TObject>(T expected)
+    public T AssertObject<TObject>(TObject expected)
     {
         var deserializedObject = Serializer.DeserializeObject<TObject>(Content);
         deserializedObject.Should().BeEquivalentTo(expected);

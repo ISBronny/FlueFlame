@@ -13,25 +13,42 @@ using Microsoft.Extensions.Hosting;
 
 namespace FlueFlame.AspNetCore
 {
-    public class FlueFlameHost
+    public interface IFlueFlameHost
+    {
+        public HttpFacade Http { get; }
+        public SignalRModule SignalR { get; }
+        public GrpcModule gRPC { get; }
+        internal TestServer TestServer { get; set; }
+        internal ServiceFactory ServiceFactory { get; set; }
+        internal HttpService HttpService { get; set; }
+        internal HttpContext HttpContext { get; set; }
+        internal void Send();
+
+    }
+    
+    public class FlueFlameHost : IFlueFlameHost
     {
         internal HttpClient Client { get; }
-        internal TestServer TestServer { get; }
-        internal ServiceFactory ServiceFactory { get; }
+        internal TestServer TestServer => ((IFlueFlameHost)this).TestServer;
+        internal HttpService HttpService => ((IFlueFlameHost)this).HttpService;
+        TestServer IFlueFlameHost.TestServer { get; set; }
+        ServiceFactory IFlueFlameHost.ServiceFactory { get; set; }
+        HttpService IFlueFlameHost.HttpService { get; set; }
         internal IHost Host { get; }
 
-        internal HttpContext HttpContext;
-        internal HttpService HttpService { get; }
+        HttpContext IFlueFlameHost.HttpContext { get; set; }
+        
 
         internal List<HubConnection> HubConnections { get; } = new List<HubConnection>(); 
 
         internal FlueFlameHost(HttpClient client, TestServer testServer, IHost host)
         {
             Client = client;
-            TestServer = testServer;
             Host = host;
-            ServiceFactory = new ServiceFactory(Host.Services);
-            HttpService = ServiceFactory.Get<HttpService>();
+            
+            ((IFlueFlameHost)this).TestServer = testServer;
+            ((IFlueFlameHost)this).ServiceFactory = new ServiceFactory(Host.Services);
+            ((IFlueFlameHost)this).HttpService = ((IFlueFlameHost)this).ServiceFactory.Get<HttpService>();
         }
 
         #region Facades
@@ -44,20 +61,9 @@ namespace FlueFlame.AspNetCore
         // ReSharper disable once InconsistentNaming
         public GrpcModule gRPC => new(this);
         
-        public FlueFlameHost Run()
+        void IFlueFlameHost.Send()
         {
-            return this;
-        }
-        
-        public FlueFlameHost Scenario(Action<FlueFlameHost> action)
-        {
-            action(this);
-            return this;
-        }
-
-        internal void Send()
-        {
-            HttpContext = TestServer.SendAsync(httpContext =>
+            ((IFlueFlameHost)this).HttpContext = TestServer.SendAsync(httpContext =>
             {
                 httpContext.Request.EnableBuffering();
                 HttpService.SetupHttpContext(httpContext);

@@ -5,7 +5,7 @@ namespace FlueFlame.AspNetCore.Modules.Response;
 
 public class SignalRResponseModule : ResponseModule
 {
-	public SignalRResponseModule(FlueFlameHost application) : base(application)
+	public SignalRResponseModule(IFlueFlameHost application) : base(application)
 	{
 	}
 

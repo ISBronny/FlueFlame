@@ -2,9 +2,9 @@
 {
     public abstract class FlueFlameFacadeBase
     {
-        protected FlueFlameHost Application { get; }
+        protected IFlueFlameHost Application { get; }
 
-        protected FlueFlameFacadeBase(FlueFlameHost application)
+        protected FlueFlameFacadeBase(IFlueFlameHost application)
         {
             Application = application;
         }

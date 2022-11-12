@@ -8,7 +8,7 @@ namespace FlueFlame.AspNetCore.Modules.Grpc;
 public class GrpcConnectionModule<TClient> : FlueFlameModuleBase where TClient : ClientBase<TClient>
 {
 	private TClient Client { get; }
-	public GrpcConnectionModule(TClient client, FlueFlameHost flameHost) : base(flameHost)
+	public GrpcConnectionModule(TClient client, IFlueFlameHost flameHost) : base(flameHost)
 	{
 		Client = client;
 	}

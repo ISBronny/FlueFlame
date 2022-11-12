@@ -2,9 +2,9 @@ namespace FlueFlame.AspNetCore.Common;
 
 public abstract class FlueFlameModuleBase
 {
-	public FlueFlameHost Application { get; }
+	public IFlueFlameHost Application { get; }
 
-	protected FlueFlameModuleBase(FlueFlameHost application)
+	protected FlueFlameModuleBase(IFlueFlameHost application)
 	{
 		Application = application;
 	}

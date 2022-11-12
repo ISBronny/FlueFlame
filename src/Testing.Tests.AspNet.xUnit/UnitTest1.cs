@@ -8,7 +8,7 @@ namespace Testing.Tests.AspNet.xUnit;
 
 public class UnitTest1
 {
-    protected readonly FlueFlameHost Application;
+    protected readonly IFlueFlameHost Application;
 
     public UnitTest1()
     {
