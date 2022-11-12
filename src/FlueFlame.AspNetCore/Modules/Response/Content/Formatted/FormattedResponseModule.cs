@@ -39,7 +39,7 @@ public abstract class FormattedContentResponseModule<T> : FormattedContentRespon
     /// <param name="expected">The object to which the response must be equivalent.</param>
     /// <typeparam name="TObject">The type of the object to deserialize to.</typeparam>
     /// <returns></returns>
-    public T AssertObject<TObject>(T expected)
+    public T AssertObject<TObject>(TObject expected)
     {
         var deserializedObject = Serializer.DeserializeObject<TObject>(Content);
         deserializedObject.Should().BeEquivalentTo(expected);

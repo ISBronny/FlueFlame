@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
+using FlueFlame.AspNetCore.Deserialization;
 using FlueFlame.AspNetCore.Modules.Response.Content;
 using FlueFlame.AspNetCore.Modules.Response.Content.Formatted;
 using FlueFlame.AspNetCore.Services;
@@ -106,11 +107,11 @@ namespace FlueFlame.AspNetCore.Modules.Response
         /// <summary>
         /// Returns the module to work with the response body as JSON.
         /// </summary>
-        public override JsonContentResponseModule AsJson => new(Application, BodyHelper.ReadAsText());
+        public override JsonContentResponseModule AsJson => new(Application, Application.ServiceFactory.Get<IJsonSerializer>(),BodyHelper.ReadAsText());
         /// <summary>
         /// Returns the module to work with the response body as XML.
         /// </summary>
-        public override XmlContentResponseModule AsXml => new(Application, BodyHelper.ReadAsText());
+        public override XmlContentResponseModule AsXml => new(Application, Application.ServiceFactory.Get<IXmlSerializer>(), BodyHelper.ReadAsText());
         /// <summary>
         /// Returns the module to work with the response body as text.
         /// </summary>
