@@ -28,14 +28,6 @@ jobs:
     - name: Test
       run: dotnet test src/FluentAutomation.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
-    - name: coverlet
-      uses: b3b00/coverlet-action@1.1.9
-      with:
-        testProject: 'src/Testing.Tests.UnitTests/Testing.Tests.UnitTests.csproj'
-        output: 'lcov.info'
-        outputFormat: 'lcov'
-        threshold: 0
-
     - name: Create the Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
       with:
@@ -43,6 +35,6 @@ jobs:
         gistID: 285deb1b239f73844879bdf3c9a5ea05
         filename: FlueFlame__${{ env.BRANCH }}.json
         label: Test Coverage
-        message: ${{steps.coverlet.outputs.coverageFile}} 
+        message: $(cat ./coverage/*)
         color: green
         namedLogo: jest
