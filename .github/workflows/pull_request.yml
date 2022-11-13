@@ -1,0 +1,48 @@
+name: .Net 6 CI Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: CI Build
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore Dependencies
+      run: dotnet restore src/FluentAutomation.sln
+
+    - name: Build
+      run: dotnet build src/FluentAutomation.sln --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test src/FluentAutomation.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+
+    - name: coverlet
+      uses: b3b00/coverlet-action@1.1.9
+      with:
+        testProject: 'src/Testing.Tests.UnitTests/Testing.Tests.UnitTests.csproj'
+        output: 'lcov.info'
+        outputFormat: 'lcov'
+        threshold: 0
+
+    - name: Create the Badge
+      uses: schneegans/dynamic-badges-action@v1.0.0
+      with:
+        auth: ${{ secrets.GIST_SECRET }}
+        gistID: 285deb1b239f73844879bdf3c9a5ea05
+        filename: FlueFlame__${{ env.BRANCH }}.json
+        label: Test Coverage
+        message: ${{steps.coverlet.outputs.coverageFile}} 
+        color: green
+        namedLogo: jest
