@@ -27,8 +27,8 @@ jobs:
 
     - name: Test
       run: |
-      dotnet test src/FluentAutomation.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
-      echo "COVERAGE=$(cat ./coverage/*)" >> $GITHUB_ENV
+       dotnet test src/FluentAutomation.sln --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage 
+       echo "COVERAGE=$(cat ./coverage/*)" >> $GITHUB_ENV
 
     - name: Create the Badge
       uses: schneegans/dynamic-badges-action@v1.0.0
