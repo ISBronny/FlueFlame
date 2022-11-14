@@ -23,11 +23,6 @@ internal class SignalRService : ISignalRService
 		return id;
 	}
 
-	object ISignalRService.RegisterConnection(HubConnection connection, object id)
-	{
-		return RegisterConnection(connection, id);
-	}
-
 	public HubConnection GetHubConnectionById(object id) => _hubConnections[id].HubConnection;
 	public HubConnectionMethodsObserver GetHubConnectionObserverById(object id) => _hubConnections[id].Observer;
 	public bool IsConnectionExists(object id) => _hubConnections.ContainsKey(id);
