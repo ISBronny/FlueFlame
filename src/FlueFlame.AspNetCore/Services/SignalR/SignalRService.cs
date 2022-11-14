@@ -18,6 +18,9 @@ internal class SignalRService : ISignalRService
 
 	public object RegisterConnection(HubConnection connection, object id = null)
 	{
+		if (connection == null)
+			throw new ArgumentNullException(nameof(connection));
+
 		id ??= Guid.NewGuid();
 		_hubConnections.Add(id, (connection, new HubConnectionMethodsObserver()));
 		return id;
