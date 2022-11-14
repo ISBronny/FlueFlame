@@ -17,6 +17,12 @@
    </a>
 </p>
 
+<p align="center">
+  <a href="https://isbronny.github.io/FlueFlame/">
+    <img src="https://img.shields.io/badge/DOCUMENTATION-blue?style=for-the-badge" alt="Documentation" />
+  </a>  
+</p>
+
 # Description
 
 FlueFlame is an open source project for creating integration tests for ASP.NET Core applications. The main difference between FlueFlame and its analogues is the completely Fluent API. It allows you to write simple and understandable code, where every step is visible. Even a person unfamiliar with C# can understand what the test does. This will help to quickly introduce beginners and manual testers into the development of integration tests.
