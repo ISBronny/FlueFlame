@@ -6,20 +6,29 @@ namespace FlueFlame.AspNetCore.Services.SignalR;
 
 internal interface ISignalRService
 {
-	HubConnectionWrapper RegisterConnection(HubConnection connection, object id = null);
-	HubConnectionWrapper GetById(object id);
+	object RegisterConnection(HubConnection connection, object id = null);
+	HubConnection GetHubConnectionById(object id);
+	HubConnectionMethodsObserver GetHubConnectionObserverById(object id);
+	bool IsConnectionExists(object id);
 }
 
 internal class SignalRService : ISignalRService
 {
-	private readonly Dictionary<object, HubConnectionWrapper> _hubConnections = new();
+	private readonly Dictionary<object, (HubConnection HubConnection, HubConnectionMethodsObserver Observer)> _hubConnections = new();
 
-	public HubConnectionWrapper RegisterConnection(HubConnection connection, object id = null)
+	public object RegisterConnection(HubConnection connection, object id = null)
 	{
-		var hubConnection = new HubConnectionWrapper(connection);
-		_hubConnections.Add(id ?? Guid.NewGuid(), hubConnection);
-		return hubConnection;
+		id ??= Guid.NewGuid();
+		_hubConnections.Add(id, (connection, new HubConnectionMethodsObserver()));
+		return id;
 	}
 
-	public HubConnectionWrapper GetById(object id) => _hubConnections[id];
+	object ISignalRService.RegisterConnection(HubConnection connection, object id)
+	{
+		return RegisterConnection(connection, id);
+	}
+
+	public HubConnection GetHubConnectionById(object id) => _hubConnections[id].HubConnection;
+	public HubConnectionMethodsObserver GetHubConnectionObserverById(object id) => _hubConnections[id].Observer;
+	public bool IsConnectionExists(object id) => _hubConnections.ContainsKey(id);
 }

@@ -7,9 +7,23 @@ namespace FlueFlame.AspNetCore.Modules.SignalR;
 
 public sealed class SignalRModule : FlueFlameModuleBase
 {
-	private HubConnectionWrapper HubConnectionWrapper { get; set; }
+	private object _currentId;
+	private object CurrentId
+	{
+		get => _currentId;
+		set
+		{
+			if (!SignalRService.IsConnectionExists(value))
+				throw new InvalidOperationException(
+					$"Connection with id {value} doesn't exists. Сreate it with the SignalRModule.CreateConnection method.");
+			_currentId = value;
+		}
+	}
+	
 	private ISignalRService SignalRService { get; }
-	private HubConnection HubConnection => HubConnectionWrapper.HubConnection;
+	private HubConnection HubConnection => SignalRService.GetHubConnectionById(CurrentId);
+	private HubConnectionMethodsObserver HubConnectionMethodsObserver =>
+		SignalRService.GetHubConnectionObserverById(CurrentId);
 
 	internal SignalRModule(IFlueFlameHost application, ISignalRService signalRService) : base(application)
 	{
@@ -24,7 +38,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	/// <returns></returns>
 	public SignalRModule ForCreatedConnection(object id)
 	{
-		HubConnectionWrapper = SignalRService.GetById(id);
+		CurrentId = id;
 		return this;
 	}
 	
@@ -52,7 +66,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 			})
 			.Build();
 		hubConnection.StartAsync().Wait();
-		HubConnectionWrapper = SignalRService.RegisterConnection(hubConnection, id);
+		CurrentId = SignalRService.RegisterConnection(hubConnection, id);
 		return this;
 	}
 
@@ -67,7 +81,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	public SignalRModule On<T1>(string methodName, Action<T1> assert)
 	{
 		HubConnection.On(methodName, assert);
-		HubConnection.On(methodName, () => HubConnectionWrapper.NotifyResponse(methodName));
+		HubConnection.On(methodName, () => HubConnectionMethodsObserver.NotifyResponse(methodName));
 		return this;
 	}
 	
@@ -83,7 +97,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	public SignalRModule On<T1, T2>(string methodName, Action<T1, T2> assert)
 	{
 		HubConnection.On(methodName, assert);
-		HubConnection.On(methodName, () => HubConnectionWrapper.NotifyResponse(methodName));
+		HubConnection.On(methodName, () => HubConnectionMethodsObserver.NotifyResponse(methodName));
 
 		return this;
 	}
@@ -101,7 +115,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	public SignalRModule On<T1, T2, T3>(string methodName, Action<T1, T2, T3> assert)
 	{
 		HubConnection.On(methodName, assert);
-		HubConnection.On(methodName, () => HubConnectionWrapper.NotifyResponse(methodName));
+		HubConnection.On(methodName, () => HubConnectionMethodsObserver.NotifyResponse(methodName));
 
 		return this;
 	}
@@ -120,7 +134,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	public SignalRModule On<T1, T2, T3, T4>(string methodName, Action<T1, T2, T3, T4> assert)
 	{
 		HubConnection.On(methodName, assert);
-		HubConnection.On(methodName, () => HubConnectionWrapper.NotifyResponse(methodName));
+		HubConnection.On(methodName, () => HubConnectionMethodsObserver.NotifyResponse(methodName));
 		return this;
 	}
 	/// <summary>
@@ -138,7 +152,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	public SignalRModule On<T1, T2, T3, T4, T5>(string methodName, Action<T1, T2, T3, T4, T5> assert)
 	{
 		HubConnection.On(methodName, assert);
-		HubConnection.On(methodName, () => HubConnectionWrapper.NotifyResponse(methodName));
+		HubConnection.On(methodName, () => HubConnectionMethodsObserver.NotifyResponse(methodName));
 		return this;
 	}
 
@@ -163,7 +177,7 @@ public sealed class SignalRModule : FlueFlameModuleBase
 	public SignalRModule WaitForMethodCall(string methodName, int times = 1)
 	{
 		for (var i = 0; i < times; i++) 
-			HubConnectionWrapper.WaitForMethodCall(methodName);
+			HubConnectionMethodsObserver.WaitForMethodCall(methodName);
 
 		return this;
 	}
