@@ -1,10 +1,6 @@
 name: .Net 6 CI Build
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [pull_request]
 
 jobs:
   build:
@@ -31,19 +27,4 @@ jobs:
       run: |
        dotnet tool install --global coverlet.console
        coverlet src/Testing.Tests.UnitTests/bin/Release/net6.0/Testing.Tests.UnitTests.dll --target "dotnet" --targetargs "test src/Testing.Tests.UnitTests -c Release --no-build" --output "coverage/unit.json"
-       echo "RESULT<<EOF" >> $GITHUB_OUTPUT
-       echo "$(coverlet src/Testing.Tests.AspNet.NUnit/bin/Release/net6.0/Testing.Tests.AspNet.NUnit.dll --target "dotnet" --targetargs "test src/Testing.Tests.AspNet.NUnit -c Release --no-build" --output "coverage/total.xml" --merge-with "coverage/unit.json" --format cobertura | grep -oP '\d\d.\d\d%' | head -1)" >> $GITHUB_OUTPUT
-       echo "EOF" >> $GITHUB_OUTPUT
-       
-       
-
-    - name: Create the Badge
-      uses: schneegans/dynamic-badges-action@v1.0.0
-      with:
-        auth: ${{ secrets.GIST_SECRET }} 
-        gistID: 285deb1b239f73844879bdf3c9a5ea05
-        filename: FlueFlame__master.json
-        label: Test Coverage
-        message: "${{ steps.test-coverage.outputs.RESULT }}"
-        color: green
-        namedLogo: jest
+       coverlet src/Testing.Tests.AspNet.NUnit/bin/Release/net6.0/Testing.Tests.AspNet.NUnit.dll --target "dotnet" --targetargs "test src/Testing.Tests.AspNet.NUnit -c Release --no-build" --output "coverage/total.xml" --merge-with "coverage/unit.json" --format cobertura
