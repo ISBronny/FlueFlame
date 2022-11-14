@@ -1,0 +1,30 @@
+name: .Net 6 CI Build
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: CI Build
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore Dependencies
+      run: dotnet restore src/FluentAutomation.sln
+
+    - name: Build
+      run: dotnet build src/FluentAutomation.sln --configuration Release --no-restore
+
+    - name: Test Coverage
+      id: test-coverage
+      shell: bash
+      run: |
+       dotnet tool install --global coverlet.console
+       coverlet src/Testing.Tests.UnitTests/bin/Release/net6.0/Testing.Tests.UnitTests.dll --target "dotnet" --targetargs "test src/Testing.Tests.UnitTests -c Release --no-build" --output "coverage/unit.json"
+       coverlet src/Testing.Tests.AspNet.NUnit/bin/Release/net6.0/Testing.Tests.AspNet.NUnit.dll --target "dotnet" --targetargs "test src/Testing.Tests.AspNet.NUnit -c Release --no-build" --output "coverage/total.xml" --merge-with "coverage/unit.json" --format cobertura
