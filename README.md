@@ -14,7 +14,10 @@
   </a>
   <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
     <img src="https://img.shields.io/nuget/v/FlueFlame.AspNet?style=for-the-badge" alt="Version" />
-   </a>
+  </a>
+ 
+  <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ISBronny/285deb1b239f73844879bdf3c9a5ea05/raw/FlueFlame__master.json&style=for-the-badge" alt="Coverage" />
+
 </p>
 
 <p align="center">
