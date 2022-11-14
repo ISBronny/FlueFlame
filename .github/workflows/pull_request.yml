@@ -44,6 +44,6 @@ jobs:
         gistID: 285deb1b239f73844879bdf3c9a5ea05
         filename: FlueFlame__master.json
         label: Test Coverage
-        message: "${{ steps.test-coverage.outputs.RESULT }}% ${{ steps.test-coverage.outputs.RESULT_TWO }}"
+        message: "${{ steps.test-coverage.outputs.RESULT }}"
         color: green
         namedLogo: jest
