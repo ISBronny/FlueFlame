@@ -19,7 +19,10 @@
 
 <p align="center">
   <a href="https://isbronny.github.io/FlueFlame/">
-    <img src="https://img.shields.io/badge/DOCUMENTATION-blue?style=for-the-badge" alt="Documentation" />
+    <img src="https://img.shields.io/badge/DOCUMENTATION-blueviolet?style=for-the-badge" alt="Documentation" />
+  </a>
+  <a href="https://github.com/users/ISBronny/projects/4/views/1">
+    <img src="https://img.shields.io/badge/ROADMAP-blueviolet?style=for-the-badge" alt="Roadmap" />
   </a>  
 </p>
 
