@@ -27,11 +27,12 @@ jobs:
 
     - name: Test
       id: test
+      shell: bash
       run: |
        dotnet tool install --global coverlet.console
        coverlet src/Testing.Tests.UnitTests/bin/Release/net6.0/Testing.Tests.UnitTests.dll --target "dotnet" --targetargs "test src/Testing.Tests.UnitTests -c Release --no-build" --output "coverage/unit.json"
-       echo 'OUTPUT=$(coverlet src/Testing.Tests.AspNet.NUnit/bin/Release/net6.0/Testing.Tests.AspNet.NUnit.dll --target "dotnet" --targetargs "test src/Testing.Tests.AspNet.NUnit -c Release --no-build" --output "coverage/total.xml" --merge-with "coverage/unit.json" --format cobertura)' >>  $GITHUB_OUTPUT
-       
+       echo 'OUTPUT=$(coverlet src/Testing.Tests.AspNet.NUnit/bin/Release/net6.0/Testing.Tests.AspNet.NUnit.dll --target "dotnet" --targetargs "test src/Testing.Tests.AspNet.NUnit -c Release --no-build" --output "coverage/total.xml" --merge-with "coverage/unit.json" --format cobertura)' >> $GITHUB_OUTPUT
+       echo "${{ env.test.outputs.OUTPUT }}"
        
 
     - name: Create the Badge
@@ -39,7 +40,7 @@ jobs:
       with:
         auth: ${{ secrets.GIST_SECRET }}
         gistID: 285deb1b239f73844879bdf3c9a5ea05
-        filename: FlueFlame__${{ env.BRANCH }}.json
+        filename: FlueFlame__${GITHUB_REF##*/}.json
         label: Test Coverage
         message: "${{ env.test.outputs.OUTPUT }}%"
         color: green
