@@ -32,7 +32,8 @@ jobs:
        dotnet tool install --global coverlet.console
        coverlet src/Testing.Tests.UnitTests/bin/Release/net6.0/Testing.Tests.UnitTests.dll --target "dotnet" --targetargs "test src/Testing.Tests.UnitTests -c Release --no-build" --output "coverage/unit.json"
        coverlet src/Testing.Tests.AspNet.NUnit/bin/Release/net6.0/Testing.Tests.AspNet.NUnit.dll --target "dotnet" --targetargs "test src/Testing.Tests.AspNet.NUnit -c Release --no-build" --output "coverage/total.xml" --merge-with "coverage/unit.json" --format cobertura
-
+       echo "RESULT_TWO='3214'" >> $GITHUB_OUTPUT
+       echo "RESULT=$(grep -oP 'line-rate=.0.\K.{4}' coverage/total.xml)" >> $GITHUB_OUTPUT
        
        
 
