@@ -56,6 +56,8 @@ public void GetWithQueryReturnsOk()
                 .AssertThat<Employee[]>(employees => employees.Should().NotContain(x=>x.Age<45));
 }
 
+
+More examples https://github.com/ISBronny/FlueFlame/tree/master/src/Testing.Tests.AspNet.NUnit
 ```
 
 # License
