@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using FlueFlame.AspNetCore.Common;
@@ -11,7 +12,8 @@ namespace FlueFlame.AspNetCore.Services;
 
 internal class HttpService
 {
-    private IList<Action<HttpContext>> _setups = new List<Action<HttpContext>>();
+    private readonly IList<Action<HttpContext>> _unarySetups = new List<Action<HttpContext>>();
+    private readonly IList<Action<HttpContext>> _permanentSetups = new List<Action<HttpContext>>();
     private readonly IJsonSerializer _jsonSerializer;
     private readonly IXmlSerializer _xmlSerializer;
     
@@ -23,11 +25,17 @@ internal class HttpService
 
     public void ConfigureHttpContext(Action<HttpContext> configure)
     {
-        _setups.Add(configure);
+        _unarySetups.Add(configure);
     }
+    
+    public void ConfigureHttpContextPermanently(Action<HttpContext> configure)
+    {
+        _permanentSetups.Add(configure);
+    }
+    
     internal void SetupHttpContext(HttpContext context)
     {
-        foreach (var setup in _setups) setup(context);
+        foreach (var setup in _unarySetups.Concat(_permanentSetups)) setup(context);
     }
     internal void SetMethod(HttpMethod method)
     {
@@ -36,7 +44,12 @@ internal class HttpService
 
     internal void Reset()
     {
-        _setups = new List<Action<HttpContext>>();
+        _unarySetups.Clear();
+    }
+    
+    internal void ResetPermanently()
+    {
+        _permanentSetups.Clear();
     }
 
     public void AddXml(object target)
@@ -89,7 +102,7 @@ internal class HttpService
         });
     }
 }
-public class HttpResponseBodyHelper
+internal class HttpResponseBodyHelper
 {
         public HttpResponseBodyHelper(HttpResponse response)
         {

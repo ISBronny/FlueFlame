@@ -55,7 +55,7 @@ namespace FlueFlame.AspNetCore
 
         #region Facades
 
-        public HttpFacade Http => new(this);
+        public HttpFacade Http => new(this, HttpService);
 
         #endregion
 
