@@ -1,4 +1,5 @@
 export default {
+    base: '/FlueFlame/',
     title: 'FlueFlame',
     description: 'Fluent testing',
     themeConfig: {
