@@ -106,7 +106,7 @@ public void PostReturnsOk()
 }
 ```
 
-`System.Text` will be used by default for serialization. For using `NewtonsoftJson` check [this]().
+`System.Text` will be used by default for serialization.
 
 ## Read response
 
