@@ -2,7 +2,7 @@
 
 Our application has a .proto file with math functions:
 
-```protobuf
+```proto
 syntax = "proto3";
 
 option csharp_namespace = "MathGrpcService";
