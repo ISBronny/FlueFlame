@@ -14,7 +14,7 @@ You can use any test framework like xUnit, NUnit or MSTest. All examples in the 
 Add to your test project a NuGet Package [FlueFlame.AspNet](https://www.nuget.org/packages/FlueFlame.AspNet/):
 
 ```
-dotnet add package FlueFlame.AspNet --version 0.1.1
+dotnet add package FlueFlame.AspNet --version 0.2.0
 ```
 
 ## Step. 2: Create TestBase class
