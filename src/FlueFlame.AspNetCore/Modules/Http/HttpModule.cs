@@ -145,6 +145,6 @@ namespace FlueFlame.AspNetCore.Modules.Http
             return this;
         }
         
-        public HttpResponseModule HttpResponse => new(Application, Application.HttpContext.Response);
+        public HttpResponseModule Response => new(Application, Application.HttpContext.Response);
     }
 }

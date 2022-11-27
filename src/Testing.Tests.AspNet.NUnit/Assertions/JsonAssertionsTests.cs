@@ -13,7 +13,7 @@ public class JsonAssertionsTests : TestBase
             .Http.Get
             .Url("/api/large")
             .Send()
-            .HttpResponse
+            .Response
                 .AssertStatusCode(HttpStatusCode.OK)
                 .AsJson
                     .AssertThat<LargeModel>(model => model.Children.Count.Should().Be(10))

@@ -14,7 +14,10 @@ public class TestBase
         var webApp = new WebApplicationFactory<Program>()
             .WithWebHostBuilder(builder =>
             {
-
+                builder.ConfigureServices(services =>
+                {
+                    //Configure your services here
+                });
             });
 
         Application = TestApplicationBuilder.CreateDefaultBuilder(webApp)
