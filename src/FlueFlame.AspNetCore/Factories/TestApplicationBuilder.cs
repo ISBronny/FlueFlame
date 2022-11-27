@@ -44,6 +44,12 @@ namespace FlueFlame.AspNetCore.Factories
             return new TestApplicationBuilder(webApplicationFactory.CreateClient(), webApplicationFactory.Server);
         }
 
+        public TestApplicationBuilder ConfigureDefaultHttpClient(Action<HttpClient> configure)
+        {
+            configure(_httpClient);
+            return this;
+        }
+
         public IFlueFlameHost Build()
         {
             var host = HostBuilder.Build();
