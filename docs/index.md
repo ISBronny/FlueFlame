@@ -17,13 +17,8 @@ hero:
       link: https://github.com/ISBronny/FlueFlame
 
 features:
-  - title: "Fluent API"
-    details: Lorem ipsum
-  - title: "REST"
-    details: Lorem ipsum
-  - title: "SignalR"
-    details: Lorem ipsum
-  - title: "gRPC"
-    details: Lorem ipsum
-
+  - title: "Declarative and Fluent Syntax"
+    details: Write short, simple and readable tests
+  - title: "Not only REST API"
+    details: In addition to the REST API, test SignalR and gRPC. More technologies coming soon
 ---
