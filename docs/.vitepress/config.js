@@ -46,9 +46,9 @@ export default {
                 text: 'Best practices ',
                 collapsible: true,
                 items: [
-                    { text: 'Extension methods', link: '/' },
-                    { text: 'Test Data', link: '/' },
-                    { text: 'Infrastructure setting', link: '/' }
+                    { text: 'Extension methods', link: '/best/ext_methods' },
+                    { text: 'Test Data', link: '/best/test_data' },
+                    { text: 'Infrastructure setting', link: '/best/infrastructure' }
                 ]
             }
         ],
