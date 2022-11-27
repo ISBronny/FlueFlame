@@ -50,7 +50,7 @@ public void GetWithQueryReturnsOk()
         .Url("/api/employee/older-than")
         .AddQuery("olderThan", 45)
         .Send()
-        .HttpResponse
+        .Response
             .AssertStatusCode(HttpStatusCode.OK)
             .AsJson
                 .AssertThat<Employee[]>(employees => employees.Should().NotContain(x=>x.Age<45));
