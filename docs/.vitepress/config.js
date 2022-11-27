@@ -14,14 +14,18 @@ export default {
                 text: 'Introduction',
                 collapsible: true,
                 items: [
-                    { text: 'Introduction', link: '/introduction/intro' }
+                    { text: 'Introduction', link: '/introduction/intro' },
+                    { text: 'Getting Started', link: '/introduction/getting-started' }
                 ]
             },
             {
                 text: 'REST',
                 collapsible: true,
                 items: [
-                    { text: 'Basics', link: '/rest/basic' }
+                    { text: 'Basics', link: '/rest/basic' },
+                    { text: 'Request with body', link: '/rest/body' },
+                    { text: 'Authorization', link: '/rest/auth' },
+                    { text: 'Testing response', link: '/rest/response' }
                 ]
             },
             {
@@ -36,6 +40,15 @@ export default {
                 collapsible: true,
                 items: [
                     { text: 'Basics', link: '/grpc/basic' }
+                ]
+            },
+            {
+                text: 'Best practices ',
+                collapsible: true,
+                items: [
+                    { text: 'Extension methods', link: '/' },
+                    { text: 'Test Data', link: '/' },
+                    { text: 'Infrastructure setting', link: '/' }
                 ]
             }
         ],
