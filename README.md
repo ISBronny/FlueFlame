@@ -35,7 +35,7 @@ FlueFlame is an open source project for creating integration tests for ASP.NET C
 
 # Getting Started
 
-Check out the [Quick Start](https://isbronny.github.io/FlueFlame/#/overview/quick-start) Documentation
+Check out the [Getting Started](https://isbronny.github.io/FlueFlame/introduction/getting-started) Documentation
 
 # Test example
 
