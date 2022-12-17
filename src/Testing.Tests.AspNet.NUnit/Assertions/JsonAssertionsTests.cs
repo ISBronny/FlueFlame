@@ -9,8 +9,7 @@ public class JsonAssertionsTests : TestBase
     [Test]
     public void Test()
     {
-        Application
-            .Http.Get
+        Http.Get
             .Url("/api/large")
             .Send()
             .Response

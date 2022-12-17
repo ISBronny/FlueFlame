@@ -1,5 +1,5 @@
 ﻿using System.Net;
-using FlueFlame.AspNetCore.Services.SignalR;
+using FlueFlame.AspNetCore.SignalR.Services;
 using FluentAssertions;
 using Microsoft.AspNetCore.Connections;
 using Microsoft.AspNetCore.SignalR.Client;

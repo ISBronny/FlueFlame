@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Net.Mime;
+using FluentAssertions;
 using Grpc.Core;
 using MathGrpcService;
 
@@ -9,8 +10,7 @@ public class GrpcTests : TestBase
 	[Test]
 	public void SimpleGrpcTest()
 	{
-		Application.gRPC
-			.CreateConnection<GreatMath.GreatMathClient>()
+		Grpc.CreateConnection<GreatMath.GreatMathClient>()
 			.Call(
 				client => client.GetSquare(NumberFactory.FromInteger(5)),
 				response=>response.Value.Should().Be(25));
@@ -19,8 +19,7 @@ public class GrpcTests : TestBase
 	[Test]
 	public void ClientSideStreamingTest()
 	{
-		Application.gRPC
-			.CreateConnection<GreatMath.GreatMathClient>()
+		Grpc.CreateConnection<GreatMath.GreatMathClient>()
 			.Call(x => x.GetSum(),
 				SendNumbers,
 				response => response.Value.Should().Be(30));
@@ -38,8 +37,7 @@ public class GrpcTests : TestBase
 	[Test]
 	public void ServerSideStreamingTest()
 	{
-		Application.gRPC
-			.CreateConnection<GreatMath.GreatMathClient>()
+		Grpc.CreateConnection<GreatMath.GreatMathClient>()
 			.Call(
 				client => client.GetPrimesLessThen(NumberFactory.FromInteger(25)),
 				ResponseHandler);
@@ -59,8 +57,7 @@ public class GrpcTests : TestBase
 	[Test]
 	public void BidirectionalStreamingTest()
 	{
-		Application.gRPC
-			.CreateConnection<GreatMath.GreatMathClient>()
+		Grpc.CreateConnection<GreatMath.GreatMathClient>()
 			.Call(x => x.GetMultiplication(), HandleGetMultiplication);
 	}
 

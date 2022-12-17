@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>disable</Nullable>
 
@@ -23,6 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\FlueFlame.AspNetCore.Grpc\FlueFlame.AspNetCore.Grpc.csproj" />
+      <ProjectReference Include="..\FlueFlame.AspNetCore.SignalR\FlueFlame.AspNetCore.SignalR.csproj" />
       <ProjectReference Include="..\FlueFlame.AspNetCore\FlueFlame.AspNetCore.csproj" />
       <ProjectReference Include="..\Testing.TestData.AspNetCore\Testing.TestData.AspNetCore.csproj" />
     </ItemGroup>

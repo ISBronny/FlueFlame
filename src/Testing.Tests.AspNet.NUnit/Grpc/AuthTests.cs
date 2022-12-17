@@ -9,9 +9,9 @@ public class AuthTests : TestBase
 	[Test]
 	public void AuthWithJwtTest()
 	{
-		Application
-			.CreateJwt("admin@gmail.com", "12345", out var token)
-		.gRPC
+		Http
+			.CreateJwt("admin@gmail.com", "12345", out var token);
+		Grpc
 			.UseJwtToken(token)
 			.CreateConnection<Greeter.GreeterClient>()
 			.Call(

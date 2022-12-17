@@ -9,8 +9,7 @@ public class GetTests : TestBase
     [Test]
     public void GetReturnsOk()
     {
-        Application
-            .Http.Get
+        Http.Get
             .Url("/api/employee/all")
             .Send()
             .Response
@@ -20,8 +19,7 @@ public class GetTests : TestBase
     [Test]
     public void GetWithQueryReturnsOk()
     {
-        Application
-            .Http.Get
+        Http.Get
             .Url("/api/employee/older-than")
             .AddQuery("olderThan", 45)
             .Send()
@@ -34,8 +32,7 @@ public class GetTests : TestBase
     [Test]
     public void GetWithQueryReturnsBadRequest()
     {
-        Application
-            .Http.Get
+        Http.Get
             .Url("/api/employee/older-than")
             .AddQuery("olderThan", -34)
             .Send()
@@ -46,8 +43,7 @@ public class GetTests : TestBase
     [Test]
     public void GetReturnsNotFound()
     {
-        Application
-            .Http.Get
+        Http.Get
             .Url("/api/notfound")
             .Send()
             .Response

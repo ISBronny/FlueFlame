@@ -1,5 +1,8 @@
 using FlueFlame.AspNetCore;
-using FlueFlame.AspNetCore.Factories;
+using FlueFlame.AspNetCore.Grpc;
+using FlueFlame.AspNetCore.SignalR.Host;
+using FlueFlame.Http.Host;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Testing.TestData.AspNetCore;
 
@@ -7,7 +10,9 @@ namespace Testing.Tests.AspNet.NUnit;
 
 public class TestBase
 {
-    protected readonly IFlueFlameHost Application;
+    protected IFlueFlameHttpHost Http { get; }
+    protected IFlueFlameGrpcHost Grpc { get; }
+    protected IFlueFlameSignalRHost SignalR { get; }
 
     public TestBase()
     {
@@ -20,8 +25,22 @@ public class TestBase
                 });
             });
 
-        Application = TestApplicationBuilder.CreateDefaultBuilder(webApp)
-            .UseNewtonsoftJson()
-            .Build();
+        var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp);
+
+        Http = builder.BuildHttpHost(b =>
+        {
+            b.ConfigureHttpClient(client =>
+            {
+                client.DefaultRequestHeaders.From = "Me";
+            });
+            b.UseTextJsonSerializer();
+        });
+
+        Grpc = builder.BuildGrpcHost(new GrpcChannelOptions()
+        {
+            MaxRetryAttempts = 5
+        });
+
+        SignalR = builder.BuildSignalRHost();
     }
 }

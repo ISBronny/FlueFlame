@@ -22,8 +22,7 @@ public class PostTests : TestBase
     [Test]
     public void PostReturnsOk()
     {
-        Application
-            .Http.Post
+        Http.Post
             .Url("/api/employee")
             .Json(ValidEmployee)
             .Send()
@@ -34,8 +33,7 @@ public class PostTests : TestBase
     [Test]
     public void GetReturnsBadRequest()
     {
-        Application
-            .Http.Post
+        Http.Post
             .Url("/api/employee")
             .Json(InvalidEmployee)
             .Send()

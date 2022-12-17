@@ -15,7 +15,7 @@ var services = builder.Services;
 
 services.AddDbContext<EmployeeContext>(x => x.UseInMemoryDatabase("Employee"));
 services.AddControllers()
-    .AddJsonOptions(x=> {});
+    .AddNewtonsoftJson();
 
 services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
@@ -45,6 +45,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.UseEndpoints(endpoints =>
 {

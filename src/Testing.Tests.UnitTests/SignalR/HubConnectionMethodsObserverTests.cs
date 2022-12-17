@@ -1,4 +1,4 @@
-﻿using FlueFlame.AspNetCore.Services.SignalR;
+﻿using FlueFlame.AspNetCore.SignalR.Services;
 using FluentAssertions;
 
 namespace Testing.Tests.UnitTests.SignalR;

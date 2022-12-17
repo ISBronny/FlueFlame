@@ -1,4 +1,5 @@
-﻿using FlueFlame.AspNetCore.Modules.Response.Content;
+﻿using FlueFlame.Core.Response.Content;
+using FlueFlame.Http.Host;
 
 namespace Testing.Tests.UnitTests.Response.Content;
 
@@ -9,7 +10,7 @@ public class TextContentResponseModuleTests : TestBase
 	[Fact]
 	public void AssertThat_Invoked()
 	{
-		var module = new TextContentResponseModule(FlueFlameHost, Text);
+		var module = new TextContentResponseModule<IFlueFlameHttpHost>(FlueFlameHttpHost, Text);
 		
 		bool invoked = false;
 		module.AssertThat(_ => invoked = true);

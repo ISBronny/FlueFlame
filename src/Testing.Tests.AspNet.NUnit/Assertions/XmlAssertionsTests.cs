@@ -8,8 +8,7 @@ public class XmlAssertionsTests : TestBase
     [Test]
     public void Test()
     {
-        Application
-            .Http.Get
+        Http.Get
             .Url("/api/large")
             .Accepts("application/xml")
             .Send()
