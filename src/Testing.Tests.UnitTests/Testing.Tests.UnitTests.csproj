@@ -32,4 +32,8 @@
       <ProjectReference Include="..\FlueFlame.Serialization.Newtonsoft\FlueFlame.Serialization.Newtonsoft.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Http" />
+    </ItemGroup>
+
 </Project>
