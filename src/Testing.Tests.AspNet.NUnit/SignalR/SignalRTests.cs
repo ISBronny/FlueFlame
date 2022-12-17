@@ -1,5 +1,4 @@
-﻿using System.Net.Mime;
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace Testing.Tests.AspNet.NUnit.SignalR;
 

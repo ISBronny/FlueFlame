@@ -1,4 +1,4 @@
-﻿namespace Testing.Tests.UnitTests.Entities;
+﻿namespace Tests.Unit.Core.Entities;
 
 public static class TestEntityHelper
 {

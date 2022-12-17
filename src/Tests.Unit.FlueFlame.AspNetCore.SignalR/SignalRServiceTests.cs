@@ -7,13 +7,13 @@ using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 
-namespace Testing.Tests.UnitTests.SignalR;
+namespace Tests.Unit.AspNetCore.SignalR;
 
-public class SignalRServiceTests : TestBase
+public class SignalRServiceTests
 {
 	private SignalRService SignalRService { get; } = new();
 
-	private HubConnection HubConnectionStub = new(
+	private HubConnection HubConnectionStub { get; } = new(
 		new Mock<IConnectionFactory>().Object,
 		new Mock<IHubProtocol>().Object,
 		new Mock<EndPoint>().Object,

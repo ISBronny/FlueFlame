@@ -1,9 +1,9 @@
 ﻿using FlueFlame.AspNetCore.SignalR.Services;
 using FluentAssertions;
 
-namespace Testing.Tests.UnitTests.SignalR;
+namespace Tests.Unit.AspNetCore.SignalR;
 
-public class HubConnectionMethodsObserverTests : TestBase
+public class HubConnectionMethodsObserverTests
 {
 	private HubConnectionMethodsObserver Observer { get; } = new();
 	private string MethodName => "TestMethod";

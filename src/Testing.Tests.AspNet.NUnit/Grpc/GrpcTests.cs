@@ -1,5 +1,4 @@
-﻿using System.Net.Mime;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Grpc.Core;
 using MathGrpcService;
 

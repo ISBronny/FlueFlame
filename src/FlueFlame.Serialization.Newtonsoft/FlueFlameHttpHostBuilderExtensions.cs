@@ -1,5 +1,4 @@
-﻿using FlueFlame.Http;
-using FlueFlame.Http.Host;
+﻿using FlueFlame.Http.Host;
 using Newtonsoft.Json;
 
 namespace FlueFlame.Serialization.Newtonsoft;

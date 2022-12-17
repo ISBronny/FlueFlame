@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using FlueFlame.Http;
 using FlueFlame.Http.Host;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;

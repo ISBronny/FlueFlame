@@ -1,9 +1,7 @@
-using System.Threading.Channels;
 using FlueFlame.AspNetCore.Grpc.Modules;
 using FlueFlame.Core;
 using Grpc.Core;
 using Grpc.Net.Client;
-using Microsoft.AspNetCore.TestHost;
 
 namespace FlueFlame.AspNetCore.Grpc;
 

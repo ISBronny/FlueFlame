@@ -2,7 +2,6 @@
 using System.Text;
 using System.Web;
 using FlueFlame.Core;
-using FlueFlame.Core.Serialization;
 using FlueFlame.Http.Host;
 
 namespace FlueFlame.Http.Modules

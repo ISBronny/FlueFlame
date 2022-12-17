@@ -1,13 +1,19 @@
 ﻿using System.Net;
+using FlueFlame.Core;
+using FlueFlame.Http.Host;
 using FlueFlame.Http.Modules;
 using FluentAssertions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using Moq;
+using Tests.Unit.Core;
 
-namespace Testing.Tests.UnitTests.Response;
+namespace Tests.Unit.FlueFlame.Http;
 
-public class HttpResponseTests : TestBase
+
+public class HttpTestBase : TestBase
+{
+	protected IFlueFlameHttpHost FlueFlameHttpHost => new Mock<IFlueFlameHttpHost>().Object;
+}
+public class HttpResponseTests : HttpTestBase
 {
 
 	[Fact]
@@ -40,7 +46,7 @@ public class HttpResponseTests : TestBase
 		var headerKey = "MyKey";
 		var headerValues = new[] { "value1", "value2" };
 		
-		var header = new Dictionary<string, StringValues> { { headerKey, new StringValues(headerValues) } };
+		var header = new Dictionary<string, IEnumerable<string>> { { headerKey, headerValues } };
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -56,7 +62,7 @@ public class HttpResponseTests : TestBase
 		var headerKey = "MyKey";
 		var headerValues = new[] { "value1", "value2" };
 		
-		var header = new Dictionary<string, StringValues> { { headerKey, new StringValues(headerValues) } };
+		var header = new Dictionary<string, IEnumerable<string>> { { headerKey, headerValues } };
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -72,7 +78,7 @@ public class HttpResponseTests : TestBase
 		var headerKey = "MyKey";
 		var headerValues = new[] { "value1", "value2" };
 		
-		var header = new Dictionary<string, StringValues> { { headerKey, new StringValues(headerValues) } };
+		var header = new Dictionary<string, IEnumerable<string>> { { headerKey, headerValues} };
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -88,8 +94,8 @@ public class HttpResponseTests : TestBase
 		var headerKeys = new[] {"MyKey1", "MyKey2", "MyKey3"};
 	
 		var header =
-			new Dictionary<string, StringValues>(headerKeys.Select(x =>
-				new KeyValuePair<string, StringValues>(x, new StringValues("foo"))));
+			new Dictionary<string, IEnumerable<string>>(headerKeys.Select(x =>
+				new KeyValuePair<string, IEnumerable<string>>(x, new[] {"foo"})));
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -105,8 +111,8 @@ public class HttpResponseTests : TestBase
 		var headerKeys = new[] {"MyKey1", "MyKey2"};
 	
 		var header =
-			new Dictionary<string, StringValues>(headerKeys.Select(x =>
-				new KeyValuePair<string, StringValues>(x, new StringValues())));
+			new Dictionary<string, IEnumerable<string>>(headerKeys.Select(x =>
+				new KeyValuePair<string, IEnumerable<string>>(x, new[] {"foo"})));
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -122,8 +128,8 @@ public class HttpResponseTests : TestBase
 		var headerKeys = new[] {"MyKey1", "MyKey2"};
 	
 		var header =
-			new Dictionary<string, StringValues>(headerKeys.Select(x =>
-				new KeyValuePair<string, StringValues>(x, new StringValues())));
+			new Dictionary<string, IEnumerable<string>>(headerKeys.Select(x =>
+				new KeyValuePair<string, IEnumerable<string>>(x, new[] {"foo"})));
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -139,8 +145,8 @@ public class HttpResponseTests : TestBase
 		var headerKeys = new[] {"MyKey1", "MyKey2"};
 	
 		var header =
-			new Dictionary<string, StringValues>(headerKeys.Select(x =>
-				new KeyValuePair<string, StringValues>(x, new StringValues("foo"))));
+			new Dictionary<string, IEnumerable<string>>(headerKeys.Select(x =>
+				new KeyValuePair<string, IEnumerable<string>>(x, new[] {"foo"})));
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -156,7 +162,7 @@ public class HttpResponseTests : TestBase
 		var headerKey = "MyKey";
 		var headerValues = new[] { "value1", "value2", "someVal"};
 		
-		var header = new Dictionary<string, StringValues> { { headerKey, new StringValues(headerValues) } };
+		var header = new Dictionary<string, IEnumerable<string>> { { headerKey,headerValues } };
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -172,7 +178,7 @@ public class HttpResponseTests : TestBase
 		var headerKey = "MyKey";
 		var headerValues = new[] { "hfg", "hrefg", "jytedh"};
 		
-		var header = new Dictionary<string, StringValues> { { headerKey, new StringValues(headerValues) } };
+		var header = new Dictionary<string, IEnumerable<string>> { { headerKey, headerValues } };
 	
 		var httpResponse = GetHttpResponse(headers: header);
 		
@@ -184,7 +190,7 @@ public class HttpResponseTests : TestBase
 	
 	private HttpResponseMessage GetHttpResponse(
 		HttpStatusCode statusCode = HttpStatusCode.OK,
-		Dictionary<string, StringValues> headers = null)
+		Dictionary<string, IEnumerable<string>> headers = null)
 	{
 		var response = new HttpResponseMessage(statusCode);
 

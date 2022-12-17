@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using FlueFlame.Core;
 using FlueFlame.Http.Host;
 
 namespace Testing.Tests.AspNet.NUnit.Authentication.JWT;

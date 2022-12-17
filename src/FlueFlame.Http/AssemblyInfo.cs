@@ -1,5 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("Testing.Tests.UnitTests")]
+[assembly:InternalsVisibleTo("Tests.Unit.FlueFlame.Http")]
 [assembly:InternalsVisibleTo("Moq")]
 [assembly:InternalsVisibleTo("DynamicProxyGenAssembly2")]
