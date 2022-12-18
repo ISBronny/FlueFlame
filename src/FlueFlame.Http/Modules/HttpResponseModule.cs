@@ -25,7 +25,7 @@ namespace FlueFlame.Http.Modules
         /// <returns></returns>
         public HttpResponseModule AssertStatusCode(HttpStatusCode statusCode)
         {
-            statusCode.Should().Be(HttpResponse.StatusCode);
+            HttpResponse.StatusCode.Should().Be(statusCode);
             
             return this;
         }
