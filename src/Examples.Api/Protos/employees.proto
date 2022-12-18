@@ -1,0 +1,28 @@
+﻿syntax = "proto3";
+
+import "google/protobuf/wrappers.proto";
+
+package Examples.Grpc;
+
+service EmployeeService {
+  rpc GetById(google.protobuf.StringValue) returns (Employee);
+  rpc GetByIds(stream google.protobuf.StringValue) returns (stream Employee);
+  rpc GetByAge(AgeRangeRequest) returns (stream Employee);
+  rpc CreateEmployees(stream Employee) returns (CreatedEmployeesIdsResponse);
+}
+
+message Employee {
+  string guid = 1;
+  string full_name = 2;
+  string position = 3;
+  int32 age = 4;
+}
+
+message AgeRangeRequest {
+  int32 from = 1;
+  int32 to = 2;
+}
+
+message CreatedEmployeesIdsResponse {
+  repeated string guid = 1;
+}

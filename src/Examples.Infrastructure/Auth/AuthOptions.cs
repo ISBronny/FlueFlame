@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Examples.RestApi.Auth;
+namespace Examples.Infrastructure.Auth;
 
 public class AuthOptions
 {

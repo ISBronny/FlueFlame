@@ -1,6 +1,6 @@
-using Examples.RestApi.Auth;
-using Examples.RestApi.Database;
-using Examples.RestApi.Repositories;
+using Examples.Infrastructure.Auth;
+using Examples.Infrastructure.Database;
+using Examples.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -42,10 +42,11 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllers();
+	//endpoints.MapGrpcService<GreatMathService>();
 });
 
 app.Run();
-namespace Examples.RestApi
+namespace Examples.Rest
 {
 	public partial class Program
 	{

@@ -1,7 +1,7 @@
-﻿using Examples.RestApi.Database;
-using Examples.RestApi.Models;
+﻿using Examples.Domain.Models;
+using Examples.Infrastructure.Database;
 
-namespace Examples.RestApi.Tests.TestDataBuilders;
+namespace Examples.Tests.Api.TestDataBuilders;
 
 public class EmployeeTestDataBuilder
 {

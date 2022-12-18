@@ -1,8 +1,8 @@
-﻿using Examples.RestApi.Database;
-using Examples.RestApi.Models;
+﻿using Examples.Domain.Models;
+using Examples.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Examples.RestApi.Repositories;
+namespace Examples.Infrastructure.Repositories;
 
 public class EmployeeRepository : IEmployeeRepository
 {

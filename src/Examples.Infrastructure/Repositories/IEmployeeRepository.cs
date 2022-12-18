@@ -1,6 +1,6 @@
-﻿using Examples.RestApi.Models;
+﻿using Examples.Domain.Models;
 
-namespace Examples.RestApi.Repositories;
+namespace Examples.Infrastructure.Repositories;
 
 public interface IEmployeeRepository : IDisposable
 {

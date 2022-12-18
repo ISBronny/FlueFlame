@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Examples.RestApi.Models;
-using Examples.RestApi.Repositories;
+using Examples.Domain.Models;
+using Examples.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Examples.RestApi.Controllers;
+namespace Examples.Rest.Controllers;
 
 [ApiController]
 [Route("api/employee")]

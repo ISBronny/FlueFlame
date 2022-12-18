@@ -1,7 +1,7 @@
-﻿using Examples.RestApi.Models;
+﻿using Examples.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Examples.RestApi.Database;
+namespace Examples.Infrastructure.Database;
 
 public sealed class EmployeeContext : DbContext
 {

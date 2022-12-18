@@ -1,7 +1,8 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Examples.RestApi.Auth;
-using Examples.RestApi.Database;
+using Examples.Infrastructure.Auth;
+using Examples.Infrastructure.Database;
+using Examples.Rest;
 using FlueFlame.AspNetCore;
 using FlueFlame.Http.Host;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -9,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Examples.RestApi.Tests;
+namespace Examples.Tests.Api;
 
 public abstract class IntegrationTestBase : IDisposable
 {

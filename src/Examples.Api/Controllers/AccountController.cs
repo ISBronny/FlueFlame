@@ -1,11 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using Examples.RestApi.Auth;
-using Examples.RestApi.Models;
+using Examples.Domain.Models;
+using Examples.Infrastructure.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Examples.RestApi.Controllers;
+namespace Examples.Rest.Controllers;
 
 [ApiController]
 [Route("api/account")]

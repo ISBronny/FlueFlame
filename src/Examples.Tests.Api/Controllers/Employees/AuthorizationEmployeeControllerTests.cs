@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Examples.RestApi.Tests.Controllers.Employees;
+namespace Examples.Tests.Api.Controllers.Employees;
 
 public class AuthorizationEmployeeControllerTests : IntegrationTestBase
 {

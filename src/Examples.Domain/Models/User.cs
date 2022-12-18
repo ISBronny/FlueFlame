@@ -1,4 +1,4 @@
-﻿namespace Examples.RestApi.Models;
+﻿namespace Examples.Domain.Models;
 
 public class User
 {

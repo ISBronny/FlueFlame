@@ -1,9 +1,9 @@
 ﻿using System.Net;
-using Examples.RestApi.Models;
-using Examples.RestApi.Tests.TestDataBuilders;
+using Examples.Domain.Models;
+using Examples.Tests.Api.TestDataBuilders;
 using FluentAssertions;
 
-namespace Examples.RestApi.Tests.Controllers.Employees;
+namespace Examples.Tests.Api.Controllers.Employees;
 
 public class EmployeeControllerTests : IntegrationTestBase
 {

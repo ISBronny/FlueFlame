@@ -23,8 +23,12 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Examples.RestApi\Examples.RestApi.csproj" />
+      <ProjectReference Include="..\Examples.Api\Examples.Api.csproj" />
       <ProjectReference Include="..\FlueFlame.AspNetCore\FlueFlame.AspNetCore.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Grpc" />
     </ItemGroup>
 
 </Project>
