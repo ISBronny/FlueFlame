@@ -3,7 +3,7 @@ using Examples.Infrastructure.Repositories;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 
-namespace Examples.Rest.Services;
+namespace Examples.Api.Services;
 
 public class EmployeeService : Grpc.EmployeeService.EmployeeServiceBase
 {

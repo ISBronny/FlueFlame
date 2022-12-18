@@ -5,7 +5,7 @@ using Examples.Infrastructure.Auth;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Examples.Rest.Controllers;
+namespace Examples.Api.Controllers;
 
 [ApiController]
 [Route("api/account")]

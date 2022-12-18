@@ -4,7 +4,7 @@ using Examples.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Examples.Rest.Controllers;
+namespace Examples.Api.Controllers;
 
 [ApiController]
 [Route("api/employee")]

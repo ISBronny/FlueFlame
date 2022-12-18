@@ -2,7 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Examples.Infrastructure.Auth;
 using Examples.Infrastructure.Database;
-using Examples.Rest;
+using Examples.Api;
 using FlueFlame.AspNetCore;
 using FlueFlame.Http.Host;
 using Microsoft.AspNetCore.Mvc.Testing;

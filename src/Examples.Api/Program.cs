@@ -46,7 +46,7 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
-namespace Examples.Rest
+namespace Examples.Api
 {
 	public partial class Program
 	{
