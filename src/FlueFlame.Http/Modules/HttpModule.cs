@@ -20,8 +20,6 @@ namespace FlueFlame.Http.Modules
             UriBuilder = new UriBuilder(Host.HttpClient.BaseAddress);
             HttpRequestMessage = new HttpRequestMessage();
             HttpRequestMessage.Method = httpMethod;
-
- 
         }
 
         /// <summary>

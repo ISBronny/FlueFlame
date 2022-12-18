@@ -99,7 +99,20 @@ namespace FlueFlame.Http.Modules
 
         #endregion
         
+        /// <summary>
+        /// Provides low-level access to HttpResponseMessage
+        /// The method is designed to test an assertion, but technically it can be used for any purpose.
+        /// However, we recommend using it only for assertions.
+        /// </summary>
+        /// <param name="action">Action that works with the Http Response.</param>
+        /// <returns></returns>
+        public HttpResponseModule AssertRawResponse(Action<HttpResponseMessage> action)
+        {
+            action(HttpResponse);
+            return this;
+        }
 
+        
         /// <summary>
         /// Returns the module to work with the response body as JSON.
         /// </summary>

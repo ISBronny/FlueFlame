@@ -1,19 +1,21 @@
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http.Headers;
 using System.Security.Claims;
-using System.Threading.Tasks.Dataflow;
 using Examples.RestApi.Auth;
+using Examples.RestApi.Database;
 using FlueFlame.AspNetCore;
 using FlueFlame.Http.Host;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Examples.RestApi.Tests;
 
-public abstract class IntegrationTestBase
+public abstract class IntegrationTestBase : IDisposable
 {
 	protected IFlueFlameHttpHost HttpHost { get; }
 	protected IServiceProvider ServiceProvider { get; }
+	protected EmployeeContext EmployeeContext => ServiceProvider.CreateScope().ServiceProvider.GetRequiredService<EmployeeContext>();
 
 	protected IntegrationTestBase()
 	{
@@ -23,6 +25,14 @@ public abstract class IntegrationTestBase
 				builder.ConfigureServices(services =>
 				{
 					//Configure your services here
+					var dbContextDescriptor = services.SingleOrDefault(
+						d => d.ServiceType ==
+						     typeof(DbContextOptions<EmployeeContext>));
+
+					services.Remove(dbContextDescriptor);
+
+					var dbName = $"Employee_{Guid.NewGuid()}";
+					services.AddDbContext<EmployeeContext>(x => x.UseInMemoryDatabase(dbName));
 				});
 			});
 
@@ -52,6 +62,14 @@ public abstract class IntegrationTestBase
 				SecurityAlgorithms.HmacSha256));
 
 		return new JwtSecurityTokenHandler().WriteToken(jwt);
+	}
+
+	public void Dispose()
+	{
+		using var scope = ServiceProvider.CreateScope();
+		var ctx = scope.ServiceProvider.GetRequiredService<EmployeeContext>();
+		ctx.Database.EnsureDeleted();
+		GC.SuppressFinalize(this);
 	}
 }
 	

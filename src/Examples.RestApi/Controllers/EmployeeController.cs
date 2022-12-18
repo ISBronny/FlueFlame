@@ -40,10 +40,8 @@ public class EmployeeController : ControllerBase
         
         var created = await _employeeRepository.Add(employee);
         await _employeeRepository.SaveChangesAsync();
+        
         return CreatedAtAction(nameof(GetById), new {guid = created.Guid}, created);
-
-
-
     }
     
     [Route("")]
@@ -57,8 +55,8 @@ public class EmployeeController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetByOlderThan([FromQuery(Name = "olderThan"), Range(18, 99)] int olderThan)
     {
-        if(ModelState.IsValid)
-            return Ok(await _employeeRepository.OlderThan(olderThan));
-        return BadRequest(ModelState);
+        if(!ModelState.IsValid)
+            return BadRequest(ModelState);
+        return Ok(await _employeeRepository.OlderThan(olderThan));
     }
 }

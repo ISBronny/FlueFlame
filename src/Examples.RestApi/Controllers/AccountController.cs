@@ -2,7 +2,6 @@
 using System.Security.Claims;
 using Examples.RestApi.Auth;
 using Examples.RestApi.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 

@@ -1,15 +1,12 @@
 ﻿using System.Net;
-using Examples.RestApi.Database;
+using Examples.RestApi.Models;
 using Examples.RestApi.Tests.TestDataBuilders;
 using FluentAssertions;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace Examples.RestApi.Tests.Controllers.Employee;
+namespace Examples.RestApi.Tests.Controllers.Employees;
 
 public class EmployeeControllerTests : IntegrationTestBase
 {
-	protected EmployeeContext EmployeeContext => ServiceProvider.CreateScope().ServiceProvider.GetRequiredService<EmployeeContext>();
-
 	[Fact]
 	public void GetByIdTest_Exists_ReturnsEmployee()
 	{
@@ -22,7 +19,7 @@ public class EmployeeControllerTests : IntegrationTestBase
 			.Response
 				.AssertStatusCode(HttpStatusCode.OK)
 				.AsJson
-					.AssertThat<Models.Employee>(emp => emp.Guid.Should().Be(employee.Guid));
+					.AssertThat<Employee>(response => response.Guid.Should().Be(employee.Guid));
 	}
 	
 	[Fact]
@@ -44,7 +41,7 @@ public class EmployeeControllerTests : IntegrationTestBase
 			.Build(saveInDb: false);
 
 		HttpHost.Post
-			.Url($"/api/employee")
+			.Url("/api/employee")
 			.Json(employee)
 			.Send()
 			.Response
@@ -60,7 +57,7 @@ public class EmployeeControllerTests : IntegrationTestBase
 			.Build(saveInDb: true);
 
 		HttpHost.Post
-			.Url($"/api/employee")
+			.Url("/api/employee")
 			.Json(employee)
 			.Send()
 			.Response
@@ -73,14 +70,32 @@ public class EmployeeControllerTests : IntegrationTestBase
 		var employees = Enumerable.Range(0, 10)
 			.Select(_ => new EmployeeTestDataBuilder(EmployeeContext).Build(saveInDb: true))
 			.ToList();
-
+		
 		HttpHost.Get
-			.Url($"/api/employee")
+			.Url("/api/employee")
 			.Json(employees)
 			.Send()
 			.Response
 				.AssertStatusCode(HttpStatusCode.OK)
 				.AsJson
-					.AssertThat<Models.Employee[]>(resp => resp.Should().BeEquivalentTo(employees));
+					.AssertThat<Employee[]>(resp => resp.Should().BeEquivalentTo(employees));
+	}
+	
+	[Fact]
+	public void GetByOlderThan_ValidQuery_ReturnsOk()
+	{
+		Enumerable.Range(20, 30).ToList().ForEach(age =>
+			new EmployeeTestDataBuilder(EmployeeContext)
+				.WithAge(age)
+				.Build(saveInDb: true));
+
+		HttpHost.Get
+			.Url("/api/employee/older-than")
+			.AddQuery("olderThan", 25)
+			.Send()
+			.Response
+				.AssertStatusCode(HttpStatusCode.OK)
+				.AsJson
+					.AssertThat<Employee[]>(response => response.Should().OnlyContain(emp => emp.Age > 25));
 	}
 }

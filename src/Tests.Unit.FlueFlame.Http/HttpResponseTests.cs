@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using FlueFlame.Core;
 using FlueFlame.Http.Host;
 using FlueFlame.Http.Modules;
 using FluentAssertions;
