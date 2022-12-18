@@ -4,7 +4,7 @@
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>disable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <RootNamespace>Examples.RestApi</RootNamespace>
+        <RootNamespace>Examples.Api</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
