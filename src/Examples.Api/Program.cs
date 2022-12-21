@@ -1,9 +1,11 @@
+using Examples.Grpc;
 using Examples.Infrastructure.Auth;
 using Examples.Infrastructure.Database;
 using Examples.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using EmployeeService = Examples.Api.Services.EmployeeService;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -32,6 +34,8 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 //services.Configure<MvcOptions>(x => x.OutputFormatters.Add(new XmlSerializerOutputFormatter()));
 
+services.AddGrpc();
+
 var app = builder.Build();
 
 app.UseRouting();
@@ -39,11 +43,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
+#pragma warning disable ASP0014
+app.UseEndpoints(b =>
 {
-	endpoints.MapControllers();
-	//endpoints.MapGrpcService<GreatMathService>();
+	b.MapControllers();
+	b.MapGrpcService<EmployeeService>();
 });
+#pragma warning restore ASP0014
+
+
+
 
 app.Run();
 namespace Examples.Api

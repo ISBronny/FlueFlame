@@ -4,7 +4,9 @@ using Examples.Infrastructure.Auth;
 using Examples.Infrastructure.Database;
 using Examples.Api;
 using FlueFlame.AspNetCore;
+using FlueFlame.AspNetCore.Grpc;
 using FlueFlame.Http.Host;
+using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,7 @@ namespace Examples.Tests.Api;
 public abstract class IntegrationTestBase : IDisposable
 {
 	protected IFlueFlameHttpHost HttpHost { get; }
+	protected IFlueFlameGrpcHost GrpcHost { get; }
 	protected IServiceProvider ServiceProvider { get; }
 	protected EmployeeContext EmployeeContext => ServiceProvider.CreateScope().ServiceProvider.GetRequiredService<EmployeeContext>();
 
@@ -41,14 +44,21 @@ public abstract class IntegrationTestBase : IDisposable
 
 		var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp);
 
-		HttpHost = builder.BuildHttpHost(b =>
-		{
-			//Use System.Text.Json serializer
-			b.UseTextJsonSerializer();
-		});
+		// HttpHost = builder.BuildHttpHost(b =>
+		// {
+		// 	//Use System.Text.Json serializer
+		// 	b.UseTextJsonSerializer();
+		// 	b.ConfigureHttpClient(client =>
+		// 	{
+		// 		//Add JWT token to default request headers
+		// 		//client.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
+		// 	});
+		// });
 
-		//Add JWT token to default request headers
-		HttpHost.HttpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
+		GrpcHost = builder.BuildGrpcHost(new GrpcChannelOptions()
+		{
+			MaxRetryAttempts = 5
+		});
 	}
 
 	protected string GetJwtToken(string role = "admin", TimeSpan? lifetime = null)
