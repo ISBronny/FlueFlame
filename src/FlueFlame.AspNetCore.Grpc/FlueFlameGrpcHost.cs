@@ -7,17 +7,19 @@ namespace FlueFlame.AspNetCore.Grpc;
 
 public class FlueFlameGrpcHost : IFlueFlameGrpcHost
 {
-	private GrpcChannelOptions ChannelOptions { get; } = new();
+	private GrpcChannelOptions DefaultChannelOptions { get; } = new();
 	private TestServer TestServer { get; }
+	private HttpClient HttpClient { get; }
 	
-	public FlueFlameGrpcHost(TestServer testServer)
+	public FlueFlameGrpcHost(TestServer testServer, HttpClient httpClient)
 	{
 		TestServer = testServer;
+		HttpClient = httpClient;
 	}
 	
-	public FlueFlameGrpcHost(TestServer testServer, GrpcChannelOptions grpcChannelOptions) : this(testServer)
+	public FlueFlameGrpcHost(TestServer testServer, HttpClient httpClient, GrpcChannelOptions grpcDefaultChannelOptions) : this(testServer, httpClient)
 	{
-		ChannelOptions = grpcChannelOptions;
+		DefaultChannelOptions = grpcDefaultChannelOptions;
 	}
 
 	/// <summary>
@@ -28,12 +30,12 @@ public class FlueFlameGrpcHost : IFlueFlameGrpcHost
 	/// <returns></returns>
 	public GrpcConnectionModule<T> CreateConnection<T>(GrpcChannelOptions options = null) where T : ClientBase<T>
 	{
-		options ??= ChannelOptions;
-		options.HttpClient ??= TestServer.CreateClient();
+		options ??= DefaultChannelOptions;
+		options.HttpClient ??= HttpClient ?? TestServer.CreateClient();
 		var channel = GrpcChannel.ForAddress(
 			(options.Credentials == null ? "http" : "https") + $"://{TestServer.BaseAddress.Host}", options);
 		var client = (T)Activator.CreateInstance(typeof(T), channel);
-		return new GrpcConnectionModule<T>(client, this);
+		return new GrpcConnectionModule<T>(this, client);
 	}
 	
 	/// <summary>
@@ -43,7 +45,7 @@ public class FlueFlameGrpcHost : IFlueFlameGrpcHost
 	/// <returns></returns>
 	public FlueFlameGrpcHost UseJwtToken(string token)
 	{
-		ChannelOptions.Credentials = ChannelCredentials.Create(new SslCredentials(),
+		DefaultChannelOptions.Credentials = ChannelCredentials.Create(new SslCredentials(),
 			CallCredentials.FromInterceptor((_, metadata) =>
 			{
 				if (!string.IsNullOrEmpty(token))
