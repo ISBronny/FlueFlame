@@ -6,16 +6,16 @@ namespace Testing.Tests.AspNet.NUnit.Grpc;
 
 public class AuthTests : TestBase
 {
-	[Test]
-	public void AuthWithJwtTest()
-	{
-		Http
-			.CreateJwt("admin@gmail.com", "12345", out var token);
-		Grpc
-			.UseJwtToken(token)
-			.CreateConnection<Greeter.GreeterClient>()
-			.Call(
-				client => client.SayHello(new HelloRequest { Name = "Jane"}),
-				response=>response.Message.Should().Be("Hello Jane"));
-	}
+	// [Test]
+	// public void AuthWithJwtTest()
+	// {
+	// 	Http
+	// 		.CreateJwt("admin@gmail.com", "12345", out var token);
+	// 	Grpc
+	// 		.UseJwtToken(token)
+	// 		.CreateConnection<Greeter.GreeterClient>()
+	// 		.Unary(
+	// 			client => client.SayHello(new HelloRequest { Name = "Jane"}),
+	// 			response=>response.Message.Should().Be("Hello Jane"));
+	// }
 }

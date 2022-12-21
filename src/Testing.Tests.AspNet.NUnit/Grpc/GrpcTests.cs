@@ -9,19 +9,19 @@ public class GrpcTests : TestBase
 	[Test]
 	public void SimpleGrpcTest()
 	{
-		Grpc.CreateConnection<GreatMath.GreatMathClient>()
-			.Call(
-				client => client.GetSquare(NumberFactory.FromInteger(5)),
-				response=>response.Value.Should().Be(25));
+		// Grpc.CreateConnection<GreatMath.GreatMathClient>()
+		// 	.Unary(
+		// 		client => client.GetSquare(NumberFactory.FromInteger(5)),
+		// 		response=>response.Value.Should().Be(25));
 	}
 	
 	[Test]
 	public void ClientSideStreamingTest()
 	{
-		Grpc.CreateConnection<GreatMath.GreatMathClient>()
-			.Call(x => x.GetSum(),
-				SendNumbers,
-				response => response.Value.Should().Be(30));
+		// Grpc.CreateConnection<GreatMath.GreatMathClient>()
+		// 	.ClientStreaming(x => x.GetSum(),
+		// 		SendNumbers,
+		// 		response => response.Value.Should().Be(30));
 	}
 
 	private async Task SendNumbers(AsyncClientStreamingCall<Number, Number> streamingCall)
@@ -36,10 +36,10 @@ public class GrpcTests : TestBase
 	[Test]
 	public void ServerSideStreamingTest()
 	{
-		Grpc.CreateConnection<GreatMath.GreatMathClient>()
-			.Call(
-				client => client.GetPrimesLessThen(NumberFactory.FromInteger(25)),
-				ResponseHandler);
+		// Grpc.CreateConnection<GreatMath.GreatMathClient>()
+		// 	.ServerStreaming(
+		// 		client => client.GetPrimesLessThen(NumberFactory.FromInteger(25)),
+		// 		ResponseHandler);
 	}
 
 	private async Task ResponseHandler(AsyncServerStreamingCall<Number> streamingCall)
@@ -57,7 +57,7 @@ public class GrpcTests : TestBase
 	public void BidirectionalStreamingTest()
 	{
 		Grpc.CreateConnection<GreatMath.GreatMathClient>()
-			.Call(x => x.GetMultiplication(), HandleGetMultiplication);
+			.BidirectionalStreaming(x => x.GetMultiplication(), HandleGetMultiplication);
 	}
 
 	private static async Task HandleGetMultiplication(AsyncDuplexStreamingCall<Number, Number> call)
