@@ -187,6 +187,46 @@ public class HttpResponseTests : HttpTestBase
 			.Should().Throw<Exception>();
 	}
 	
+	[Fact]
+	public void AssertStatusCode()
+	{
+		var statusCode = HttpStatusCode.Conflict;
+		
+		var httpResponse = GetHttpResponse(statusCode);
+		
+		var module = new HttpResponseModule(FlueFlameHttpHost, httpResponse);
+	
+		FluentActions.Invoking(() => module.AssertStatusCode(statusCode))
+			.Should().NotThrow();
+	}
+	
+	[Fact]
+	public void AssertStatusCode_Number()
+	{
+		var statusCode = 404;
+		
+		var httpResponse = GetHttpResponse(HttpStatusCode.NotFound);
+		
+		var module = new HttpResponseModule(FlueFlameHttpHost, httpResponse);
+	
+		FluentActions.Invoking(() => module.AssertStatusCode(statusCode))
+			.Should().NotThrow();
+	}
+	
+	[Fact]
+	public void AssertRawResponse()
+	{
+		var httpResponse = GetHttpResponse(HttpStatusCode.NotFound);
+		
+		var module = new HttpResponseModule(FlueFlameHttpHost, httpResponse);
+	
+		FluentActions.Invoking(() => module.AssertRawResponse(message =>
+			{
+				message.StatusCode.Should().Be(HttpStatusCode.Accepted);
+			}))
+			.Should().Throw<Exception>();
+	}
+	
 	private HttpResponseMessage GetHttpResponse(
 		HttpStatusCode statusCode = HttpStatusCode.OK,
 		Dictionary<string, IEnumerable<string>> headers = null)
