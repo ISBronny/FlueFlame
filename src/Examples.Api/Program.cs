@@ -11,8 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 services.AddDbContext<EmployeeContext>(x => x.UseInMemoryDatabase("Employee"));
-services.AddControllers()
-	.AddNewtonsoftJson();
+services.AddControllers();
 
 services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
