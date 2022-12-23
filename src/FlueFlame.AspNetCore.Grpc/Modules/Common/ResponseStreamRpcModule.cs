@@ -1,4 +1,3 @@
-using FlueFlame.AspNetCore.Grpc.Extensions;
 using FluentAssertions;
 using Grpc.Core;
 
