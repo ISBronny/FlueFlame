@@ -22,29 +22,28 @@ public class ClientStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<TClient
 
 public class ClientStreamingRpcModule<TClient, TRequest, TResponse> : ClientStreamingRpcModule<TClient> where TClient : ClientBase<TClient> where TRequest : class where TResponse : class
 {
-	private readonly AsyncClientStreamingCall<TRequest, TResponse> _streamingCall;
+	private readonly AsyncClientStreamingCall<TRequest, TResponse> _call;
 	public ClientStreamingRequestRpcModule<TClient, TRequest, TResponse> RequestStream { get; }
 
 	public RpcResponseModule<TClient, TResponse> Response
 	{
 		get
 		{
-			_streamingCall.RequestStream.CompleteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 			try
 			{
-				return new RpcResponseModule<TClient, TResponse>(Host, Client, _streamingCall.ResponseAsync.Result);
+				_call.RequestStream.CompleteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+				return new RpcResponseModule<TClient, TResponse>(Host, Client, _call.ResponseAsync.Result);
 			}
-			catch (RpcException exception)
+			catch (AggregateException exception) when (exception.InnerException?.GetType() == typeof(RpcException))
 			{
-				return new RpcResponseModule<TClient, TResponse>(Host, Client, exception);
+				return new RpcResponseModule<TClient, TResponse>(Host, Client, exception.InnerException as RpcException);
 			}
-			
 		}
 	}
 	
 	internal ClientStreamingRpcModule(ClientStreamingRpcModule<TClient> module, AsyncClientStreamingCall<TRequest, TResponse> streamingCall) : base(module)
 	{
-		_streamingCall = streamingCall;
+		_call = streamingCall;
 		RequestStream = new ClientStreamingRequestRpcModule<TClient, TRequest, TResponse>(Host, Client, streamingCall);
 	}
 }

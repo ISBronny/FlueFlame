@@ -11,9 +11,9 @@ public class ClientStreamingRequestRpcModule<TClient, TRequest, TResponse> : Req
 	{
 		get
 		{
-			_call.RequestStream.CompleteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 			try
 			{
+				_call.RequestStream.CompleteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 				return new RpcResponseModule<TClient, TResponse>(Host, Client, _call.ResponseAsync.Result);
 			}
 			catch (AggregateException exception) when (exception.InnerException?.GetType() == typeof(RpcException))

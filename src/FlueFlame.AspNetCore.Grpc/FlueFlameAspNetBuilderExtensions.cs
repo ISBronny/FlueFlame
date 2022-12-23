@@ -1,8 +1,4 @@
-﻿using FlueFlame.Http.Host;
-using Grpc.Net.Client;
-using Microsoft.AspNetCore.Mvc.Testing;
-
-namespace FlueFlame.AspNetCore.Grpc;
+﻿namespace FlueFlame.AspNetCore.Grpc;
 
 public static class FlueFlameAspNetBuilderExtensions
 {
