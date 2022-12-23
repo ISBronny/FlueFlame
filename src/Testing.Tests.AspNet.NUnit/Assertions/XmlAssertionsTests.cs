@@ -10,7 +10,7 @@ public class XmlAssertionsTests : TestBase
     {
         Http.Get
             .Url("/api/large")
-            .Accepts("application/xml")
+            .Accept("application/xml")
             .Send()
             .Response
                 .AssertStatusCode(HttpStatusCode.OK)

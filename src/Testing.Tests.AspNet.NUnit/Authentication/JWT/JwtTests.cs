@@ -13,7 +13,7 @@ public class JwtTests : TestBase
             .CreateJwt("admin@gmail.com", "12345", out var token)
             .Get
                 .Url("/api/admin/test")
-                .WithBearerToken(token)
+                .WithJwtToken(token)
                 .Send()
                 .Response
                     .AssertStatusCode(HttpStatusCode.OK);
@@ -26,7 +26,7 @@ public class JwtTests : TestBase
             .CreateJwt("qwerty@gmail.com", "55555", out var token)
             .Get
                 .Url("/api/admin/test")
-                .WithBearerToken(token)
+                .WithJwtToken(token)
                 .Send()
                 .Response
                     .AssertStatusCode(HttpStatusCode.Forbidden);

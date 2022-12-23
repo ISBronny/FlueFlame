@@ -39,6 +39,9 @@ namespace FlueFlame.Http.Modules
         /// <returns></returns>
         public HttpModule Url(string url)
         {
+            if (url == null)
+                throw new ArgumentNullException(nameof(url));
+            
             UriBuilder.Path = url;
             return this;
         }
@@ -48,8 +51,11 @@ namespace FlueFlame.Http.Modules
         /// </summary>
         /// <param name="jwt">JWT token</param>
         /// <returns></returns>
-        public HttpModule WithBearerToken(string jwt)
+        public HttpModule WithJwtToken(string jwt)
         {
+            if (jwt == null)
+                throw new ArgumentNullException(nameof(jwt));
+            
             HttpRequestMessage.Headers.Add("Authorization",  $"Bearer {jwt}");
             return this;
         }
@@ -65,15 +71,38 @@ namespace FlueFlame.Http.Modules
             HttpRequestMessage.Headers.Add(key,  value);
             return this;
         }
+        
+        /// <summary>
+        /// Adds HTTP request header.
+        /// </summary>
+        /// <param name="key">Header key</param>
+        /// <param name="value">Header values</param>
+        /// <returns></returns>
+        public HttpModule WithHeader(string key, IEnumerable<string> value)
+        {
+            HttpRequestMessage.Headers.Add(key,  value);
+            return this;
+        }
 
         /// <summary>
         /// Sets the Accept HTTP header.
         /// </summary>
         /// <param name="mediaType"></param>
         /// <returns></returns>
-        public HttpModule Accepts(string mediaType)
+        public HttpModule Accept(string mediaType)
         {
-            HttpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));;
+            return Accept(mediaType.Split(',', StringSplitOptions.TrimEntries));
+        }
+        
+        /// <summary>
+        /// Sets the Accept HTTP header.
+        /// </summary>
+        /// <param name="mediaTypes"></param>
+        /// <returns></returns>
+        public HttpModule Accept(IEnumerable<string> mediaTypes)
+        {
+            foreach (var mediaType in mediaTypes)
+                HttpRequestMessage.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue(mediaType));
             return this;
         }
 

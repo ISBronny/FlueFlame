@@ -10,7 +10,7 @@ public class AuthorizationEmployeeControllerTests : IntegrationTestBase
 		HttpHost
 			.Get
 			.Url("api/employee")
-			.WithBearerToken(GetJwtToken(role: "admin"))
+			.WithJwtToken(GetJwtToken(role: "admin"))
 			.Send()
 			.Response
 				.AssertStatusCode(HttpStatusCode.OK);
@@ -22,7 +22,7 @@ public class AuthorizationEmployeeControllerTests : IntegrationTestBase
 		HttpHost
 			.Get
 			.Url("api/employee")
-			.WithBearerToken(GetJwtToken(role: "customer"))
+			.WithJwtToken(GetJwtToken(role: "customer"))
 			.Send()
 			.Response
 				.AssertStatusCode(HttpStatusCode.Forbidden);
