@@ -11,7 +11,7 @@ public class ClientStreamingRequestRpcModule<TClient, TRequest, TResponse> : Req
 	{
 		get
 		{
-			_call.RequestStream.CompleteAsync().Wait();
+			_call.RequestStream.CompleteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 			try
 			{
 				return new RpcResponseModule<TClient, TResponse>(Host, Client, _call.ResponseAsync.Result);

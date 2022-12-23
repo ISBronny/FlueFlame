@@ -1,4 +1,6 @@
-﻿using Grpc.Net.Client;
+﻿using FlueFlame.Http.Host;
+using Grpc.Net.Client;
+using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace FlueFlame.AspNetCore.Grpc;
 
@@ -6,11 +8,14 @@ public static class FlueFlameAspNetBuilderExtensions
 {
 	public static IFlueFlameGrpcHost BuildGrpcHost(this FlueFlameAspNetBuilder builder)
 	{
-		return new FlueFlameGrpcHost(builder.TestServer, builder.HttpClient);
+		return new FlueFlameGrpcHostBuilder(builder.TestServer)
+			.Build();
 	}
 	
-	public static IFlueFlameGrpcHost BuildGrpcHost(this FlueFlameAspNetBuilder builder, GrpcChannelOptions grpcChannelOptions)
+	public static IFlueFlameGrpcHost BuildGrpcHost(this FlueFlameAspNetBuilder builder, Action<FlueFlameGrpcHostBuilder> configureBuilder)
 	{
-		return new FlueFlameGrpcHost(builder.TestServer, builder.HttpClient, grpcChannelOptions);
+		var grpcHostBuilder = new FlueFlameGrpcHostBuilder(builder.TestServer);
+		configureBuilder(grpcHostBuilder);
+		return grpcHostBuilder.Build();
 	}
 }

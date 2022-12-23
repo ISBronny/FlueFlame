@@ -1,3 +1,4 @@
+using FlueFlame.AspNetCore.Grpc.Modules.BidirectionalStreaming;
 using FlueFlame.AspNetCore.Grpc.Modules.Common;
 using Grpc.Core;
 
@@ -23,13 +24,13 @@ public class ServerStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<TClient
 public class ServerStreamingRpcModule<TClient, TRequest, TResponse> :  ServerStreamingRpcModule<TClient> where TClient : ClientBase<TClient> where TRequest : class where TResponse : class
 {
 	private readonly AsyncServerStreamingCall<TResponse> _streamingCall;
-	private ResponseStreamRpcModule<TClient, TResponse, TRequest> ResponseStream { get; }
+	private BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest> ResponseStream { get; }
 
 	internal ServerStreamingRpcModule(ServerStreamingRpcModule<TClient> module,
 		AsyncServerStreamingCall<TResponse> streamingCall) : base(module)
 	{
 		_streamingCall = streamingCall;
 		ResponseStream =
-			new ResponseStreamRpcModule<TClient, TResponse, TRequest>(Host, Client, _streamingCall.ResponseStream);
+			new BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest>(Host, Client, _streamingCall.ResponseStream);
 	}
 }

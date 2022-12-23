@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using FlueFlame.Http.Host;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -8,24 +9,33 @@ namespace FlueFlame.AspNetCore
 {
     public class FlueFlameAspNetBuilder
     {
-        public readonly HttpClient HttpClient;
+        private List<Action<HttpClient>> _configureClient = new();
+        public HttpClient HttpClient
+        {
+            get
+            {
+                var client = TestServer.CreateClient();
+                foreach (var configure in _configureClient) 
+                    configure(client);
+                return client;
+            }
+        }
         public readonly TestServer TestServer;
 
-        private FlueFlameAspNetBuilder(HttpClient httpClient, TestServer testServer)
+        private FlueFlameAspNetBuilder(TestServer testServer)
         {
-            HttpClient = httpClient;
             TestServer = testServer;
-            TestServer.CreateWebSocketClient();
+            //TestServer.CreateWebSocketClient();
         }
-        
+
         public static FlueFlameAspNetBuilder CreateDefaultBuilder<T>(WebApplicationFactory<T> webApplicationFactory) where T : class
         {
-            return new FlueFlameAspNetBuilder(webApplicationFactory.CreateClient(), webApplicationFactory.Server);
+            return new FlueFlameAspNetBuilder(webApplicationFactory.Server);
         }
 
         public FlueFlameAspNetBuilder ConfigureHttpClient(Action<HttpClient> configure)
         {
-            configure(HttpClient);
+            _configureClient.Add(configure);
             return this;
         }
         

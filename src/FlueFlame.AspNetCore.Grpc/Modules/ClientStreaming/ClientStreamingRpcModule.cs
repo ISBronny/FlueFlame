@@ -29,7 +29,7 @@ public class ClientStreamingRpcModule<TClient, TRequest, TResponse> : ClientStre
 	{
 		get
 		{
-			_streamingCall.RequestStream.CompleteAsync().Wait();
+			_streamingCall.RequestStream.CompleteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 			try
 			{
 				return new RpcResponseModule<TClient, TResponse>(Host, Client, _streamingCall.ResponseAsync.Result);

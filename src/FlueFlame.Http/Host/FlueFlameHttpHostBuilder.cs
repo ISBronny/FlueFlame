@@ -1,11 +1,11 @@
 ﻿using System.Text.Json;
+using FlueFlame.Core.Builders;
 using FlueFlame.Core.Serialization;
 
 namespace FlueFlame.Http.Host;
 
-public class FlueFlameHttpHostBuilder
+public class FlueFlameHttpHostBuilder : FlueFlameHostBuilder<FlueFlameHttpHostBuilder>
 {
-	private HttpClient HttpClient { get; set; } = new();
 	private IXmlSerializer XmlSerializer { get; set; } = new XmlSerializer();
 	private IJsonSerializer JsonSerializer { get; set; } = new TextJsonSerializer();
 	
@@ -27,18 +27,6 @@ public class FlueFlameHttpHostBuilder
 		return this;
 	}
 
-	public FlueFlameHttpHostBuilder UseCustomHttpClient(HttpClient httpClient)
-	{
-		HttpClient = httpClient;
-		return this;
-	}
-	
-	public FlueFlameHttpHostBuilder ConfigureHttpClient(Action<HttpClient> configure)
-	{
-		configure(HttpClient);
-		return this;
-	}
-	
 	public IFlueFlameHttpHost Build()
 	{
 		return new FlueFlameHttpHost(HttpClient, JsonSerializer, XmlSerializer);

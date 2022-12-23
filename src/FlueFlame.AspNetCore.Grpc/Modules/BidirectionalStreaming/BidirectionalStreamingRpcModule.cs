@@ -1,4 +1,3 @@
-using FlueFlame.AspNetCore.Grpc.Modules.Common;
 using Grpc.Core;
 
 namespace FlueFlame.AspNetCore.Grpc.Modules.BidirectionalStreaming;
@@ -17,6 +16,13 @@ public class BidirectionalStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<
 	{
 		var call = action(Client);
 		return new BidirectionalStreamingRpcModule<TClient, TRequest, TResponse>(this, call);
+	}
+	
+	public BidirectionalStreamingRpcModule<TClient, TRequest, TResponse> Call<TRequest, TResponse>(Func<TClient, Task<AsyncDuplexStreamingCall<TRequest, TResponse>>> action) where TRequest : class where TResponse : class
+	{
+		var call = action(Client);
+		call.Wait();
+		return new BidirectionalStreamingRpcModule<TClient, TRequest, TResponse>(this, call.Result);
 	}
 }
 

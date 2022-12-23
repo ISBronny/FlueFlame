@@ -5,7 +5,7 @@ namespace FlueFlame.AspNetCore.Grpc.Modules.BidirectionalStreaming;
 
 public class BidirectionalRequestStreamRpcModule<TClient, TRequest, TResponse> :  RequestStreamRpcModule<TClient, TRequest, TResponse, BidirectionalRequestStreamRpcModule<TClient, TRequest, TResponse>> where TResponse : class where TRequest : class where TClient : ClientBase<TClient>
 {
-	public ResponseStreamRpcModule<TClient, TResponse, TRequest> ResponseStream { get; internal set; }
+	public BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest> ResponseStream { get; internal set; }
 	
 	internal BidirectionalRequestStreamRpcModule(IFlueFlameGrpcHost host,
 		TClient client,

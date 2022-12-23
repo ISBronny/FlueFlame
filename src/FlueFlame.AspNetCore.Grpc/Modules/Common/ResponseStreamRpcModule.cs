@@ -1,9 +1,11 @@
+using FlueFlame.AspNetCore.Grpc.Extensions;
 using FluentAssertions;
 using Grpc.Core;
 
 namespace FlueFlame.AspNetCore.Grpc.Modules.Common;
 
-public class ResponseStreamRpcModule<TClient, TResponse, TRequest> : FlueFlameGrpcModuleBase<TClient> where TResponse : class where TClient : ClientBase<TClient> where TRequest : class
+public class ResponseStreamRpcModule<TClient, TResponse, TRequest, TReturn> : FlueFlameGrpcModuleBase<TClient> where TResponse : class where TClient : ClientBase<TClient> where TRequest : class
+where TReturn : ResponseStreamRpcModule<TClient, TResponse, TRequest, TReturn>
 {
 	private IAsyncStreamReader<TResponse> AsyncStreamReader { get; }
 	private RpcException CurrentException { get; set; }
@@ -17,41 +19,63 @@ public class ResponseStreamRpcModule<TClient, TResponse, TRequest> : FlueFlameGr
 		
 	}
 	
-	public ResponseStreamRpcModule<TClient, TResponse, TRequest> Next()
+	public TReturn Next()
 	{
 		try
 		{
-			AsyncStreamReader.MoveNext().Wait();
+			AsyncStreamReader.MoveNext().GetAwaiter().GetResult();
 		}
 		catch (RpcException e)
 		{
 			CurrentException = e;
 		}
-		
-		return this;
+
+
+		return (TReturn)this;
 	}
 	
-	public ResponseStreamRpcModule<TClient, TResponse, TRequest> AssertCurrent(Action<TResponse> action)
+	public TReturn AssertCurrent(Action<TResponse> action)
 	{
 		action(AsyncStreamReader.Current);
-		return this;
+		return (TReturn)this;
 	}
 	
-	public ResponseStreamRpcModule<TClient, TResponse, TRequest> AssertError(Action<RpcException> action)
+	public TReturn AssertForEach(Action<TResponse> action)
+	{
+		return AssertForEach((response, _ ) => action(response));
+	}
+	
+	public TReturn AssertForEach(Action<TResponse, int> action)
+	{
+
+		Task.Run(async () =>
+		{
+			var i = 0;
+			await foreach (var response in AsyncStreamReader.ReadAllAsync())
+			{
+				action(response, i++);
+			}
+		}).GetAwaiter().GetResult();
+		
+		return (TReturn)this;
+	}
+	
+	public TReturn AssertError(Action<RpcException> action)
 	{
 		action(CurrentException);
-		return this;
+		return (TReturn)this;
 	}
 	
-	public ResponseStreamRpcModule<TClient, TResponse, TRequest> AssertStatus(Action<Status> action)
+	public TReturn AssertStatus(Action<Status> action)
 	{
 		action(CurrentException.Status);
-		return this;
+		return (TReturn)this;
 	}
 	
-	public ResponseStreamRpcModule<TClient, TResponse, TRequest> AssertStatusCode(StatusCode statusCode)
+	public TReturn AssertStatusCode(StatusCode statusCode)
 	{
+		CurrentException.Should().NotBeNull("No error happened");
 		CurrentException.StatusCode.Should().Be(statusCode);
-		return this;
+		return (TReturn)this;
 	}
 }

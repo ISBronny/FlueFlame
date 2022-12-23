@@ -81,12 +81,12 @@ public class GrpcConnectionModule<TClient> : FlueFlameGrpcModuleBase<TClient> wh
 	/// <typeparam name="TRequest">Object type sent in request</typeparam>
 	/// <typeparam name="TResponse">Object type returned in response</typeparam>
 	/// <returns></returns>
-	public GrpcConnectionModule<TClient> BidirectionalStreaming<TRequest, TResponse>(
-		Func<TClient, AsyncDuplexStreamingCall<TRequest, TResponse>> procedure,
-		Func<AsyncDuplexStreamingCall<TRequest, TResponse>, Task> senderAndReceiver)
-	{
-		using var streamingCall = procedure(Client);
-		senderAndReceiver(streamingCall).ConfigureAwait(false).GetAwaiter().GetResult();
-		return this;
-	}
+	// public GrpcConnectionModule<TClient> BidirectionalStreaming<TRequest, TResponse>(
+	// 	Func<TClient, AsyncDuplexStreamingCall<TRequest, TResponse>> procedure,
+	// 	Func<AsyncDuplexStreamingCall<TRequest, TResponse>, Task> senderAndReceiver)
+	// {
+	// 	using var streamingCall = procedure(Client);
+	// 	senderAndReceiver(streamingCall).ConfigureAwait(false).GetAwaiter().GetResult();
+	// 	return this;
+	// }
 }
