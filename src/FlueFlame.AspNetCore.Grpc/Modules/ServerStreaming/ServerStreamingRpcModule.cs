@@ -1,4 +1,6 @@
+using System.Net.Sockets;
 using FlueFlame.AspNetCore.Grpc.Modules.BidirectionalStreaming;
+using FlueFlame.AspNetCore.Grpc.Modules.Common;
 using Grpc.Core;
 
 namespace FlueFlame.AspNetCore.Grpc.Modules.ServerStreaming;
@@ -13,21 +15,28 @@ public class ServerStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<TClient
 	{
 	}
 	
-	public ServerStreamingRpcModule<TClient, TRequest, TResponse> Call<TRequest, TResponse>(Func<TClient, AsyncServerStreamingCall<TResponse>> action) where TRequest : class where TResponse : class
+	public ServerStreamingRpcModule<TClient, TResponse> Call<TResponse>(Func<TClient, AsyncServerStreamingCall<TResponse>> action) where TResponse : class
 	{
 		var streamingCall = action(Client);
-		return new ServerStreamingRpcModule<TClient, TRequest, TResponse>(this, streamingCall);
+		return new ServerStreamingRpcModule<TClient, TResponse>(this, streamingCall);
 	}
 }
 
-public class ServerStreamingRpcModule<TClient, TRequest, TResponse> :  ServerStreamingRpcModule<TClient> where TClient : ClientBase<TClient> where TRequest : class where TResponse : class
+public class ServerStreamingRpcModule<TClient, TResponse> :  ServerStreamingRpcModule<TClient> where TClient : ClientBase<TClient> where TResponse : class
 {
-	private BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest> ResponseStream { get; }
+	public ServerStreamingResponseRpcModule<TClient, TResponse> ResponseStream { get; }
 
 	internal ServerStreamingRpcModule(ServerStreamingRpcModule<TClient> module,
 		AsyncServerStreamingCall<TResponse> streamingCall) : base(module)
 	{
 		ResponseStream =
-			new BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest>(Host, Client, streamingCall.ResponseStream);
+			new ServerStreamingResponseRpcModule<TClient, TResponse>(Host, Client, streamingCall.ResponseStream);
+	}
+}
+
+public class ServerStreamingResponseRpcModule<TClient, TResponse> : ResponseStreamRpcModule<TClient, TResponse,  ServerStreamingResponseRpcModule<TClient, TResponse>> where TClient : ClientBase<TClient> where TResponse : class
+{
+	internal ServerStreamingResponseRpcModule(IFlueFlameGrpcHost host, TClient client, IAsyncStreamReader<TResponse> asyncStreamReader) : base(host, client, asyncStreamReader)
+	{
 	}
 }

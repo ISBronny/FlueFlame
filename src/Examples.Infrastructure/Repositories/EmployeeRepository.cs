@@ -27,7 +27,12 @@ public class EmployeeRepository : IEmployeeRepository
     {
         return await _context.Employees.SingleOrDefaultAsync(x => x.Guid == id);
     }
-    
+
+    public async Task<List<Employee>> GetByAge(int from, int to)
+    {
+        return await _context.Employees.Where(x => x.Age >= from && x.Age <= to).ToListAsync();
+    }
+
     public async Task<Employee> GetByFullName(string fullname)
     {
         return await _context.Employees.SingleOrDefaultAsync(x => x.FullName == fullname);

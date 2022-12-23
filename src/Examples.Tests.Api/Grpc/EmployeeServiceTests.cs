@@ -1,11 +1,8 @@
-using System.Net;
 using Examples.Grpc;
 using Examples.Tests.Api.TestDataBuilders;
 using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Grpc.Net.Client;
-using Microsoft.AspNetCore.TestHost;
 
 namespace Examples.Tests.Api.Grpc;
 
@@ -113,6 +110,54 @@ public class EmployeeServiceTests : IntegrationTestBase
 				.ResponseStream
 					.Next()
 					.AssertStatusCode(StatusCode.NotFound);
+	}
+	
+	[Fact]
+	public void GetByAge_ExistsMatch_ReturnsEmployees()
+	{
+		var employees = Enumerable.Range(30, 30)
+			.Select(age => new EmployeeTestDataBuilder(EmployeeContext)
+				.WithAge(age)
+				.Build(saveInDb: true))
+			.Select(e=>e.ToGrpcModel())
+			.ToList();
+
+		GrpcHost
+			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.ServerStreaming
+			.Call(x=>x.GetByAge(new AgeRangeRequest { From = 35, To = 38}))
+				.ResponseStream
+				.AssertForEach(e=>e.Age.Should().BeInRange(30, 38));
+	}
+	
+	[Fact]
+	public void GetByAge_EmptyMatch_ReturnsEmployees()
+	{
+		var employees = Enumerable.Range(30, 10)
+			.Select(age => new EmployeeTestDataBuilder(EmployeeContext)
+				.WithAge(age)
+				.Build(saveInDb: true))
+			.Select(e=>e.ToGrpcModel())
+			.ToList();
+
+		GrpcHost
+			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.ServerStreaming
+			.Call(x=>x.GetByAge(new AgeRangeRequest { From = 45, To = 55}))
+				.ResponseStream
+				.AssertEndOfStream();
+	}
+	
+	[Fact]
+	public void GetByAge_FromGreaterThanTo_ReturnsInvalidArguments()
+	{
+		GrpcHost
+			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.ServerStreaming
+				.Call(x=>x.GetByAge(new AgeRangeRequest { From = 90, To = 10}))
+				.ResponseStream
+					.Next()
+					.AssertStatusCode(StatusCode.InvalidArgument);
 	}
 }
 

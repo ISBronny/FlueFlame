@@ -4,7 +4,7 @@ using Grpc.Core;
 namespace FlueFlame.AspNetCore.Grpc.Modules.BidirectionalStreaming;
 
 public class BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest>
-	: ResponseStreamRpcModule<TClient, TResponse, TRequest, BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest>>
+	: ResponseStreamRpcModule<TClient, TResponse, BidirectionalResponseStreamRpcModule<TClient, TResponse, TRequest>>
 	where TClient : ClientBase<TClient>
 	where TResponse : class
 	where TRequest : class

@@ -53,9 +53,12 @@ public class EmployeeService : Grpc.EmployeeService.EmployeeServiceBase
 		};
 	}
 
-	public override Task GetByAge(AgeRangeRequest request, IServerStreamWriter<Employee> responseStream, ServerCallContext context)
+	public override async Task GetByAge(AgeRangeRequest request, IServerStreamWriter<Employee> responseStream, ServerCallContext context)
 	{
-		return base.GetByAge(request, responseStream, context);
+		if (request.From > request.To)
+			throw new RpcException(new Status(StatusCode.InvalidArgument, "From can't be greater than To"));
+		foreach (var employee in await _employeeRepository.GetByAge(request.From, request.To))
+			await responseStream.WriteAsync(MapModel(employee));
 	}
 
 	private Employee MapModel(Domain.Models.Employee employee)

@@ -3,8 +3,8 @@ using Grpc.Core;
 
 namespace FlueFlame.AspNetCore.Grpc.Modules.Common;
 
-public class ResponseStreamRpcModule<TClient, TResponse, TRequest, TReturn> : FlueFlameGrpcModuleBase<TClient> where TResponse : class where TClient : ClientBase<TClient> where TRequest : class
-where TReturn : ResponseStreamRpcModule<TClient, TResponse, TRequest, TReturn>
+public class ResponseStreamRpcModule<TClient, TResponse, TReturn> : FlueFlameGrpcModuleBase<TClient> where TResponse : class where TClient : ClientBase<TClient>
+where TReturn : ResponseStreamRpcModule<TClient, TResponse, TReturn>
 {
 	private IAsyncStreamReader<TResponse> AsyncStreamReader { get; }
 	private RpcException CurrentException { get; set; }
@@ -23,6 +23,21 @@ where TReturn : ResponseStreamRpcModule<TClient, TResponse, TRequest, TReturn>
 		try
 		{
 			AsyncStreamReader.MoveNext().GetAwaiter().GetResult();
+		}
+		catch (RpcException e)
+		{
+			CurrentException = e;
+		}
+
+
+		return (TReturn)this;
+	}
+	
+	public TReturn AssertEndOfStream()
+	{
+		try
+		{
+			AsyncStreamReader.MoveNext().GetAwaiter().GetResult().Should().BeFalse();
 		}
 		catch (RpcException e)
 		{
