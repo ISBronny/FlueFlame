@@ -36,10 +36,7 @@ public class TestBase
             b.UseTextJsonSerializer();
         });
 
-        Grpc = builder.BuildGrpcHost(new GrpcChannelOptions()
-        {
-            MaxRetryAttempts = 5
-        });
+        Grpc = builder.BuildGrpcHost();
 
         SignalR = builder.BuildSignalRHost();
     }
