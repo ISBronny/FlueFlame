@@ -8,6 +8,7 @@ using FlueFlame.AspNetCore.Grpc;
 using FlueFlame.Http.Host;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +20,7 @@ public abstract class IntegrationTestBase : IDisposable
 	protected IFlueFlameHttpHost HttpHost { get; }
 	protected IFlueFlameGrpcHost GrpcHost { get; }
 	protected IServiceProvider ServiceProvider { get; }
+	protected TestServer TestServer { get; }
 	protected EmployeeContext EmployeeContext => ServiceProvider.CreateScope().ServiceProvider.GetRequiredService<EmployeeContext>();
 
 	protected IntegrationTestBase()
@@ -40,24 +42,45 @@ public abstract class IntegrationTestBase : IDisposable
 				});
 			});
 
+		TestServer = webApp.Server;
 		ServiceProvider = webApp.Services;
 
-		var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp);
+		var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp)
+			.ConfigureHttpClient(c =>
+			{
+				//Configure HttpClient for all FlueFlame hosts such as HttpHost, GrpcHost, SignalRHost...
+				
+				//Add JWT token to default request headers
+				c.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
+			});
 
-		// HttpHost = builder.BuildHttpHost(b =>
-		// {
-		// 	//Use System.Text.Json serializer
-		// 	b.UseTextJsonSerializer();
-		// 	b.ConfigureHttpClient(client =>
-		// 	{
-		// 		//Add JWT token to default request headers
-		// 		//client.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
-		// 	});
-		// });
-
-		GrpcHost = builder.BuildGrpcHost(new GrpcChannelOptions()
+		HttpHost = builder.BuildHttpHost(b =>
 		{
-			MaxRetryAttempts = 5
+			//Use System.Text.Json serializer
+			b.UseTextJsonSerializer();
+			
+			//Configure HttpClient only for FlueFlameHttpHost
+			b.ConfigureHttpClient(client =>
+			{
+				
+			});
+		});
+		
+		GrpcHost = builder.BuildGrpcHost(b =>
+		{
+			//Configure FlueFlameGrpcHost here
+			
+			//Configure HttpClient only for FlueFlameGrpcHost
+			b.ConfigureHttpClient(client =>
+			{
+
+			});
+
+			//Use custom GrpcChannelOptions
+			b.UseCustomGrpcChannelOptions(new GrpcChannelOptions()
+			{
+				MaxRetryAttempts = 1
+			});
 		});
 	}
 

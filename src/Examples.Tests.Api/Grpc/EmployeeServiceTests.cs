@@ -4,6 +4,8 @@ using Examples.Tests.Api.TestDataBuilders;
 using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Grpc.Net.Client;
+using Microsoft.AspNetCore.TestHost;
 
 namespace Examples.Tests.Api.Grpc;
 
@@ -71,31 +73,47 @@ public class EmployeeServiceTests : IntegrationTestBase
 				.Response
 					.AssertStatusCode(StatusCode.AlreadyExists);
 	}
-	//
-	// [Fact]
-	// public void GetByIdTest_DoesNotExists_ReturnsEmployee2()
-	// {
-	// 	var employee = new EmployeeTestDataBuilder(EmployeeContext)
-	// 		.Build();
-	// 	
-	// 	GrpcHost
-	// 		.CreateConnection<EmployeeService.EmployeeServiceClient>()
-	// 		.BidirectionalStreaming(
-	// 			client => client.GetByIds(),
-	// 			async duplex =>
-	// 			{
-	// 				await duplex.RequestStream.WriteAsync(employee.Guid.ToGrpcModel());
-	// 				await duplex.RequestStream.WriteAsync(RandomGuidRequest);
-	// 				await duplex.RequestStream.CompleteAsync();
-	// 				await duplex.ResponseStream.MoveNext();
-	// 				duplex.ResponseStream.Current.Guid.Should().Be(employee.Guid.ToString());
-	// 				await FluentActions.Awaiting(async () => await duplex.ResponseStream.MoveNext())
-	// 					.Should()
-	// 					.ThrowAsync<RpcException>();
-	//
-	// 			}
-	// 		);
-	// }
+	
+	[Fact]
+	public void GetByIds_Exists_ReturnsEmployees()
+	{
+		var employees = Enumerable.Range(0, 10)
+			.Select(_ => new EmployeeTestDataBuilder(EmployeeContext).Build(saveInDb: true))
+			.ToList();
+
+		GrpcHost
+			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.Bidirectional
+			.Call(x=>x.GetByIds())
+				.RequestStream
+					.WriteMany(employees.Select(e=>e.Guid.ToGrpcModel()))
+					.Complete()
+				.ResponseStream
+					.AssertForEach((resp, i) => resp.FullName.Should().Be(employees[i].FullName));
+	}
+
+	[Fact]
+	public void GetByIds_SecondDoesNotExists_ReturnsNotFound()
+	{
+		var employee = new EmployeeTestDataBuilder(EmployeeContext)
+			.Build();
+
+		GrpcHost
+			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.Bidirectional
+			.Call(x=>x.GetByIds())
+				.RequestStream
+					.Write(employee.Guid.ToGrpcModel())
+					.Write(RandomGuidRequest)
+				.ResponseStream
+					.Next()
+					.AssertCurrent(resp=>resp.FullName.Should().Be(employee.FullName))
+				.RequestStream
+					.Write(RandomGuidRequest)
+				.ResponseStream
+					.Next()
+					.AssertStatusCode(StatusCode.NotFound);
+	}
 }
 
 public static class GrpcExtensions
