@@ -10,8 +10,7 @@ The `Response` property is used to access the response. `Response` contains meth
 [Test]
 public void GetReturnsOk()
 {
-    Application
-        .Http.Get
+    HttpHost.Get
         .Url("/api/employee/all")
         .Send()
         .Response
@@ -28,8 +27,7 @@ To check the body, use the `AsJson`, `AsXml` or `AsText` properties. They indica
 [Test]
 public void GetWithQueryReturnsOk()
 {
-    Application
-        .Http.Get
+    HttpHost.Get
         .Url("/api/employee/older-than")
         .AddQuery("olderThan", 45)
         .Send()
@@ -50,8 +48,7 @@ You can also copy the deserialized object for further work with it using the `Co
 [Test]
 public void GetWithQueryReturnsOk()
 {
-    Application
-        .Http.Get
+    HttpHost.Get
         .Url("/api/employee/older-than")
         .AddQuery("olderThan", 45)
         .Send()

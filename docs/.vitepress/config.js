@@ -14,41 +14,42 @@ export default {
                 text: 'Introduction',
                 collapsible: true,
                 items: [
-                    { text: 'Introduction', link: '/introduction/intro' },
-                    { text: 'Getting Started', link: '/introduction/getting-started' }
+                    { text: 'What is it?', link: '/introduction/what-is-it' },
+                    { text: 'Getting Started', link: '/introduction/getting-started' },
+                    { text: 'Architecture', link: '/introduction/architecture' },
                 ]
             },
             {
                 text: 'REST',
                 collapsible: true,
                 items: [
-                    { text: 'Basics', link: '/rest/basic' },
-                    { text: 'Request with body', link: '/rest/body' },
+                    { text: 'Getting Started', link: '/rest/getting-started' },
+                    { text: 'Configuration', link: '/rest/configuration' },
+                    { text: 'ASP.NET Core Integration', link: '/rest/asp-net' },
+                    { text: 'Sending requests', link: '/rest/send' },
                     { text: 'Authorization', link: '/rest/auth' },
                     { text: 'Testing response', link: '/rest/response' }
-                ]
-            },
-            {
-                text: 'SignalR',
-                collapsible: true,
-                items: [
-                    { text: 'Basics', link: '/signalr/basic' }
                 ]
             },
             {
                 text: 'gRPC',
                 collapsible: true,
                 items: [
-                    { text: 'Basics', link: '/grpc/basic' }
+                    { text: 'Getting Started', link: '/grpc/basic' },
+                    { text: 'Configuring gRPC', link: '/grpc/basic' },
+                    { text: 'Unary RPC', link: '/grpc/basic' },
+                    { text: 'Server streaming RPC', link: '/grpc/basic' },
+                    { text: 'Client streaming RPC', link: '/grpc/basic' },
+                    { text: 'Bidirectional streaming RPC', link: '/grpc/basic' },
+                    { text: 'RPC Errors', link: '/grpc/basic' },
+                    { text: 'Authorization', link: '/grpc/basic' },
                 ]
             },
             {
-                text: 'Best practices ',
+                text: 'SignalR',
                 collapsible: true,
                 items: [
-                    { text: 'Extension methods', link: '/best/ext_methods' },
-                    { text: 'Test Data', link: '/best/test_data' },
-                    { text: 'Infrastructure setting', link: '/best/infrastructure' }
+                    { text: 'Getting Started', link: '/signalr/basic' }
                 ]
             }
         ],
