@@ -2,7 +2,7 @@
 
 namespace Examples.Tests.Api.Controllers.Employees;
 
-public class AuthorizationEmployeeControllerTests : IntegrationTestBase
+public class AuthorizationEmployeeControllerTests : TestBase
 {
 	[Fact]
 	public void Admin_HaveAccess()

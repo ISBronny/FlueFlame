@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace FlueFlame.Serialization.Newtonsoft
 {
-    internal class NewtonsoftJsonSerializer : IJsonSerializer
+    public class NewtonsoftJsonSerializer : IJsonSerializer
     {
         private readonly JsonSerializerSettings _settings;
         public NewtonsoftJsonSerializer(JsonSerializerSettings settings = null)

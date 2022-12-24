@@ -15,7 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Examples.Tests.Api;
 
-public abstract class IntegrationTestBase : IDisposable
+public abstract class TestBase : IDisposable
 {
 	protected IFlueFlameHttpHost HttpHost { get; }
 	protected IFlueFlameGrpcHost GrpcHost { get; }
@@ -23,7 +23,7 @@ public abstract class IntegrationTestBase : IDisposable
 	protected TestServer TestServer { get; }
 	protected EmployeeContext EmployeeContext => ServiceProvider.CreateScope().ServiceProvider.GetRequiredService<EmployeeContext>();
 
-	protected IntegrationTestBase()
+	protected TestBase()
 	{
 		var webApp = new WebApplicationFactory<Program>()
 			.WithWebHostBuilder(builder =>
@@ -34,10 +34,13 @@ public abstract class IntegrationTestBase : IDisposable
 					var dbContextDescriptor = services.SingleOrDefault(
 						d => d.ServiceType ==
 						     typeof(DbContextOptions<EmployeeContext>));
-
+					
 					services.Remove(dbContextDescriptor);
 
+					//Unique Database name for each test.
 					var dbName = $"Employee_{Guid.NewGuid()}";
+					
+					//Use InMemory Database
 					services.AddDbContext<EmployeeContext>(x => x.UseInMemoryDatabase(dbName));
 				});
 			});

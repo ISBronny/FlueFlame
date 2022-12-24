@@ -5,7 +5,7 @@ using FluentAssertions;
 
 namespace Examples.Tests.Api.Controllers.Employees;
 
-public class EmployeeControllerTests : IntegrationTestBase
+public class EmployeeControllerTests : TestBase
 {
 	[Fact]
 	public void GetByIdTest_Exists_ReturnsEmployee()

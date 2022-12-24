@@ -12,7 +12,7 @@ namespace FlueFlame.Http.Modules
         private HttpResponseMessage HttpResponse { get; }
         internal HttpResponseModule(IFlueFlameHttpHost application, HttpResponseMessage httpResponse) : base(application)
         {
-            HttpResponse = httpResponse;
+            HttpResponse = httpResponse ?? throw new ArgumentNullException(nameof(httpResponse), "Check if you have sent a request?");
         }
 
 

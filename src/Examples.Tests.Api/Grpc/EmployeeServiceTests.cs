@@ -6,7 +6,7 @@ using Grpc.Core;
 
 namespace Examples.Tests.Api.Grpc;
 
-public class EmployeeServiceTests : IntegrationTestBase
+public class EmployeeServiceTests : TestBase
 {
 	private StringValue RandomGuidRequest => new() { Value = Guid.NewGuid().ToString() };
 

@@ -8,7 +8,7 @@ public interface IFlueFlameHttpHost : IFlueFlameHost
 {
 	internal IJsonSerializer JsonSerializer { get; set; }
 	internal IXmlSerializer XmlSerializer { get; set; }
-	public HttpClient HttpClient { get; }
+	internal HttpClient HttpClient { get; }
 	
 	public HttpModule Delete { get; }
 	public HttpModule Get { get; }
