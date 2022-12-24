@@ -14,6 +14,12 @@ public class ServerStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<TClient
 	{
 	}
 	
+	/// <summary>
+	/// Call Server streaming RPC
+	/// </summary>
+	/// <param name="action">A function that calls Server streaming RPC method</param>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
+	/// <returns></returns>
 	public ServerStreamingRpcModule<TClient, TResponse> Call<TResponse>(Func<TClient, AsyncServerStreamingCall<TResponse>> action) where TResponse : class
 	{
 		var streamingCall = action(Client);

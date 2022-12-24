@@ -22,27 +22,35 @@ public class FlueFlameGrpcHost : IFlueFlameGrpcHost
 		DefaultChannelOptions = grpcDefaultChannelOptions;
 	}
 
-	/// <summary>
-	/// Create gRPC connection
-	/// </summary>
-	/// <param name="options">Grpc Channel Options</param>
-	/// <typeparam name="T">Type of gRPC Client</typeparam>
-	/// <returns></returns>
-	public GrpcConnectionModule<T> CreateConnection<T>(GrpcChannelOptions options = null) where T : ClientBase<T>
+	/// <inheritdoc />
+	public GrpcFacadeModule<T> CreateConnection<T>()
+		where T : ClientBase<T>
 	{
-		options ??= DefaultChannelOptions;
+		var options = DefaultChannelOptions;
 		options.HttpClient ??= HttpClient ?? TestServer.CreateClient();
-		var channel = GrpcChannel.ForAddress(
-			(options.Credentials == null ? "http" : "https") + $"://{TestServer.BaseAddress.Host}", options);
-		var client = (T)Activator.CreateInstance(typeof(T), channel);
-		return new GrpcConnectionModule<T>(this, client);
+		return CreateConnection<T>(options);
+
 	}
 	
-	/// <summary>
-	/// Sets JWT token header for authentication.
-	/// </summary>
-	/// <param name="token">JWT Token</param>
-	/// <returns></returns>
+	/// <inheritdoc />
+	public GrpcFacadeModule<T> CreateConnection<T>(GrpcChannelOptions options)
+		where T : ClientBase<T>
+	{
+		options.HttpClient ??= HttpClient ?? TestServer.CreateClient();
+		var grpcChannel = GrpcChannel.ForAddress(
+			(options.Credentials == null ? "http" : "https") + $"://{TestServer.BaseAddress.Host}", options);
+		return CreateConnection<T>(grpcChannel);
+	}
+	
+	/// <inheritdoc />
+	public GrpcFacadeModule<T> CreateConnection<T>(GrpcChannel grpcChannel)
+		where T : ClientBase<T>
+	{
+		var client = (T)Activator.CreateInstance(typeof(T), grpcChannel);
+		return new GrpcFacadeModule<T>(this, client);
+	}
+	
+	/// <inheritdoc />
 	public FlueFlameGrpcHost UseJwtToken(string token)
 	{
 		DefaultChannelOptions.Credentials = ChannelCredentials.Create(new SslCredentials(),

@@ -14,6 +14,12 @@ public class UnaryRpcModule<TClient> : FlueFlameGrpcModuleBase<TClient> where TC
 		
 	}
 
+	/// <summary>
+	/// Call Unary RPC
+	/// </summary>
+	/// <param name="action">A function that calls Unary RPC client method</param>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
+	/// <returns></returns>
 	public UnaryRpcModule<TClient, TResponse> Call<TResponse>(Func<TClient, TResponse> action)
 	{
 		try

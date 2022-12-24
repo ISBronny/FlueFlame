@@ -12,7 +12,14 @@ public class ClientStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<TClient
 	internal ClientStreamingRpcModule(ClientStreamingRpcModule<TClient> module) : this(module.Host, module.Client)
 	{
 	}
-	
+
+	/// <summary>
+	/// Call Client streaming RPC
+	/// </summary>
+	/// <param name="action">A function that calls Client streaming RPC method</param>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
+	/// <typeparam name="TRequest">Object type sent in request</typeparam>
+	/// <returns></returns>
 	public ClientStreamingRpcModule<TClient, TRequest, TResponse> Call<TRequest, TResponse>(Func<TClient, AsyncClientStreamingCall<TRequest, TResponse>> action) where TRequest : class where TResponse : class
 	{
 		var streamingCall = action(Client);

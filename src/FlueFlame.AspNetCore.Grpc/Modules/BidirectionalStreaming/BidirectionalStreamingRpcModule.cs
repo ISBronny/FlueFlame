@@ -12,17 +12,17 @@ public class BidirectionalStreamingRpcModule<TClient> : FlueFlameGrpcModuleBase<
 	{
 	}
 	
+	/// <summary>
+	/// Call Bidirectional streaming RPC
+	/// </summary>
+	/// <param name="action">A function that calls Bidirectional streaming RPC method</param>
+	/// <typeparam name="TResponse">Object type returned in response</typeparam>
+	/// <typeparam name="TRequest">Object type sent in request</typeparam>
+	/// <returns></returns>
 	public BidirectionalStreamingRpcModule<TClient, TRequest, TResponse> Call<TRequest, TResponse>(Func<TClient, AsyncDuplexStreamingCall<TRequest, TResponse>> action) where TRequest : class where TResponse : class
 	{
 		var call = action(Client);
 		return new BidirectionalStreamingRpcModule<TClient, TRequest, TResponse>(this, call);
-	}
-	
-	public BidirectionalStreamingRpcModule<TClient, TRequest, TResponse> Call<TRequest, TResponse>(Func<TClient, Task<AsyncDuplexStreamingCall<TRequest, TResponse>>> action) where TRequest : class where TResponse : class
-	{
-		var call = action(Client);
-		call.Wait();
-		return new BidirectionalStreamingRpcModule<TClient, TRequest, TResponse>(this, call.Result);
 	}
 }
 
