@@ -47,7 +47,7 @@ By default `FlueFlame` uses `System.Text.Json.JsonSerializer` and `System.Xml.Se
 
 It may be more convenient for you to use a different serializer.
 
-For example, to use Newtonsoft.Json you can install the [FlueFlame.Serialization.Newtonsoft]() package:
+For example, to use Newtonsoft.Json you can install the [FlueFlame.Serialization.Newtonsoft](https://www.nuget.org/packages/FlueFlame.Serialization.Newtonsoft) package:
 
 ```csharp
 var host = new FlueFlameHttpHostBuilder()

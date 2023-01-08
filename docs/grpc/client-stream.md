@@ -72,7 +72,7 @@ GrpcHost
 Don't forget to close the stream by calling the `Complete()` method.
 :::
 
-Проверим, что нам пришли верные Guid:
+Let's check that we received the correct Guid:
 
 ```csharp
 GrpcHost

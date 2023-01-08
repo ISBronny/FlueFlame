@@ -69,7 +69,7 @@ public void GetWithQueryReturnsOk()
 }
 ```
 
-## Reqyest with body
+## Request with body
 
 We have an `Create` action in our `EmployeeController` that adds a new employee to the database:
 

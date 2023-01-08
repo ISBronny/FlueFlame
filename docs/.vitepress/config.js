@@ -8,7 +8,7 @@ export default {
     cleanUrls: 'without-subfolders',
 
     themeConfig: {
-        logo: '/FlueFlameLogo.svg',
+        logo: '/favicon-32x32.png',
         sidebar: [
             {
                 text: 'Introduction',
@@ -16,7 +16,6 @@ export default {
                 items: [
                     { text: 'What is it?', link: '/introduction/what-is-it' },
                     { text: 'Getting Started', link: '/introduction/getting-started' },
-                    { text: 'Architecture', link: '/introduction/architecture' },
                 ]
             },
             {
@@ -45,13 +44,6 @@ export default {
                     { text: 'Authorization', link: '/grpc/auth' },
                 ]
             },
-            {
-                text: 'SignalR',
-                collapsible: true,
-                items: [
-                    { text: 'Getting Started', link: '/signalr/basic' }
-                ]
-            }
         ],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/ISBronny/FlueFlame' }

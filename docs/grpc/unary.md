@@ -23,7 +23,7 @@ message Employee {
 
 ## Create Client
 
-Для начала нужно создать клиент:
+First you need to create a client:
 
 ```csharp
 GrpcHost
