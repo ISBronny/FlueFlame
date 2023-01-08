@@ -9,10 +9,10 @@
   <a href="https://github.com/ISBronny/FlueFlame/issues">
     <img src="https://img.shields.io/github/issues/ISBronny/FlueFlame?style=for-the-badge" alt="Issues Count" />
   </a>  
-  <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
+  <a href="https://www.nuget.org/packages/FlueFlame.Core/">
     <img src="https://img.shields.io/nuget/dt/FlueFlame.Core?style=for-the-badge" alt="Downloads" />
   </a>
-  <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
+  <a href="https://www.nuget.org/packages/FlueFlame.Core/">
     <img src="https://img.shields.io/nuget/v/FlueFlame.Core?style=for-the-badge" alt="Version" />
   </a>
 
