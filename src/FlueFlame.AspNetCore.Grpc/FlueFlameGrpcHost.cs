@@ -49,21 +49,5 @@ public class FlueFlameGrpcHost : IFlueFlameGrpcHost
 		var client = (T)Activator.CreateInstance(typeof(T), grpcChannel);
 		return new GrpcFacadeModule<T>(this, client);
 	}
-	
-	/// <inheritdoc />
-	public FlueFlameGrpcHost UseJwtToken(string token)
-	{
-		DefaultChannelOptions.Credentials = ChannelCredentials.Create(new SslCredentials(),
-			CallCredentials.FromInterceptor((_, metadata) =>
-			{
-				if (!string.IsNullOrEmpty(token))
-				{
-					metadata.Add("Authorization", $"Bearer {token}");
-				}
-
-				return Task.CompletedTask;
-			}));
-		return this;
-	}
 
 }

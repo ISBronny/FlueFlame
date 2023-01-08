@@ -3,9 +3,11 @@ using Examples.Infrastructure.Repositories;
 using Google.Protobuf.Collections;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Examples.Api.Services;
 
+[Authorize]
 public class EmployeeService : Grpc.EmployeeService.EmployeeServiceBase
 {
 	private readonly IEmployeeRepository _employeeRepository;

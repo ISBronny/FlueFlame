@@ -6,6 +6,7 @@ using Examples.Api;
 using FlueFlame.AspNetCore;
 using FlueFlame.AspNetCore.Grpc;
 using FlueFlame.Http.Host;
+using Grpc.Core;
 using Grpc.Net.Client;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -77,13 +78,19 @@ public abstract class TestBase : IDisposable
 			//Configure HttpClient only for FlueFlameGrpcHost
 			b.ConfigureHttpClient(client =>
 			{
-				client.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
+				//client.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
 			});
 
 			//Use custom GrpcChannelOptions
 			b.UseCustomGrpcChannelOptions(new GrpcChannelOptions()
 			{
-				MaxRetryAttempts = 1
+				MaxRetryAttempts = 1,
+				Credentials = ChannelCredentials.Create(new SslCredentials(),
+					CallCredentials.FromInterceptor((context, metadata) =>
+					{
+						metadata.Add("Authorization", $"Bearer {GetJwtToken()}");
+						return Task.CompletedTask;
+					}))
 			});
 		});
 	}

@@ -7,12 +7,12 @@ namespace FlueFlame.AspNetCore.Grpc;
 public class FlueFlameGrpcHostBuilder : FlueFlameHostBuilder<FlueFlameGrpcHostBuilder>
 {
 	private TestServer TestServer { get; }
-	private GrpcChannelOptions GrpcChannelOptions { get; set; }
+	private GrpcChannelOptions GrpcChannelOptions { get; set; } = new();
 
-	public FlueFlameGrpcHostBuilder(TestServer testServer)
+	public FlueFlameGrpcHostBuilder(TestServer testServer, HttpClient httpClient = null)
 	{
 		TestServer = testServer;
-		HttpClient = TestServer.CreateClient();
+		HttpClient = httpClient ?? TestServer.CreateClient();
 		TestServer.CreateWebSocketClient();
 	}
 

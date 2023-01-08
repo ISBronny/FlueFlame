@@ -42,6 +42,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseHttpsRedirection();
+
 #pragma warning disable ASP0014
 app.UseEndpoints(b =>
 {

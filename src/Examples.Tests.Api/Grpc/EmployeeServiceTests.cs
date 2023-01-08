@@ -133,12 +133,13 @@ public class EmployeeServiceTests : TestBase
 	[Fact]
 	public void GetByAge_EmptyMatch_ReturnsEmployees()
 	{
-		var employees = Enumerable.Range(30, 10)
+		Enumerable.Range(30, 10)
 			.Select(age => new EmployeeTestDataBuilder(EmployeeContext)
 				.WithAge(age)
 				.Build(saveInDb: true))
-			.Select(e=>e.ToGrpcModel())
-			.ToList();
+			.Select(e => e.ToGrpcModel())
+			// ReSharper disable once ReturnValueOfPureMethodIsNotUsed
+			.ToArray();
 
 		GrpcHost
 			.CreateClient<EmployeeService.EmployeeServiceClient>()
