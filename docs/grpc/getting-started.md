@@ -1,13 +1,13 @@
 # Getting started
 
-FlueFlame предоставляет удобный интерфейс для тестирования всех видов запросов gRPC. Для этого он будет использовать ваш protobuf файл и генинровать сnандартный клиент [Grpc.Net.Clinet](https://www.nuget.org/packages/Grpc.Net.Client).
+FlueFlame provides a convenient interface for testing all kinds of gRPC requests. To do this, it will use your protobuf file and generate the standard client [Grpc.Net.Clinet](https://www.nuget.org/packages/Grpc.Net.Client).
 
-## Настройка проекта
+## Project setup
 
-Полный пример кода из этой документации можно посмотреть в GitHub [репозитории]().
-У насть есть проект Examples.Api с реализацией gRPC сервера на основе ASP.NET и тестовый проект  Examples.Tests.Api.
+You can view the complete code sample from this documentation in the GitHub [repositories]().
+We have an `Examples.Api` project with an ASP.NET-based gRPC server implementation and an `Examples.Tests.Api` test project.
 
-Для начала нужно добавить в тестовый проект все зависимости для генерации клиента, как в официальной [документации](https://learn.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-7.0&tabs=visual-studio-code#add-required-nuget-packages):
+First you need to add to the test project all the dependencies for generating the client, as in the official [documentation](https://learn.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore- 7.0&tabs=visual-studio-code#add-required-nuget-packages):
 
 ```
 dotnet add Examples.Tests.Api.csproj package Grpc.Net.Client
@@ -15,7 +15,7 @@ dotnet add Examples.Tests.Api.csproj package Google.Protobuf
 dotnet add Examples.Tests.Api.csproj package Grpc.Tools
 ```
 
-Затем добавить ссылку на protobuf файл в `Examples.Tests.Api.csproj`:
+Then add a link to the protobuf file in `Examples.Tests.Api.csproj`:
 
 ```
 <ItemGroup>
@@ -24,8 +24,8 @@ dotnet add Examples.Tests.Api.csproj package Grpc.Tools
 ```
 
 
-`IFlueFlameGrpcHost` создаётся [по аналогии](/rest/configuration) с `IFlueFlameHttpHost`.
-Добавьте в ваш TestBase класс строки:
+`IFlueFlameGrpcHost` is created [similarly](/rest/configuration) to `IFlueFlameHttpHost`.
+Add to your TestBase the line class:
 
 ```csharp
 public abstract class TestBase : IDisposable
@@ -46,7 +46,7 @@ public abstract class TestBase : IDisposable
 
 ```
 
-## Простой тест
+## Simple test
 
 В protobuf файле описан RPC получения сотрудника по его ID:
 
@@ -70,10 +70,10 @@ message Employee {
 ```
 
 :::tip
-gRPC не поддерживаент использование скалярных типов, таких как `string` для описания аргументов RPC. Поэтому мы будем использовать врапперы, такие как google.protobuf.StringValue.
+gRPC does not support the use of scalar types such as `string` to describe RPC arguments. Therefore, we will use wrappers such as google.protobuf.StringValue.
 :::
 
-Напишем тест, который вызывает метод `GetById` и проряет, что вернулся объектв с правильным ID:
+Let's write a test that calls the `GetById` method and checks that an object with the correct ID has returned:
 
 ```csharp
 public class EmployeeServiceTests : TestBase
@@ -96,4 +96,4 @@ public class EmployeeServiceTests : TestBase
 
 ```
 
-В дженерик методе CreateConnection вам нужно указать класс сгенерированного клиента. Обратите внимание, что класс клиента `EmployeeServiceClient` вложен в класс `EmployeeService`.
+In the Generic CreateConnection method, you need to specify the class of the generated client. Note that the `EmployeeServiceClient` client class is nested within the `EmployeeService` class.

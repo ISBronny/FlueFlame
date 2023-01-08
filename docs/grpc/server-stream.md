@@ -1,6 +1,6 @@
 # Server streaming RPC
 
-У нас есть protobuf файл c определённым Server streaming RPC `GetByAge`. Он возвращает поток сотрудников определённого возраста:
+We have a protobuf file with Server streaming RPC `GetByAge` defined. It returns a stream of employees of a certain age:
 
 ```
 syntax = "proto3";
@@ -26,7 +26,7 @@ message AgeRangeRequest {
 
 ## Call Server streaming RPC
 
-Получим сотрудников в возрасте от 35 до 38:
+Let's get employees aged 35 to 38:
 
 ```csharp
 GrpcHost
@@ -35,7 +35,7 @@ GrpcHost
 	    .Call(x=>x.GetByAge(new AgeRangeRequest { From = 35, To = 38}))
 ```
 
-Затем проверим, что каждый возраст каждого сотрудника в потоке соотвествует запрошенному:
+Then we check that each age of each employee in the stream matches the requested one:
 
 ```csharp
 GrpcHost
@@ -46,9 +46,9 @@ GrpcHost
 			.AssertForEach(e=>e.Age.Should().BeInRange(30, 38));
 ```
 
-Метод `AssertForEach` вызовет переданную лямбду для каждого ответа в потоке.
+The `AssertForEach` method will call the passed lambda for every response in the stream.
 
-Вы также можете отедльно проверять каждый ответ:
+You can also check each response individually:
 
 ```csharp
 GrpcHost
@@ -65,10 +65,8 @@ GrpcHost
 
 ## Handling Errors
 
-Давайте попробую вызвать этот же метод с неправильным аргуентом, где `From` больше `To`. После попытки получить первый ответ, RPC должен вернуть ошибку `InvalidArgument`. Протестировать это можно так:
-
+Let's try calling the same method with the wrong argument, where `From` is greater than `To`. After trying to get the first response, the RPC should return an `InvalidArgument` error. You can test it like this:
 ```csharp
-
 GrpcHost
 	.CreateClient<EmployeeService.EmployeeServiceClient>()
 	.ServerStreaming

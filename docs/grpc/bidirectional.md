@@ -1,6 +1,6 @@
 # Bidirectional streaming RPC
 
-У нас есть protobuf файл c определённым Server streaming RPC `GetByIds`. Он принимает поток ID и возвращает поток соотвествующих сотрудников:
+We have a protobuf file with Server streaming RPC `GetByIds` defined. It takes a stream ID and returns a stream of the corresponding employees:
 
 ```
 syntax = "proto3";
@@ -23,7 +23,7 @@ message Employee {
 
 ## Call Bidirectional streaming RPC
 
-Вызовем нужный метод:
+Let's call the required method:
 
 ```csharp
 GrpcHost
@@ -32,7 +32,7 @@ GrpcHost
 	    .Call(x=>x.GetByIds());
 ```
 
-В слеудющем примере мы отправляем два запроса с сущетсвующим ID сотрудника, получаем его, отправляем случайный ID и проверяем что RPC вернул ошибку `NotFound`:
+In the following example, we send two requests with an existing employee ID, get it, send a random ID, and check that the RPC returned a `NotFound` error:
 
 ```csharp
 GrpcHost

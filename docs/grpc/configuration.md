@@ -1,10 +1,16 @@
 # Configure IFlueFlameGrpcHost
 
+The configuration of `IFlueFlameGrpcHost` is similar to `IFlueFlameHttpHost`. [More](/rest/configuration.md)
+
 ## HttpClient Configuration
 
 With the `ConfigureHttpClient` method, you have full access to `HttpClient` and can configure it however you like.
 
 ```csharp
+
+var webApp = new WebApplicationFactory<Program>();
+var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp)
+
 GrpcHost = builder.BuildGrpcHost(b =>
 {
 	b.ConfigureHttpClient(client =>

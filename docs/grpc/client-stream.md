@@ -1,6 +1,6 @@
 # Client streaming RPC
 
-У нас есть protobuf файл c определённым Client streaming RPC `CreateEmployees`. Он создаёт множество сотрудников и затем возвращает ID всех созданных сотрудников.
+We have a protobuf file with a Client streaming RPC `CreateEmployees` defined. It creates a set of employees and then returns the ID of all created employees.
 
 ```
 syntax = "proto3";
@@ -27,7 +27,7 @@ message CreatedEmployeesIdsResponse {
 
 ## Call Client streaming RPC
 
-Создаим сотрудников и вызовем нужный метод клиента:
+Create employees and call the desired client method:
 
 ```csharp
 var employees = new[]
@@ -52,7 +52,7 @@ GrpcHost
 		.Call(x=>x.CreateEmployees());
 ```
 
-Обратимся к `RequestStream` и отправим все сущности:
+Let's turn to `RequestStream` and send all the entities:
 
 ```csharp
 GrpcHost
@@ -69,7 +69,7 @@ GrpcHost
 ```
 
 :::warning
-Не забудьте закрыть поток, вызывав метод `Complete()`.
+Don't forget to close the stream by calling the `Complete()` method.
 :::
 
 Проверим, что нам пришли верные Guid:
@@ -90,7 +90,7 @@ GrpcHost
 
 ## Handling Errors
 
-Давайте изменим возраст второго сотрудника на отрицательный:
+Let's change the age of the second employee to negative:
 
 ```csharp
 
@@ -112,7 +112,7 @@ var employees = new[]
 
 ```
 
-Мы можем проверить, что после отправки второго сотрудника стасус RPC изменился на InvalidArgument:
+We can check that after sending the second employee, the RPC status changed to `InvalidArgument`:
 
 ```csharp
 GrpcHost
@@ -125,7 +125,7 @@ GrpcHost
 			.AssertStatusCode(StatusCode.InvalidArgument)
 ```
 
-Также мы можем проверить не только статус код, но и сам RpcException:
+We can also check not only the status code, but also the RpcException:
 
 ```csharp
 GrpcHost

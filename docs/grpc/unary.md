@@ -1,6 +1,6 @@
 # Unary RPC
 
-У нас есть protobuf файл c определённым Unary RPC `GetById`:
+We have a protobuf file with a Unary RPC `GetById` defined:
 
 ```
 syntax = "proto3";
@@ -30,7 +30,7 @@ GrpcHost
 	.CreateClient<EmployeeService.EmployeeServiceClient>()
 ```
 
-FluFlame сам создаст клиент с нужными `GrpcChannel` и `GrpcChannelOptions`, однако мы можете указать кастомные:
+FluFlame itself will create a client with the necessary `GrpcChannel` and `GrpcChannelOptions`, however, we can specify custom ones:
 
 ```csharp
 
@@ -50,8 +50,8 @@ GrpcHost
 
 ## Call RPC
 
-После того как вы создали клиент вам нужно выбрать один из четрырёх видов RPC. Доступ к разным RPC предоставляется через 4 свойства: `Unary`, `ClientStreaming`, `ServerStreaming` и `Bidirectional`. 
-После выбора вида RPC вызовете метод `Call` с нужным методом клиента:
+After you have created a client, you need to choose one of the four types of RPC. Access to different RPCs is provided through 4 properties: `Unary`, `ClientStreaming`, `ServerStreaming` and `Bidirectional`.
+After selecting the RPC type, call the `Call` method with the desired client method:
 
 ```csharp
 GrpcHost
@@ -62,7 +62,7 @@ GrpcHost
 
 ## Assert Response
 
-Аналогично тестированию REST, обратимся к свойству Response, чтобы получить доступ к ответу:
+Similar to REST testing, let's access the Response property to access the response:
 
 ```csharp
 GrpcHost
@@ -72,7 +72,7 @@ GrpcHost
         .Response;
 ```
 
-Проверим статус код запроса и ответ:
+Check the status of the request code and response:
 
 ```csharp
 GrpcHost

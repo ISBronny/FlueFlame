@@ -41,7 +41,7 @@ export default {
                     { text: 'Server streaming RPC', link: '/grpc/server-stream' },
                     { text: 'Client streaming RPC', link: '/grpc/client-stream' },
                     { text: 'Bidirectional streaming RPC', link: '/grpc/bidirectional' },
-                    { text: 'RPC Errors', link: '/grpc/errors' },
+                    { text: 'Low-level access', link: '/grpc/raw' },
                     { text: 'Authorization', link: '/grpc/auth' },
                 ]
             },
