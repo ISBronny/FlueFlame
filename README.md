@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/ISBronny/FlueFlame"><img src="https://github.com/ISBronny/FlueFlame/blob/FlueFlame.Extensions.Assertions.NUnit/img/FlueFlameLogo.png" alt="logo" height="100"/></a></p>
+<p align="center"><a href="https://github.com/ISBronny/FlueFlame"><img src="https://raw.githubusercontent.com/ISBronny/FlueFlame/master/img/FlueFlameLogo.png" alt="logo" height="100"/></a></p>
 <h1 align="center"><a href="https://isbronny.github.io/FlueFlame">FlueFlame</a></h1>
 <p align="center">Integration testing framework for ASP.NET</p>
 
@@ -9,14 +9,12 @@
   <a href="https://github.com/ISBronny/FlueFlame/issues">
     <img src="https://img.shields.io/github/issues/ISBronny/FlueFlame?style=for-the-badge" alt="Issues Count" />
   </a>  
-  <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
-    <img src="https://img.shields.io/nuget/dt/FlueFlame.AspNet?style=for-the-badge" alt="Downloads" />
+  <a href="https://www.nuget.org/packages/FlueFlame.Core/">
+    <img src="https://img.shields.io/nuget/dt/FlueFlame.Core?style=for-the-badge" alt="Downloads" />
   </a>
-  <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
-    <img src="https://img.shields.io/nuget/v/FlueFlame.AspNet?style=for-the-badge" alt="Version" />
+  <a href="https://www.nuget.org/packages/FlueFlame.Core/">
+    <img src="https://img.shields.io/nuget/v/FlueFlame.Core?style=for-the-badge" alt="Version" />
   </a>
- 
-  <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ISBronny/285deb1b239f73844879bdf3c9a5ea05/raw/FlueFlame__master.json&style=for-the-badge" alt="Coverage" />
 
 </p>
 
@@ -31,7 +29,9 @@
 
 # Description
 
-FlueFlame is an open source project for creating integration tests for ASP.NET Core applications. The main difference between FlueFlame and its analogues is the completely Fluent API. It allows you to write simple and understandable code, where every step is visible. Even a person unfamiliar with C# can understand what the test does. This will help to quickly introduce beginners and manual testers into the development of integration tests.
+FlueFlame is an open-source framework for creating End-To-End tests. FlueFlame was developed for testing ASP.NET Core applications, but can be used to test any backend.
+
+It is implemented in the Fluent API style, which allows you to write understandable declarative tests. FlueFlame also has packages that allow you to test not only REST APIs, but also technologies such as gRPC.
 
 # Getting Started
 
@@ -45,8 +45,7 @@ Endpoint testing that returns employees older than a certain age:
 [Test]
 public void GetWithQueryReturnsOk()
 {
-    Application
-        .Http.Get
+    HttpHost.Get
         .Url("/api/employee/older-than")
         .AddQuery("olderThan", 45)
         .Send()
@@ -57,7 +56,7 @@ public void GetWithQueryReturnsOk()
 }
 
 ```
-More examples [here](https://github.com/ISBronny/FlueFlame/tree/master/src/Testing.Tests.AspNet.NUnit)
+More examples [here](https://github.com/ISBronny/FlueFlame/tree/master/src/Examples.Tests.Api)
 
 
 # License
