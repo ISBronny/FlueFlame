@@ -4,7 +4,7 @@ FlueFlame provides a convenient interface for testing all kinds of gRPC requests
 
 ## Project setup
 
-You can view the complete code sample from this documentation in the GitHub [repositories]().
+You can view the complete code sample from this documentation in the GitHub [repositories](https://github.com/ISBronny/FlueFlame/tree/master/src/Examples.Tests.Api).
 We have an `Examples.Api` project with an ASP.NET-based gRPC server implementation and an `Examples.Tests.Api` test project.
 
 First you need to add to the test project all the dependencies for generating the client, as in the official [documentation](https://learn.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-7.0&tabs=visual-studio-code#add-required-nuget-packages):
@@ -51,7 +51,7 @@ public abstract class TestBase : IDisposable
 
 ## Simple test
 
-В protobuf файле описан RPC получения сотрудника по его ID:
+The protobuf file describes the RPC for getting an employee by his ID:
 
 ```
 syntax = "proto3";

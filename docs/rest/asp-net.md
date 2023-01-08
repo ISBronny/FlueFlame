@@ -1,7 +1,7 @@
 # ASP.NET Core integration
 
 You will most likely want to test your ASP.NET Core application.
-The [FlueFlame.AspNetCore]() package will help you with this.
+The [FlueFlame.AspNetCore](https://www.nuget.org/packages/FlueFlame.AspNetCore/) package will help you with this.
 
 FlueFlame will use `TestServer` from the `Microsoft.AspNetCore.Mvc.Testing` package.
 
