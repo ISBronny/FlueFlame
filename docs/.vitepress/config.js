@@ -35,14 +35,14 @@ export default {
                 text: 'gRPC',
                 collapsible: true,
                 items: [
-                    { text: 'Getting Started', link: '/grpc/basic' },
-                    { text: 'Configuring gRPC', link: '/grpc/basic' },
-                    { text: 'Unary RPC', link: '/grpc/basic' },
-                    { text: 'Server streaming RPC', link: '/grpc/basic' },
-                    { text: 'Client streaming RPC', link: '/grpc/basic' },
-                    { text: 'Bidirectional streaming RPC', link: '/grpc/basic' },
-                    { text: 'RPC Errors', link: '/grpc/basic' },
-                    { text: 'Authorization', link: '/grpc/basic' },
+                    { text: 'Getting Started', link: '/grpc/getting-started' },
+                    { text: 'Configuring gRPC', link: '/grpc/configuration' },
+                    { text: 'Unary RPC', link: '/grpc/unary' },
+                    { text: 'Server streaming RPC', link: '/grpc/server-stream' },
+                    { text: 'Client streaming RPC', link: '/grpc/client-stream' },
+                    { text: 'Bidirectional streaming RPC', link: '/grpc/bidirectional' },
+                    { text: 'RPC Errors', link: '/grpc/errors' },
+                    { text: 'Authorization', link: '/grpc/auth' },
                 ]
             },
             {

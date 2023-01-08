@@ -1,6 +1,6 @@
 # Getting Started
 
-In this section, we will create a simple REST API test. We will use the [Mocky](https://designer.mocky.io/) service as endpoint. For testing ASP.NET Core, read [ASP.NET Core Integration]().
+In this section, we will create a simple REST API test. We will use the [Mocky](https://designer.mocky.io/) service as endpoint. For testing ASP.NET Core, read [ASP.NET Core Integration](/rest/asp-net).
 
 ## Mock backend
 
@@ -134,12 +134,12 @@ public void Mocky_ReturnsHuman()
 ```
 
 ::: tip 
-For assertions, the [FluentAssertions]() library was used. This is one of the `FlueFlame` package dependencies and we think FluentAssertions fits the concept perfectly. However, you can use any other means of testing.
+For assertions, the [FluentAssertions](https://fluentassertions.com/) library was used. This is one of the `FlueFlame` package dependencies and we think FluentAssertions fits the concept perfectly. However, you can use any other means of testing.
 :::
 
 ## What is next?
 
-You have learned the basics of end-to-end testing with `FlueFlame`. Now you can learn how to [integrate]() FlueFlame with ASP.NET Core, use [authorization](), fully [manage]() your HTTP requests, and use [custom]() serialization.
+You have learned the basics of end-to-end testing with `FlueFlame`. Now you can learn how to [integrate](/rest/asp-net) FlueFlame with ASP.NET Core, use [authorization](/rest/auth), fully [manage](/rest/send) your HTTP requests, and use [custom](/rest/configuration#serializers) serialization.
 
 
 
