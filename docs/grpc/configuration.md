@@ -9,7 +9,7 @@ With the `ConfigureHttpClient` method, you have full access to `HttpClient` and 
 ```csharp
 
 var webApp = new WebApplicationFactory<Program>();
-var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp)
+var builder = FlueFlameAspNetBuilder.CreateDefaultBuilder(webApp);
 
 GrpcHost = builder.BuildGrpcHost(b =>
 {
