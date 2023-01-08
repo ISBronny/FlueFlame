@@ -29,7 +29,9 @@
 
 # Description
 
-FlueFlame is an open source project for creating integration tests for ASP.NET Core applications. The main difference between FlueFlame and its analogues is the completely Fluent API. It allows you to write simple and understandable code, where every step is visible. Even a person unfamiliar with C# can understand what the test does. This will help to quickly introduce beginners and manual testers into the development of integration tests.
+FlueFlame is an open-source framework for creating End-To-End tests. FlueFlame was developed for testing ASP.NET Core applications, but can be used to test any backend.
+
+It is implemented in the Fluent API style, which allows you to write understandable declarative tests. FlueFlame also has packages that allow you to test not only REST APIs, but also technologies such as gRPC.
 
 # Getting Started
 
@@ -54,7 +56,7 @@ public void GetWithQueryReturnsOk()
 }
 
 ```
-More examples [here](https://github.com/ISBronny/FlueFlame/tree/master/src/Testing.Tests.AspNet.NUnit)
+More examples [here](https://github.com/ISBronny/FlueFlame/tree/master/src/Examples.Tests.Api)
 
 
 # License
