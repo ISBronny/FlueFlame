@@ -17,15 +17,12 @@
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>disable</Nullable>
     </PropertyGroup>
+    
 
     <ItemGroup>
-      <ProjectReference Include="..\FlueFlame.AspNetCore\FlueFlame.AspNetCore.csproj" />
-      <ProjectReference Include="..\FlueFlame.Core\FlueFlame.Core.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Grpc.Core.Api" Version="2.51.0" />
-      <PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
+        <PackageReference Include="Grpc.Core.Api" Version="2.51.0" />
+        <PackageReference Include="Grpc.Net.Client" Version="2.51.0" />
+        <PackageReference Include="FlueFlame.AspNetCore" Version="1.0.0"/>
     </ItemGroup>
 
 </Project>

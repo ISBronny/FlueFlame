@@ -19,7 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\FlueFlame.Core\FlueFlame.Core.csproj" />
+      <PackageReference Include="FlueFlame.Core" Version="1.0.0"/>
     </ItemGroup>
 
 </Project>

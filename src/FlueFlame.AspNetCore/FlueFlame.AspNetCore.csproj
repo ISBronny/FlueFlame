@@ -19,11 +19,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.1" />
-    </ItemGroup>
-    
-    <ItemGroup>
-      <ProjectReference Include="..\FlueFlame.Http\FlueFlame.Http.csproj" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.1" />
+        <PackageReference Include="FlueFlame.Http" Version="1.0.0" />
     </ItemGroup>
 
     <ItemGroup>

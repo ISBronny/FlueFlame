@@ -25,7 +25,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Examples.Api\Examples.Api.csproj" />
-        <ProjectReference Include="..\FlueFlame.AspNetCore\FlueFlame.AspNetCore.csproj" />
         <ProjectReference Include="..\FlueFlame.AspNetCore.Grpc\FlueFlame.AspNetCore.Grpc.csproj" />
     </ItemGroup>
 

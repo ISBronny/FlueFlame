@@ -17,14 +17,11 @@
         <ImplicitUsings>true</ImplicitUsings>
         <Nullable>disable</Nullable>
     </PropertyGroup>
+    
 
     <ItemGroup>
-      <ProjectReference Include="..\FlueFlame.Core\FlueFlame.Core.csproj" />
-      <ProjectReference Include="..\FlueFlame.Http\FlueFlame.Http.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+        <PackageReference Include="FlueFlame.Http" Version="1.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     </ItemGroup>
 
 </Project>
