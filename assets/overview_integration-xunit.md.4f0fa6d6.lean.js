@@ -1,1 +1,0 @@
-import{_ as t,c as e,o as a}from"./app.c64e97e0.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"overview/integration-xunit.md","lastUpdated":1658382103000}'),n={name:"overview/integration-xunit.md"};function r(o,i,s,c,p,d){return a(),e("div")}const f=t(n,[["render",r]]);export{m as __pageData,f as default};

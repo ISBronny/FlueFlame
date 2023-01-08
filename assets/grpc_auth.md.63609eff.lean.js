@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,b as p}from"./app.40687699.js";const i=JSON.parse('{"title":"Authorization","description":"","frontmatter":{},"headers":[],"relativePath":"grpc/auth.md","lastUpdated":1673148208000}'),l={name:"grpc/auth.md"},o=p("",6),t=[o];function e(c,r,F,D,y,C){return n(),a("div",null,t)}const d=s(l,[["render",e]]);export{i as __pageData,d as default};

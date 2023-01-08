@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,b as l}from"./app.40687699.js";const i=JSON.parse('{"title":"Low-level access to RPC Call","description":"","frontmatter":{},"headers":[],"relativePath":"grpc/raw.md","lastUpdated":1673148208000}'),p={name:"grpc/raw.md"},o=l("",3),e=[o];function t(c,r,F,y,D,A){return n(),a("div",null,e)}const d=s(p,[["render",t]]);export{i as __pageData,d as default};
