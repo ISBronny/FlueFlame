@@ -8,49 +8,42 @@ export default {
     cleanUrls: 'without-subfolders',
 
     themeConfig: {
-        logo: '/FlueFlameLogo.svg',
+        logo: '/favicon-32x32.png',
         sidebar: [
             {
                 text: 'Introduction',
                 collapsible: true,
                 items: [
-                    { text: 'Introduction', link: '/introduction/intro' },
-                    { text: 'Getting Started', link: '/introduction/getting-started' }
+                    { text: 'What is it?', link: '/introduction/what-is-it' },
+                    { text: 'Getting Started', link: '/introduction/getting-started' },
                 ]
             },
             {
                 text: 'REST',
                 collapsible: true,
                 items: [
-                    { text: 'Basics', link: '/rest/basic' },
-                    { text: 'Request with body', link: '/rest/body' },
+                    { text: 'Getting Started', link: '/rest/getting-started' },
+                    { text: 'Configuration', link: '/rest/configuration' },
+                    { text: 'ASP.NET Core Integration', link: '/rest/asp-net' },
+                    { text: 'Sending requests', link: '/rest/send' },
                     { text: 'Authorization', link: '/rest/auth' },
                     { text: 'Testing response', link: '/rest/response' }
-                ]
-            },
-            {
-                text: 'SignalR',
-                collapsible: true,
-                items: [
-                    { text: 'Basics', link: '/signalr/basic' }
                 ]
             },
             {
                 text: 'gRPC',
                 collapsible: true,
                 items: [
-                    { text: 'Basics', link: '/grpc/basic' }
+                    { text: 'Getting Started', link: '/grpc/getting-started' },
+                    { text: 'Configuring gRPC', link: '/grpc/configuration' },
+                    { text: 'Unary RPC', link: '/grpc/unary' },
+                    { text: 'Server streaming RPC', link: '/grpc/server-stream' },
+                    { text: 'Client streaming RPC', link: '/grpc/client-stream' },
+                    { text: 'Bidirectional streaming RPC', link: '/grpc/bidirectional' },
+                    { text: 'Low-level access', link: '/grpc/raw' },
+                    { text: 'Authorization', link: '/grpc/auth' },
                 ]
             },
-            {
-                text: 'Best practices ',
-                collapsible: true,
-                items: [
-                    { text: 'Extension methods', link: '/best/ext_methods' },
-                    { text: 'Test Data', link: '/best/test_data' },
-                    { text: 'Infrastructure setting', link: '/best/infrastructure' }
-                ]
-            }
         ],
         socialLinks: [
             { icon: 'github', link: 'https://github.com/ISBronny/FlueFlame' }

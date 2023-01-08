@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <PackageId>FlueFlame.Serialization.Newtonsoft</PackageId>
+        <Version>1.0.0</Version>
+        <PackageVersion>1.0.0</PackageVersion>
+        <Authors>Braiko Ivan</Authors>
+        <Description>Extension for FlueFlame.Http</Description>
+        <PackageProjectUrl>https://isbronny.github.io/FlueFlame/</PackageProjectUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git://github.com/ISBronny/FlueFlame/</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIconUrl>https://raw.githubusercontent.com/ISBronny/FlueFlame/master/img/FlueFlameLogo.png</PackageIconUrl>
+        <PackageTags>aspnetcore, testing</PackageTags>
+
+        <ImplicitUsings>true</ImplicitUsings>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
+    
+
+    <ItemGroup>
+        <PackageReference Include="FlueFlame.Http" Version="1.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    </ItemGroup>
+
+</Project>
