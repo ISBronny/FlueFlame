@@ -2,31 +2,26 @@
 
     <PropertyGroup>
         <TargetFramework>net7.0</TargetFramework>
-        <PackageId>FlueFlame.AspNet</PackageId>
-        <Version>0.2.0</Version>
+        <PackageId>FlueFlame.AspNetCore</PackageId>
+        <Version>1.0.0</Version>
+        <PackageVersion>1.0.0</PackageVersion>
         <Authors>Braiko Ivan</Authors>
-        <Description>FlueFlame is an open source project for creating integration tests for ASP.NET Core applications. The main difference between FlueFlame and its analogues is the completely Fluent API. It allows you to write simple and understandable code, where every step is visible. Even a person unfamiliar with C# can understand what the test does. This will help to quickly introduce beginners and manual testers into the development of integration tests.</Description>
+        <Description>Create End-To-End tests for ASP.NET application</Description>
         <PackageProjectUrl>https://isbronny.github.io/FlueFlame/</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/ISBronny/FlueFlame/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageIcon>FlueFlameLogo.png</PackageIcon>
-        <RepositoryUrl>https://github.com/ISBronny/FlueFlame/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>git://github.com/ISBronny/FlueFlame/</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageIcon>https://raw.githubusercontent.com/ISBronny/FlueFlame/master/img/FlueFlameLogo.png</PackageIcon>
         <PackageTags>aspnetcore, testing</PackageTags>
-        <PackageVersion>0.2.0</PackageVersion>
+        
+        <ImplicitUsings>true</ImplicitUsings>
+        <Nullable>disable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Grpc.Net.Client" Version="2.50.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="6.0.7" />
-      <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.8" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.1" />
     </ItemGroup>
-
-    <ItemGroup>
-      <None Update="FlueFlameLogo.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
-    </ItemGroup>
-
+    
     <ItemGroup>
       <ProjectReference Include="..\FlueFlame.Http\FlueFlame.Http.csproj" />
     </ItemGroup>
