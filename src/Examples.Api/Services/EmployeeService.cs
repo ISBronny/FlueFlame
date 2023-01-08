@@ -42,6 +42,9 @@ public class EmployeeService : Grpc.EmployeeService.EmployeeServiceBase
 		{
 			if (await _employeeRepository.GetById(Guid.Parse(emp.Guid)) != null)
 				throw new RpcException(new Status(StatusCode.AlreadyExists, $"Employee with id {emp.Guid} already exists."));
+
+			if (emp.Age < 0)
+				throw new RpcException(new Status(StatusCode.InvalidArgument, "Age can't be negative."));
 			
 			var created = await _employeeRepository.Add(MapModel(emp));
 			guids.Add(created.Guid);

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Examples.Tests.Api;
@@ -76,7 +77,7 @@ public abstract class TestBase : IDisposable
 			//Configure HttpClient only for FlueFlameGrpcHost
 			b.ConfigureHttpClient(client =>
 			{
-
+				client.DefaultRequestHeaders.Add("Authorization", $"Bearer {GetJwtToken()}");
 			});
 
 			//Use custom GrpcChannelOptions

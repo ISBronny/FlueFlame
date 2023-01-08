@@ -23,27 +23,27 @@ public class FlueFlameGrpcHost : IFlueFlameGrpcHost
 	}
 
 	/// <inheritdoc />
-	public GrpcFacadeModule<T> CreateConnection<T>()
+	public GrpcFacadeModule<T> CreateClient<T>()
 		where T : ClientBase<T>
 	{
 		var options = DefaultChannelOptions;
 		options.HttpClient ??= HttpClient ?? TestServer.CreateClient();
-		return CreateConnection<T>(options);
+		return CreateClient<T>(options);
 
 	}
 	
 	/// <inheritdoc />
-	public GrpcFacadeModule<T> CreateConnection<T>(GrpcChannelOptions options)
+	public GrpcFacadeModule<T> CreateClient<T>(GrpcChannelOptions options)
 		where T : ClientBase<T>
 	{
 		options.HttpClient ??= HttpClient ?? TestServer.CreateClient();
 		var grpcChannel = GrpcChannel.ForAddress(
 			(options.Credentials == null ? "http" : "https") + $"://{TestServer.BaseAddress.Host}", options);
-		return CreateConnection<T>(grpcChannel);
+		return CreateClient<T>(grpcChannel);
 	}
 	
 	/// <inheritdoc />
-	public GrpcFacadeModule<T> CreateConnection<T>(GrpcChannel grpcChannel)
+	public GrpcFacadeModule<T> CreateClient<T>(GrpcChannel grpcChannel)
 		where T : ClientBase<T>
 	{
 		var client = (T)Activator.CreateInstance(typeof(T), grpcChannel);

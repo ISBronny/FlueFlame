@@ -3,6 +3,7 @@ using Examples.Tests.Api.TestDataBuilders;
 using FluentAssertions;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
+using Grpc.Net.Client;
 
 namespace Examples.Tests.Api.Grpc;
 
@@ -17,7 +18,7 @@ public class EmployeeServiceTests : TestBase
 			.Build();
 
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.Unary
 				.Call(c => c.GetById(employee.Guid.ToGrpcModel()))
 				.Response
@@ -28,7 +29,7 @@ public class EmployeeServiceTests : TestBase
 	public void GetByIdTest_DoesNotExists_ReturnNotFound()
 	{
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.Unary
 				.Call(c => c.GetById(RandomGuidRequest))
 				.Response
@@ -44,12 +45,11 @@ public class EmployeeServiceTests : TestBase
 		 		.ToList();
 		
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.ClientStreaming
 				.Call(x=>x.CreateEmployees())
 				.RequestStream
 					.WriteMany(employees)
-					.Complete()
 				.Response
 					.AssertThat(resp=>resp.Guid.Should().BeEquivalentTo(employees.Select(x=>x.Guid)));
 	}
@@ -62,7 +62,7 @@ public class EmployeeServiceTests : TestBase
 			.Build(saveInDb: true);
 		
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.ClientStreaming
 				.Call(x=>x.CreateEmployees())
 				.RequestStream
@@ -79,7 +79,7 @@ public class EmployeeServiceTests : TestBase
 			.ToList();
 
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.Bidirectional
 			.Call(x=>x.GetByIds())
 				.RequestStream
@@ -96,9 +96,9 @@ public class EmployeeServiceTests : TestBase
 			.Build();
 
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.Bidirectional
-			.Call(x=>x.GetByIds())
+				.Call(c=>c.GetByIds())
 				.RequestStream
 					.Write(employee.Guid.ToGrpcModel())
 					.Write(RandomGuidRequest)
@@ -123,11 +123,11 @@ public class EmployeeServiceTests : TestBase
 			.ToList();
 
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.ServerStreaming
-			.Call(x=>x.GetByAge(new AgeRangeRequest { From = 35, To = 38}))
+				.Call(x=>x.GetByAge(new AgeRangeRequest { From = 35, To = 38}))
 				.ResponseStream
-				.AssertForEach(e=>e.Age.Should().BeInRange(30, 38));
+					.AssertForEach(e=>e.Age.Should().BeInRange(30, 38));
 	}
 	
 	[Fact]
@@ -141,7 +141,7 @@ public class EmployeeServiceTests : TestBase
 			.ToList();
 
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.ServerStreaming
 			.Call(x=>x.GetByAge(new AgeRangeRequest { From = 45, To = 55}))
 				.ResponseStream
@@ -152,7 +152,7 @@ public class EmployeeServiceTests : TestBase
 	public void GetByAge_FromGreaterThanTo_ReturnsInvalidArguments()
 	{
 		GrpcHost
-			.CreateConnection<EmployeeService.EmployeeServiceClient>()
+			.CreateClient<EmployeeService.EmployeeServiceClient>()
 			.ServerStreaming
 				.Call(x=>x.GetByAge(new AgeRangeRequest { From = 90, To = 10}))
 				.ResponseStream
