@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/ISBronny/FlueFlame"><img src="https://github.com/ISBronny/FlueFlame/blob/FlueFlame.Extensions.Assertions.NUnit/img/FlueFlameLogo.png" alt="logo" height="100"/></a></p>
+<p align="center"><a href="https://github.com/ISBronny/FlueFlame"><img src="https://raw.githubusercontent.com/ISBronny/FlueFlame/master/img/FlueFlameLogo.png" alt="logo" height="100"/></a></p>
 <h1 align="center"><a href="https://isbronny.github.io/FlueFlame">FlueFlame</a></h1>
 <p align="center">Integration testing framework for ASP.NET</p>
 
@@ -10,13 +10,11 @@
     <img src="https://img.shields.io/github/issues/ISBronny/FlueFlame?style=for-the-badge" alt="Issues Count" />
   </a>  
   <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
-    <img src="https://img.shields.io/nuget/dt/FlueFlame.AspNet?style=for-the-badge" alt="Downloads" />
+    <img src="https://img.shields.io/nuget/dt/FlueFlame.Core?style=for-the-badge" alt="Downloads" />
   </a>
   <a href="https://www.nuget.org/packages/FlueFlame.AspNet/">
-    <img src="https://img.shields.io/nuget/v/FlueFlame.AspNet?style=for-the-badge" alt="Version" />
+    <img src="https://img.shields.io/nuget/v/FlueFlame.Core?style=for-the-badge" alt="Version" />
   </a>
- 
-  <img src="https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/ISBronny/285deb1b239f73844879bdf3c9a5ea05/raw/FlueFlame__master.json&style=for-the-badge" alt="Coverage" />
 
 </p>
 
@@ -45,8 +43,7 @@ Endpoint testing that returns employees older than a certain age:
 [Test]
 public void GetWithQueryReturnsOk()
 {
-    Application
-        .Http.Get
+    HttpHost.Get
         .Url("/api/employee/older-than")
         .AddQuery("olderThan", 45)
         .Send()
