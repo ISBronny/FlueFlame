@@ -2,12 +2,12 @@
 layout: home
 
 title: FlueFlame
-titleTemplate: Integration testing framework for ASP.NET
+titleTemplate: End-to-end testing framework for ASP.NET
 
 hero:
   name: FlueFlame
-  text: Integration testing framework for ASP.NET
-  tagline: Simple and powerful. Supports REST, gRPC, SignalR.
+  text: End-to-end testing framework for ASP.NET
+  tagline: Simple and powerful. Supports REST and gRPC
   actions:
     - theme: brand
       text: Get Started
@@ -18,12 +18,10 @@ hero:
 
 features:
   - title: "Fluent API"
-    details: Lorem ipsum
+    details: Write simple, declarative and readable tests.
   - title: "REST"
-    details: Lorem ipsum
-  - title: "SignalR"
-    details: Lorem ipsum
+    details: Сover your REST API with tests
   - title: "gRPC"
-    details: Lorem ipsum
+    details: Test Client, Server and Bidirectional streaming
 
 ---
