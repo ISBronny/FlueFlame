@@ -10,10 +10,13 @@ We have an `Examples.Api` project with an ASP.NET-based gRPC server implementati
 First you need to add to the test project all the dependencies for generating the client, as in the official [documentation](https://learn.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore- 7.0&tabs=visual-studio-code#add-required-nuget-packages):
 
 ```
-dotnet add Examples.Tests.Api.csproj package Grpc.Net.Client
 dotnet add Examples.Tests.Api.csproj package Google.Protobuf
 dotnet add Examples.Tests.Api.csproj package Grpc.Tools
 ```
+
+::tip
+**Grpc.Net.Client** comes with **FlueFlame.AspNetCore.Grpc** so you don't need to add it as a dependency
+::
 
 Then add a link to the protobuf file in `Examples.Tests.Api.csproj`:
 
