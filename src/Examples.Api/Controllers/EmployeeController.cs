@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Examples.Api.Controllers;
 
 [ApiController]
-[Route("api/employee")]
+[Route("api/[controller]")]
 [Authorize(Roles = "admin")]
 public class EmployeeController : ControllerBase
 {
