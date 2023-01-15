@@ -2,6 +2,7 @@
 using FlueFlame.Core.Response.Content.Formatted;
 using FlueFlame.Core.Serialization;
 using FluentAssertions;
+using Moq;
 using Tests.Unit.Core.Entities;
 
 namespace Tests.Unit.Core.Response.Content;
@@ -9,6 +10,7 @@ namespace Tests.Unit.Core.Response.Content;
 public class XmlContentResponseModuleTests : TestBase
 {
 	protected string SerializedEntity =>  new XmlSerializer().SerializeObject(TestEntity);
+	protected IFlueFlameHost FlueFlameHost => new Mock<IFlueFlameHost>().Object;
 
 	[Fact]
 	public void AssertObject_SameObject_NotThrow()

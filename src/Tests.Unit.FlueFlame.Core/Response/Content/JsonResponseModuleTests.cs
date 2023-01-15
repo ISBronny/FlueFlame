@@ -2,6 +2,7 @@ using FlueFlame.Core;
 using FlueFlame.Core.Response.Content.Formatted;
 using FlueFlame.Core.Serialization;
 using FluentAssertions;
+using Moq;
 using Newtonsoft.Json;
 using Tests.Unit.Core.Entities;
 
@@ -10,6 +11,7 @@ namespace Tests.Unit.Core.Response.Content;
 public class JsonContentResponseModuleTests : TestBase
 {
 	protected string SerializedEntity => JsonConvert.SerializeObject(TestEntity);
+	protected IFlueFlameHost FlueFlameHost => new Mock<IFlueFlameHost>().Object;
 
 	[Fact]
 	public void AssertObject_SameObject_NotThrow()

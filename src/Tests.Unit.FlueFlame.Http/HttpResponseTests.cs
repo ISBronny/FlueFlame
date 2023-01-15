@@ -3,12 +3,12 @@ using FlueFlame.Http.Host;
 using FlueFlame.Http.Modules;
 using FluentAssertions;
 using Moq;
-using Tests.Unit.Core;
+
 
 namespace Tests.Unit.FlueFlame.Http;
 
 
-public class HttpTestBase : TestBase
+public class HttpTestBase
 {
 	protected IFlueFlameHttpHost FlueFlameHttpHost => new Mock<IFlueFlameHttpHost>().Object;
 }
